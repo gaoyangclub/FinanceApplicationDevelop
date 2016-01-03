@@ -148,12 +148,12 @@ class DetailsStockView: PageDataView, UITableViewDelegate, UITableViewDataSource
         let cellIdentifer = "StockCell"
         //cell标示符 表示一系列
         var cell:StockCell?
-//        = tableView.dequeueReusableCellWithIdentifier(cellIdentifer) as? StockCell
-//        if cell == nil{
+        = tableView.dequeueReusableCellWithIdentifier(cellIdentifer) as? StockCell
+        if cell == nil{
             cell = StockCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellIdentifer)//
             //无色
             cell!.selectionStyle = UITableViewCellSelectionStyle.None
-//        }
+        }
         cell!.stockVo = stockSourceList[indexPath.section][indexPath.row]
         cell!.maxPositionRatio = maxPositionRatio
         return cell!
@@ -224,7 +224,7 @@ private class StockCell:UITableViewCell {
         ratioLabel.sizeToFit()
         
         
-        
+        ratioLabel.snp_removeConstraints()
         let rateViewWidth = (self.frame.width - DetailsStockView.padding * 2 - rateViewMargin * 2) * CGFloat(stockVo.positionRatio / maxPositionRatio)
         let rateViewRight:CGFloat = DetailsStockView.padding + rateViewMargin + rateViewWidth
         if rateViewRight + ratioLabel.frame.width + 10 > self.frame.width - DetailsStockView.padding - rateViewMargin{ //超出
