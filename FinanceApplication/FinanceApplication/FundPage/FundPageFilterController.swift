@@ -11,6 +11,11 @@ import UIKit
 
 class FundPageFilterController: BaseTableViewController {
     
+    enum SortNameKind:String{
+        case NET_VALUE = "netValue"
+        case RATE_DAY = "rateDay"
+    }
+    
     var fundHeader:InfoFundHeader!
     
     lazy var topArea:UIView = {
@@ -98,7 +103,7 @@ class FundPageFilterController: BaseTableViewController {
         //        println("筛选按钮点击了")
         var transform:CGAffineTransform
         if btn == netButton{
-            if currentNameKind != 0{
+            if currentNameKind != SortNameKind.NET_VALUE{
                 self.netArrowImage.hidden = false
                 self.rateArrowImage.hidden = true
                 currentOrder = true
@@ -107,12 +112,12 @@ class FundPageFilterController: BaseTableViewController {
                 currentOrder = !currentOrder
                 transform = currentOrder ? CGAffineTransformIdentity : CGAffineTransformMakeRotation(CGFloat(M_PI ))
             }
-            currentNameKind = 0
+            currentNameKind = SortNameKind.NET_VALUE
             self.netArrowImage.transform = transform
             
             sortHeaderReset()
         }else if btn == rateButton{
-            if currentNameKind != 1{
+            if currentNameKind != SortNameKind.RATE_DAY{
                 self.netArrowImage.hidden = true
                 self.rateArrowImage.hidden = false
                 currentOrder = true
@@ -121,7 +126,7 @@ class FundPageFilterController: BaseTableViewController {
                 currentOrder = !currentOrder
                 transform = currentOrder ? CGAffineTransformIdentity : CGAffineTransformMakeRotation(CGFloat(M_PI ))
             }
-            currentNameKind = 1
+            currentNameKind = SortNameKind.RATE_DAY
             self.rateArrowImage.transform = transform
             
             sortHeaderReset()
@@ -237,10 +242,10 @@ class FundPageFilterController: BaseTableViewController {
         })
     }
     
-    private var currentNameKind:Int = 1
+    private var currentNameKind:SortNameKind = SortNameKind.RATE_DAY
     private var currentOrder:Bool = true
     private func addFundFilterSource()->Bool{
-        let fundFilterResult = DataRemoteFacade.getFundFilterResult(fundHeader.kind, startIndex: startIndex, keyNameKind: currentNameKind,order:currentOrder)//keyName:
+        let fundFilterResult = DataRemoteFacade.getFundFilterResult(fundHeader.kind, startIndex: startIndex, keyNameKind: currentNameKind.rawValue,order:currentOrder)//keyName:
         if fundFilterResult.count == 0{
             return false
         }
@@ -283,7 +288,7 @@ class FundPageFilterController: BaseTableViewController {
     }
     
     private func getFundFilterSource()->NSMutableArray{
-        let fundFilterResult = DataRemoteFacade.getFundFilterResult(fundHeader.kind, startIndex: startIndex, keyNameKind: currentNameKind,order:currentOrder)//keyName: "rateDay"
+        let fundFilterResult = DataRemoteFacade.getFundFilterResult(fundHeader.kind, startIndex: startIndex, keyNameKind: currentNameKind.rawValue,order:currentOrder)//keyName: "rateDay"
         var source:NSMutableArray = []
         for head in fundFilterResult{
             var hvo = head as! FilterFundHeader

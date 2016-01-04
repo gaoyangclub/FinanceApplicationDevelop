@@ -155,7 +155,7 @@ class DataRemoteFacade: NSObject {
         return (detailsDataList[kind] as! InfoFundHeader).title
     }
     
-    static func getFundFilterResult(kind:Int,startIndex:Int,keyNameKind:Int = 0,order:Bool = true,count:Int = 10)->NSMutableArray{
+    static func getFundFilterResult(kind:Int,startIndex:Int,keyNameKind:String = "rateDay",order:Bool = true,count:Int = 10)->NSMutableArray{
         var header = todayFundList[kind] as! InfoFundHeader
         
         //1.分组
@@ -212,17 +212,17 @@ class DataRemoteFacade: NSObject {
             fArr.sortUsingComparator({ (obj1, obj2) -> NSComparisonResult in
                 var fund1:InfoFundVo = obj1 as! InfoFundVo
                 var fund2:InfoFundVo = obj2 as! InfoFundVo
-                var value1:Float
-                var value2:Float
-                if keyNameKind == 0{
-                    value1 = fund1.netValue
-                    value2 = fund2.netValue
-                }else{
-                    value1 = fund1.rateDay
-                    value2 = fund2.rateDay
-                }
-//                let value1 = fund1.valueForKey(keyName) as! Double
-//                let value2 = fund2.valueForKey(keyName) as! Double
+//                var value1:Float
+//                var value2:Float
+//                if keyNameKind == 0{
+//                    value1 = fund1.valueForKey("netValue") as! Float//fund1.netValue
+//                    value2 = fund2.valueForKey("netValue") as! Float//fund2.netValue
+//                }else{
+//                    value1 = fund1.valueForKey("rateDay") as! Float//fund1.rateDay
+//                    value2 = fund2.valueForKey("rateDay") as! Float//fund2.rateDay
+//                }
+                let value1 = fund1.valueForKey(keyNameKind) as! Float
+                let value2 = fund2.valueForKey(keyNameKind) as! Float
                 if order && value1 < value2 || !order && value1 > value2{
                     return NSComparisonResult.OrderedDescending
                 }else if order && value1 > value2 || !order && value1 < value2{
@@ -470,11 +470,11 @@ init(id:Int,kind:Int,title:String,shortTitle:String,code:String,rateDay:Float,ra
     var title:String!//名称
     var shortTitle:String!//简称
     var code:String!//股票代码
-    var rateDay:Float!
-    var rateQuarter:Float! //一季度
+    var rateDay:Float = 0
+    var rateQuarter:Float = 0 //一季度
 //    var tagArr:[String]!
     var updateTime:NSDate!
-    var netValue:Float!//净值
+    var netValue:Float = 0//净值
     var rank:String!//排名
 //    var buyRateTag:String!//购买费率tag
 //    var buyRateOriginal:String!//购买费率原先 buyRateCurrent / discount
