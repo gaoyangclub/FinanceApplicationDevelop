@@ -40,6 +40,17 @@ class HomePageScanController: LBXScanViewController {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    /**
+     处理扫码结果，如果是继承本控制器的，可以重写该方法,作出相应地处理
+     */
+    override func handleCodeResult(arrayResult:[LBXScanResult])
+    {
+        let result:LBXScanResult = arrayResult[0]
+        let webController = DetailsWebPageController()
+        webController.linkUrl = result.strScanned
+        self.navigationController?.pushViewController(webController, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

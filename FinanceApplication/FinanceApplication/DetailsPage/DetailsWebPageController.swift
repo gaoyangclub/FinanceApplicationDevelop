@@ -22,6 +22,14 @@ class DetailsWebPageController: UIViewController {
         return view
     }()
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        let searchIndex = self.navigationController!.viewControllers.count - 2
+        if (self.navigationController?.viewControllers[searchIndex] as? HomePageScanController != nil){//上一层是HomePageScanController就要移除掉
+            self.navigationController?.viewControllers.removeAtIndex(searchIndex)
+        }
+    }
+    
 //    override func viewWillAppear(animated: Bool){
 //        
 //    }

@@ -14,10 +14,10 @@ class FundPageHomeHotCell: BaseTableViewCell {
     static let cellHeight:CGFloat = 108
     
     private let hotList:[FundHotVo] = [
-        FundHotVo(icon: "fundhot01", title: "大盘走势", link: "http://www.qq.com"),
-        FundHotVo(icon: "fundhot02", title: "投资咨询", link: "http://www.qq.com"),
-        FundHotVo(icon: "fundhot03", title: "收益排行", link: "http://www.qq.com"),
-        FundHotVo(icon: "fundhot04", title: "我的关注", link: "http://www.qq.com")
+        FundHotVo(icon: "fundHot01", title: "大盘走势", link: "http://www.qq.com"),
+        FundHotVo(icon: "fundHot02", title: "投资咨询", link: "http://www.qq.com"),
+        FundHotVo(icon: "fundHot03", title: "收益排行", link: "http://www.qq.com"),
+        FundHotVo(icon: "fundHot04", title: "我的关注", link: "http://www.qq.com")
     ]
     
 //    private var iconContainer:UIView!
