@@ -76,14 +76,14 @@ class DetailsNetValueEstimateView: PageDataView,TrendChartDelegate {
     }
     
     func loadChartDataSource(){
-        var count = 4 * 60 + 1
+        let count = 4 * 60 + 1
         var chartDataList:[CGFloat] = []
         let firstValue = CGFloat(arc4random_uniform(10)) + 100
         var prevValue:CGFloat = firstValue
-        for j in 0..<count{
+        for _ in 0..<count{
             let random = CGFloat(arc4random_uniform(3)) - 1
             //            println("随机幅度:\(random)")
-            var newValue:CGFloat = prevValue + random
+            let newValue:CGFloat = prevValue + random
             chartDataList.append(newValue)
             prevValue = newValue
         }

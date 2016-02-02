@@ -21,10 +21,10 @@ class MyTabItemRenderer: BaseItemRenderer {
     override func drawRect(rect: CGRect) {
         if(selected){
             //设置圆角矩形范围
-            var toppadding:CGFloat = 2
-            var leftpadding:CGFloat = 5
-            var pathRect = CGRectMake(leftpadding, toppadding, rect.width - leftpadding * 2, rect.height - toppadding * 2)
-            var path = UIBezierPath(roundedRect: pathRect,
+            let toppadding:CGFloat = 2
+            let leftpadding:CGFloat = 5
+            let pathRect = CGRectMake(leftpadding, toppadding, rect.width - leftpadding * 2, rect.height - toppadding * 2)
+            let path = UIBezierPath(roundedRect: pathRect,
                 byRoundingCorners: UIRectCorner.AllCorners,
                 cornerRadii: CGSize(width: 3.0, height: 3.0))
 //            path.addClip()//减去(遮罩)成为圆角矩形
@@ -52,7 +52,7 @@ class MyTabItemRenderer: BaseItemRenderer {
                 make.bottom.equalTo(self).offset(-2)
             }
         }
-        var vo = data as! TabRendererVo
+        let vo = data as! TabRendererVo
         
         labelView.text = vo.title
         labelView.textColor = themeColor
@@ -96,7 +96,7 @@ class MyTabItemRenderer: BaseItemRenderer {
             
         }
         
-        var vo = data as! TabRendererVo
+        let vo = data as! TabRendererVo
         BatchLoaderUtil.loadFile(vo.iconUrl, callBack: { (image, params) -> Void in
             self.tabItem.image = image
 //            var ciColor1 = CIColor(color:MyTabItemRenderer.normalColor)
@@ -133,7 +133,7 @@ class MyTabItemRenderer: BaseItemRenderer {
 //    private var normalImage:UIImage!
 //    private var selectImage:UIImage!
     
-    private static var normalColor:UIColor = FlatUIColors.concreteColor(alpha: 1)
+    private static var normalColor:UIColor = FlatUIColors.concreteColor(1)
     private static var selectColor:UIColor = UIColor(red: 232 / 255, green: 50 / 255, blue: 85 / 255, alpha: 1) //FlatUIColors.alizarinColor(alpha: 1)
     
     private var themeColor:UIColor!

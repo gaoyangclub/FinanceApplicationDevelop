@@ -82,16 +82,16 @@ class FundPageFilterController: BaseTableViewController {
     }
     
     private func createFilterButton(title:NSString)->UIButton{
-        let btn = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        let btn = UIButton(type: UIButtonType.System)
         //        let title:NSString = "基金名称"
         //        let normalColor:UIColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         //        btn.backgroundColor = normalColor
-        btn.setTitle(title as? String, forState: UIControlState.Normal)
+        btn.setTitle(title as String, forState: UIControlState.Normal)
         btn.setTitleColor(UICreaterUtils.colorBlack, forState: UIControlState.Normal)
         //        btn.setTitleColor(UICreaterUtils.colorFlat, forState: UIControlState.Highlighted)
         self.topArea.addSubview(btn)
         
-        var attstr:NSMutableAttributedString = NSMutableAttributedString(string: title as! String)
+        let attstr:NSMutableAttributedString = NSMutableAttributedString(string: title as String)
         attstr.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0, title.length))
         btn.titleLabel?.attributedText = attstr
         btn.titleLabel?.font = UIFont.systemFontOfSize(14)//weight文字线条粗细
@@ -134,9 +134,9 @@ class FundPageFilterController: BaseTableViewController {
     }
     
     private func sortHeaderReset(){
-        self.dataSource.removeAllObjects()
+        self.refreshHeader()
         self.tableView.reloadData()
-        self.headerReset()
+//        self.headerReset()
     }
     
     static let leftpadding = 136
@@ -182,13 +182,17 @@ class FundPageFilterController: BaseTableViewController {
         netArrowImage.snp_makeConstraints { (make) -> Void in
             make.right.equalTo(middleRightLine.snp_left).offset(-8)
             make.centerY.equalTo(self.topArea)
-            make.size.equalTo(CGSize(width: 8, height: 24))
+//            make.size.equalTo(CGSize(width: 8, height: 24))
+            make.width.equalTo(8)
+            make.height.equalTo(24)
         }
         
         rateArrowImage.snp_makeConstraints { (make) -> Void in
             make.right.equalTo(self.topArea).offset(-10)
             make.centerY.equalTo(self.topArea)
-            make.size.equalTo(CGSize(width: 8, height: 24))
+//            make.size.equalTo(CGSize(width: 8, height: 24))
+            make.width.equalTo(8)
+            make.height.equalTo(24)
         }
         
     }
@@ -208,7 +212,7 @@ class FundPageFilterController: BaseTableViewController {
     private func headerReset(){
         let delayInSeconds:Int64 =  1000000000  * 1
         
-        var popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
+        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
         dispatch_after(popTime, dispatch_get_main_queue(), {
             self.startIndex = 0
             self.dataSource = self.getFundFilterSource()
@@ -229,7 +233,7 @@ class FundPageFilterController: BaseTableViewController {
         self.refreshContaner.addFooterWithCallback(RefreshFooterView.footer(),callback: {
             let delayInSeconds:Int64 =  1000000000  * 1
             
-            var popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
+            let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
             dispatch_after(popTime, dispatch_get_main_queue(), {
                 if self.addFundFilterSource(){
                     self.tableView.reloadData()
@@ -250,18 +254,18 @@ class FundPageFilterController: BaseTableViewController {
             return false
         }
         if dataSource.count == 0{
-            println("添加数据但是原始数据居长度然是0！！！")
+            print("添加数据但是原始数据居长度然是0！！！")
             return false
         }
-        var lastSection = dataSource.count - 1
-        var lastSource:SoueceVo = self.dataSource[lastSection] as! SoueceVo
-        var firstHeader = fundFilterResult[0] as! FilterFundHeader
+        let lastSection = dataSource.count - 1
+        let lastSource:SoueceVo = self.dataSource[lastSection] as! SoueceVo
+        let firstHeader = fundFilterResult[0] as! FilterFundHeader
         var svo:SoueceVo?
         if (lastSource.headerData as! String) == firstHeader.timeKey{//头部是末尾的追踪
             svo = lastSource
         }
         for head in fundFilterResult{
-            var hvo = head as! FilterFundHeader
+            let hvo = head as! FilterFundHeader
             var data:NSMutableArray!
             if svo == nil{
                 data = []
@@ -289,11 +293,11 @@ class FundPageFilterController: BaseTableViewController {
     
     private func getFundFilterSource()->NSMutableArray{
         let fundFilterResult = DataRemoteFacade.getFundFilterResult(fundHeader.kind, startIndex: startIndex, keyNameKind: currentNameKind.rawValue,order:currentOrder)//keyName: "rateDay"
-        var source:NSMutableArray = []
+        let source:NSMutableArray = []
         for head in fundFilterResult{
-            var hvo = head as! FilterFundHeader
-            var data:NSMutableArray = []
-            var svo = SoueceVo(data: data, headerHeight: FundPageFilterHeader.headerHeight, headerClass: FundPageFilterHeader.self, headerData: hvo.timeKey)
+            let hvo = head as! FilterFundHeader
+            let data:NSMutableArray = []
+            let svo = SoueceVo(data: data, headerHeight: FundPageFilterHeader.headerHeight, headerClass: FundPageFilterHeader.self, headerData: hvo.timeKey)
             source.addObject(svo)
             for info in hvo.fundList{
                 let fvo = info as! InfoFundVo
@@ -329,15 +333,15 @@ class FundPageFilterController: BaseTableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         
-        println("FundPageFilterController内存释放警告")
+        print("FundPageFilterController内存释放警告")
     }
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var section = indexPath.section
-        var source = dataSource[section] as! SoueceVo
-        var cell:CellVo = source.data![indexPath.row] as! CellVo
-        var fvo:InfoFundVo = cell.cellData as! InfoFundVo
+        let section = indexPath.section
+        let source = dataSource[section] as! SoueceVo
+        let cell:CellVo = source.data![indexPath.row] as! CellVo
+        let fvo:InfoFundVo = cell.cellData as! InfoFundVo
         let vc = DetailsPageController()
         vc.pageData = fvo
         
@@ -454,7 +458,9 @@ private class FundPageFilterCell:BaseTableViewCell{
         tabItem.selectColor = UICreaterUtils.colorRise
         tabItem.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(self.contentView).offset(2)
-            make.size.equalTo(CGSize(width: 40, height: 18))
+//            make.size.equalTo(CGSize(width: 40, height: 18))
+            make.width.equalTo(40)
+            make.height.equalTo(18)
             make.centerY.equalTo(self.contentView).offset(-6)
         }
         return tabItem
@@ -531,7 +537,7 @@ private class FundPageFilterCell:BaseTableViewCell{
         var leftView:UIView?
         let tagColor = UIColor(red: 252/255, green: 52/255, blue: 30/255, alpha: 1)
         for tag in tagArr{
-            var subView:UIView = createRoundTag(12, tagColor: tagColor, tag: tag, parent: tagArea)
+            let subView:UIView = createRoundTag(12, tagColor: tagColor, tag: tag, parent: tagArea)
             //        subView.backgroundColor = UIColor.clearColor()
             if leftView == nil{
                 subView.snp_makeConstraints(closure: { (make) -> Void in
@@ -567,7 +573,9 @@ private class FundPageFilterCell:BaseTableViewCell{
                     }else{
                         make.right.equalTo(rightView!.snp_left)
                     }
-                    make.size.equalTo(CGSize(width: 13, height: 11))
+//                    make.size.equalTo(CGSize(width: 13, height: 11))
+                    make.width.equalTo(13)
+                    make.height.equalTo(11)
                     make.centerY.equalTo(indexView)
                 }
                 rightView = tabItem
@@ -581,7 +589,7 @@ private class FundPageFilterCell:BaseTableViewCell{
             rightView = tempTips
         }
         if rightView != nil{
-            var tips = UICreaterUtils.createLabel(12, UICreaterUtils.colorFlat, "银河评级", true, tagArea)
+            let tips = UICreaterUtils.createLabel(12, UICreaterUtils.colorFlat, "银河评级", true, tagArea)
             tips.snp_makeConstraints(closure: { (make) -> Void in
                 make.right.equalTo(rightView!.snp_left).offset(-4)
                 make.centerY.equalTo(indexView)
@@ -590,10 +598,10 @@ private class FundPageFilterCell:BaseTableViewCell{
     }
     
     private func createRoundTag(size:CGFloat,tagColor:UIColor,tag:String,parent:UIView)->UIView{
-        var label:UILabel = UICreaterUtils.createLabel(size, tagColor, tag)
+        let label:UILabel = UICreaterUtils.createLabel(size, tagColor, tag)
         label.sizeToFit()
         
-        var subView:UIView = UIView()
+        let subView:UIView = UIView()
         parent.addSubview(subView)
         
         subView.addSubview(label)

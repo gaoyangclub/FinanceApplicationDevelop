@@ -50,7 +50,7 @@ class DetailsWebPageController: UIViewController {
         
         let leftItem =
         UIBarButtonItem(title: "嘿嘿", style: UIBarButtonItemStyle.Done, target: self, action: "cancelClick")
-        var customView = UIArrowView(frame:CGRectMake(0, 0, 10, 22))
+        let customView = UIArrowView(frame:CGRectMake(0, 0, 10, 22))
         customView.direction = .LEFT
         ////        customView.isClosed = true
         customView.lineColor = UIColor.whiteColor()
@@ -64,7 +64,7 @@ class DetailsWebPageController: UIViewController {
     
     private lazy var progressView:UIProgressView = {
         let pView = UIProgressView()
-        pView.trackTintColor = FlatUIColors.silverColor(alpha: 1)//UIColor.orangeColor()
+        pView.trackTintColor = FlatUIColors.silverColor(1)//UIColor.orangeColor()
         pView.progressTintColor = UIColor.clearColor()
         self.view.addSubview(pView)
         pView.snp_makeConstraints(closure: { (make) -> Void in
@@ -74,7 +74,7 @@ class DetailsWebPageController: UIViewController {
         return pView
     }()
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if (keyPath == "estimatedProgress") {
             progressView.hidden = webView.estimatedProgress == 1
             progressView.setProgress(Float(webView.estimatedProgress), animated: true)

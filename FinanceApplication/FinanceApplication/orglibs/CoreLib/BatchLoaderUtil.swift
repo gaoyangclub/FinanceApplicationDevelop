@@ -6,12 +6,12 @@
 //  Copyright (c) 2015年 高扬. All rights reserved.
 //
 
-import Foundation
+//import Foundation
 import UIKit
 
 typealias LoadCompletionHandler = (image:UIImage,params:[AnyObject])->Void
 
-private class LoaderVo {
+private class LoaderVo:NSObject {
     var url:String
     var callBack:LoadCompletionHandler?
     var argArray:[AnyObject]
@@ -22,7 +22,7 @@ private class LoaderVo {
         self.argArray = argArray
     }
 }
-class BatchLoaderUtil: AnyObject {
+class BatchLoaderUtil: NSObject {
     
     private static var imageCache:Dictionary<String,UIImage> = Dictionary<String,UIImage>()
     //坑!!! 一定要用var 不然无法存数据进去
@@ -31,7 +31,7 @@ class BatchLoaderUtil: AnyObject {
     //存放所有url的callBack相关参数 类似同一个url需要多个回调 在加载完成后全部回调
     
     class func loadFile(url:String,callBack:LoadCompletionHandler?,_ args:AnyObject...){
-        var targetImage:UIImage? = imageCache[url]
+        let targetImage:UIImage? = imageCache[url]
         if let image = targetImage{
             if let handler = callBack{
                 handler(image:image,params: args)
@@ -40,9 +40,11 @@ class BatchLoaderUtil: AnyObject {
         }
         if url.componentsSeparatedByString("://").count < 2{ //不包含 说明是本地文件
             let image = UIImage(named: url) //本地加载
-            imageCache.updateValue(image!, forKey: url) //存储文件
-            if let handler = callBack{
-                handler(image:image!,params: args)
+            if image != nil{
+                imageCache.updateValue(image!, forKey: url) //存储文件
+                if let handler = callBack{
+                    handler(image:image!,params: args)
+                }
             }
             return//直接回调
         }
@@ -62,7 +64,7 @@ class BatchLoaderUtil: AnyObject {
             let loaderVo = LoaderVo(url,callBack,argArray)
             paraArray?.addObject(loaderVo)
         }else{
-            println("重复存入回调函数")
+            print("重复存入回调函数")
         }
         
         if startLoad{
@@ -72,7 +74,7 @@ class BatchLoaderUtil: AnyObject {
     //检查回调函数是否已经存在
     private static func checkHasCallFunc(paraArray:NSMutableArray?,_ url:String,_ callBack:LoadCompletionHandler?)->Bool{
         for para in paraArray!{ //遍历后依次回调
-            var loaderVo = (para as! LoaderVo)
+            _ = (para as! LoaderVo)
             //            callBack == loaderVo.callBack
             //            if (loaderVo.url == url || &callBack == &loaderVo.callBack) {
             //                return true
@@ -82,7 +84,7 @@ class BatchLoaderUtil: AnyObject {
     }
     
     private static func loadStart(url:String/*,_ callBack:LoadCompletionHandler?,_ argArray:[AnyObject]*/){
-        var loadBean = LoaderBean(url: url,loadComplete: { bean in
+        _ = LoaderBean(url: url,loadComplete: { bean in
             //                println("得到图片数据:\(bean.image)")
             BatchLoaderUtil.imageCache.updateValue(bean.image!, forKey: bean.url)
             //            if let handler = callBack{
@@ -126,17 +128,17 @@ private class LoaderBean{
     }
     
     private func connectUrl(){
-        var req = NSURLRequest(URL: NSURL(string:self.url)!)
+        let req = NSURLRequest(URL: NSURL(string:self.url)!)
         //        var conn:NSURLConnection = NSURLConnection(request: req, delegate: self)!
         ////        conn.scheduleInRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
         //        //当前线程循环跑动
         //        conn.start() //开始加载
         
-        NSURLConnection.sendAsynchronousRequest(req, queue: NSOperationQueue()) { (response:NSURLResponse!, data:NSData!, error:NSError!) -> Void in
-            self.image = UIImage(data: data)
+        NSURLConnection.sendAsynchronousRequest(req, queue: NSOperationQueue()) { [weak self](response:NSURLResponse?, data:NSData?, error:NSError?) -> Void in
+            self!.image = UIImage(data: data!)
             //            self.image?.size.
             //            println(self.image)
-            self.loadComplete(self)
+            self!.loadComplete(self!)
         }
     }
     

@@ -45,7 +45,7 @@ class DetailsPageMultipleSection: BaseItemRenderer {
             let menuMargin = (viewWidth - padding * 2 - menuItemWidth * CGFloat(titleArray.count)) / CGFloat(titleArray.count)
             //            println("menuMargin:\(menuMargin)")
             
-            var parameters: [CAPSPageMenuOption] = [
+            let parameters: [CAPSPageMenuOption] = [
                 .MenuItemWidth(menuItemWidth),
                 .MenuMargin(menuMargin),
                 .ScrollMenuBackgroundColor(UIColor.clearColor()),

@@ -13,7 +13,7 @@ class HomePageScanController: LBXScanViewController {
     private func initTitleArea(){
         let leftItem =
         UIBarButtonItem(title: "嘿嘿", style: UIBarButtonItemStyle.Done, target: self, action: "cancelClick")
-        var customView = UIArrowView(frame:CGRectMake(0, 0, 10, 22))
+        let customView = UIArrowView(frame:CGRectMake(0, 0, 10, 22))
         customView.direction = .LEFT
         ////        customView.isClosed = true
         customView.lineColor = UIColor.whiteColor()
@@ -26,7 +26,7 @@ class HomePageScanController: LBXScanViewController {
         
         let titleView = UIView()
         let label:UILabel = UICreaterUtils.createLabel(20, UIColor.whiteColor(), "二维码扫描", true, titleView)
-        label.font = UIFont.systemFontOfSize(20,weight:2)//20号
+        label.font = UIFont.systemFontOfSize(20)//20号 ,weight:2
         
         titleView.addSubview(label)
         label.snp_makeConstraints { (make) -> Void in

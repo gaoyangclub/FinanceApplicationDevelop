@@ -19,7 +19,7 @@ class BaseTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -40,6 +40,18 @@ class BaseTableViewCell: UITableViewCell {
     var isLast:Bool = false
     
     var needRefresh:Bool = true //默认需要刷新
+    
+    var tableView:UITableView?{
+        didSet{
+            setNeedsLayout()
+        }
+    }
+    
+    var cellVo:CellVo?{
+        didSet{
+            setNeedsLayout()
+        }
+    }
     
     var data:Any?{
         //        set(newValue){

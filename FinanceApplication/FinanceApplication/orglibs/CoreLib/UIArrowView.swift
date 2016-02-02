@@ -23,15 +23,15 @@ class UIArrowView: UIControl {
         self.backgroundColor = UIColor.clearColor()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     //绘制三角形实体
     override func drawRect(rect: CGRect) {
-        var linePath = UIBezierPath()
+        let linePath = UIBezierPath()
         linePath.lineWidth = lineThinkness
-        linePath.lineCapStyle = kCGLineCapRound//笔触为圆形
+        linePath.lineCapStyle = CGLineCap.Round//笔触为圆形
         if direction == ArrowDirect.LEFT{
             linePath.moveToPoint(CGPoint(x: rect.width - lineThinkness / 2, y: lineThinkness / 2))
             linePath.addLineToPoint(CGPoint(x: lineThinkness / 2,y: rect.height / 2))
@@ -56,9 +56,9 @@ class UIArrowView: UIControl {
         lineColor.setStroke()
         linePath.stroke() //绘制线条
         
-        var fillAlpha = CGColorGetAlpha(fillColor.CGColor)
+        let fillAlpha = CGColorGetAlpha(fillColor.CGColor)
         if fillAlpha != 0 {
-            var fillPath = linePath.copy() as! UIBezierPath
+            let fillPath = linePath.copy() as! UIBezierPath
             fillPath.closePath() //封闭图形
 
             fillColor.setFill()

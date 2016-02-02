@@ -39,10 +39,10 @@ extension UIView {
 extension CALayer{
     /** 删除所有的子层级 */
     func removeAllSubLayers(){
-        if sublayers == nil || sublayers.count == 0{
+        if sublayers == nil || sublayers!.count == 0{
             return
         }
-        for sub in sublayers{
+        for sub in sublayers!{
             sub.removeFromSuperlayer()
         }
 //        for i in sublayers.count - 1...0 {
@@ -55,6 +55,18 @@ extension UIViewController{
     var drawerController:MMDrawerController{
         get{
             return RootDrawerController.getInstance()
+        }
+    }
+    
+//    var navigationController:UINavigationController?{
+//        get{
+//            return RootNavigationControl.getInstance()
+//        }
+//    }
+    
+    var rootNavigationController:RootNavigationControl{
+        get{
+            return RootNavigationControl.getInstance()
         }
     }
     

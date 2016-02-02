@@ -101,7 +101,7 @@ private class SummaryCell:UITableViewCell{
     lazy var contentLabel:UILabel = {
         let label = UICreaterUtils.createLabel(SummaryCell.labelSize, SummaryCell.labelColor, "", true, self.contentView)
 //        label.textAlignment = NSTextAlignment.Center;
-        label.font = UIFont.systemFontOfSize(SummaryCell.labelSize, weight: 1.5)
+        label.font = UIFont.systemFontOfSize(SummaryCell.labelSize)//, weight: 1.5
         return label
     }()
     
@@ -142,7 +142,9 @@ private class SummaryCell:UITableViewCell{
         
         if svo.hasDetail {
             arrowView.snp_makeConstraints(closure: { (make) -> Void in
-                make.size.equalTo(CGSize(width: 7, height: 13))
+                make.width.equalTo(7)
+                make.height.equalTo(13)
+                //                make.size.equalTo(CGSize(width: 7, height: 13))
                 make.right.equalTo(-20)
                 make.centerY.equalTo(self.contentView)
             })

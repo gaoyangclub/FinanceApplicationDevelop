@@ -70,7 +70,7 @@ class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
 //        input = AVCaptureDeviceInput(device: device,error:{ _ in
 //            print("AVCaptureDeviceInput(): \(error)")
 //        })
-        input = AVCaptureDeviceInput(device: device, error: nil)
+        input = try? AVCaptureDeviceInput(device: device)
 //        }
 //        catch let error as NSError {
 //            print("AVCaptureDeviceInput(): \(error)")
@@ -143,10 +143,13 @@ class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
         
         if ( device!.focusPointOfInterestSupported && device!.isFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus) )
         {
-//            do
+            do {
+                //            do
 //            {
 //                try
-                input?.device.lockForConfiguration(nil)
+                try input?.device.lockForConfiguration()
+            } catch _ {
+            }
                 
                 input?.device.focusMode = AVCaptureFocusMode.ContinuousAutoFocus
                 
@@ -198,10 +201,10 @@ class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
                 
                 //码类型
                 let codeType = code.type
-                print("code type:%@",codeType)
+                print("code type:%@",codeType, terminator: "")
                 //码内容
                 let codeContent = code.stringValue
-                print("code string:%@",codeContent)
+                print("code string:%@",codeContent, terminator: "")
                 
                 //4个字典，分别 左上角-右上角-右下角-左下角的 坐标百分百，可以使用这个比例抠出码的图像
                // let arrayRatio = code.corners
@@ -311,10 +314,13 @@ class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
     {
         if isGetFlash()
         {
-//            do
+            do {
+                //            do
 //            {
 //                try
-                input?.device.lockForConfiguration(nil)
+                try input?.device.lockForConfiguration()
+            } catch _ {
+            }
                 
                 input?.device.torchMode = torch ? AVCaptureTorchMode.On : AVCaptureTorchMode.Off
                 
@@ -336,11 +342,14 @@ class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
     {
         if isGetFlash()
         {
-//            do
+            do {
+                //            do
 //            {
 //                try
 //                input?.device.lockForConfiguration()
-                input?.device.lockForConfiguration(nil)
+                try input?.device.lockForConfiguration()
+            } catch _ {
+            }
                 
                 var torch = false
                 
@@ -397,7 +406,7 @@ class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
     
     static func isSysIos8Later()->Bool
     {
-        return UIDevice.currentDevice().systemVersion.toInt() >= 8 ? true:false
+        return Int(UIDevice.currentDevice().systemVersion) >= 8 ? true:false
 //        return floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1//NSFoundationVersionNumber_iOS_8_0
     }
 
@@ -473,12 +482,12 @@ class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
         let qrImage = colorFilter!.outputImage;
         
         //绘制
-        let cgImage = CIContext().createCGImage(qrImage!, fromRect: qrImage!.extent())
+        let cgImage = CIContext().createCGImage(qrImage!, fromRect: qrImage!.extent)
         
         
         UIGraphicsBeginImageContext(size);
         let context = UIGraphicsGetCurrentContext();
-        CGContextSetInterpolationQuality(context, kCGInterpolationNone);
+        CGContextSetInterpolationQuality(context, CGInterpolationQuality.None);
         CGContextScaleCTM(context, 1.0, -1.0);
         CGContextDrawImage(context, CGContextGetClipBoundingBox(context), cgImage);
         let codeImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -506,14 +515,14 @@ class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
         
         let outputImage:CIImage? = qrFilter?.outputImage
         let context = CIContext()
-        let cgImage = context.createCGImage(outputImage!, fromRect: outputImage!.extent())
+        let cgImage = context.createCGImage(outputImage!, fromRect: outputImage!.extent)
         
         let image = UIImage(CGImage: cgImage, scale: 1.0, orientation: UIImageOrientation.Up)
         
         
         // Resize without interpolating
         let scaleRate:CGFloat = 20.0
-        let resized = resizeImage(image!, quality: kCGInterpolationNone, rate: scaleRate)
+        let resized = resizeImage(image, quality: CGInterpolationQuality.None, rate: scaleRate)
         
         return resized;
     }
@@ -706,7 +715,7 @@ class LBXScanWrapper: NSObject,AVCaptureMetadataOutputObjectsDelegate {
 
     deinit
     {
-        print("LBXScanWrapper deinit")
+        print("LBXScanWrapper deinit", terminator: "")
     }
     
     

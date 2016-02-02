@@ -22,7 +22,7 @@ class DetailsPageChartCell: BaseTableViewCell,CASectionPageMenuDelegate {
     }
     */
     weak var delegate:DetailsPageCellDelegate?
-    var cellVo:CellVo?
+//    var cellVo:CellVo?
     
     var pageSection:DetailsPageChartSection!{
         didSet{
@@ -55,7 +55,7 @@ class DetailsPageChartCell: BaseTableViewCell,CASectionPageMenuDelegate {
         }
         if pageSection != nil{
             if pageSection.pageMenu != nil{
-                var pageMenu = pageSection.pageMenu
+                let pageMenu = pageSection.pageMenu
                 pageMenu.controllerScrollView = self.scrollView
                 pageMenu.delegate = self
             }else{
@@ -105,12 +105,12 @@ class DetailsPageChartCell: BaseTableViewCell,CASectionPageMenuDelegate {
 //            make.height.equalTo(28)
 //        }
         
-        var pvo = DetailsPageChartCell.chartCellList[index]
+        let pvo = DetailsPageChartCell.chartCellList[index]
         if !hasInstanceList[index] {//不存在
             var view:PageDataView? = pvo.view
             if view == nil{
-                var cellClass = pvo.cellClass
-                view = cellClass()
+                let cellClass = pvo.cellClass
+                view = cellClass.init()
                 pvo.view = view
             }
             view?.data = data
@@ -134,7 +134,7 @@ class DetailsPageChartCell: BaseTableViewCell,CASectionPageMenuDelegate {
     private var hasInstanceList:[Bool] = [false,false,false];
     
     func didMoveToPage(index: Int){
-        var pvo = DetailsPageChartCell.chartCellList[index]
+        let pvo = DetailsPageChartCell.chartCellList[index]
         //撑开当前条目高度
         cellVo?.cellHeight = pvo.cellHeight//重新刷新条目高度
         delegate?.didMoveToDetailsPage?(self.indexPath)

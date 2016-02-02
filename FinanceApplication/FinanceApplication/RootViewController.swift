@@ -28,7 +28,7 @@ class RootViewController: TabViewController {
             TabData(data: TabRendererVo(title:"我的",iconUrl:"icon_05"),controller: AViewController())
         ]
         itemClass = MyTabItemRenderer.self
-        tabBarHeight = 40
+//        tabBarHeight = 40
         
 //        self.navigationItem.hi
 //        println(CalculateUtils.getChartGroupList(190, negativeValue: 500, segments: 5))

@@ -194,7 +194,7 @@ class HomePageHotItemCell: BaseTableViewCell {
             })
         }
         
-        var hvo:HotItemVo = data as! HotItemVo
+        let hvo:HotItemVo = data as! HotItemVo
         titleLabel.text = hvo.title
         contentLabel.text = hvo.content
         rateLabel.text = hvo.rate
@@ -223,7 +223,7 @@ class HomePageHotItemCell: BaseTableViewCell {
                 make.centerY.equalTo(self.titleLabel)
             })
             
-            var url:String = "like"//"lightning"
+            let url:String = "like"//"lightning"
             BatchLoaderUtil.loadFile(url, callBack: { (image, params) -> Void in
                 self.iconView.image = image
             })

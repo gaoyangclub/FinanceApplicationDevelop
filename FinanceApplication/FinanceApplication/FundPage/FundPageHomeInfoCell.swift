@@ -66,7 +66,9 @@ class FundPageHomeInfoCell: BaseTableViewCell {
         
         self.iconView.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(self.contentView).offset(2)
-            make.size.equalTo(CGSize(width: 40, height: 24))
+//            make.size.equalTo(CGSize(width: 40, height: 24))
+            make.width.equalTo(40)
+            make.height.equalTo(24)
             make.centerY.equalTo(titleLabel)
         }
         BatchLoaderUtil.loadFile(fvo.iconUrl, callBack: { (image, params) -> Void in

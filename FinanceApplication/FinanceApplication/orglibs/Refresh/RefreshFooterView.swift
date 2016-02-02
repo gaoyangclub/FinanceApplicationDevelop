@@ -13,7 +13,7 @@ class RefreshFooterView: RefreshBaseView {
 //    private var viewHeight:CGFloat = 0
     
     class func footer()->RefreshFooterView{
-        var footer:RefreshFooterView  = RefreshFooterView()
+        let footer:RefreshFooterView  = RefreshFooterView()
         return footer
     }
     
@@ -32,7 +32,7 @@ class RefreshFooterView: RefreshBaseView {
     private var isDispose = false
     deinit{
         isDispose = true
-        println("RefreshFooterView销毁")
+        print("RefreshFooterView销毁")
     }
     
     override var State:RefreshState {
@@ -58,17 +58,19 @@ class RefreshFooterView: RefreshBaseView {
 //                        });
 //                    })
 //                }
+                self.prevOffsetY = nil
                 self.statusLabel.text = "";
                 self.scrollView?.userInteractionEnabled = true
                 self.scrollView?.contentInset.bottom = CGFloat(RefreshFooterHeight);
                 break
             case RefreshState.Nodata:
+                self.prevOffsetY = nil
                 self.statusLabel.text = RefreshFooterNodata as String;
 //                self.scrollView?.userInteractionEnabled = true
-                UIView.animateWithDuration(RefreshSlowAnimationDuration, animations: {
-                     self.scrollView.contentInset.bottom = CGFloat(RefreshFooterHeight);
-                    },completion:{ _ in
-                                                        self.scrollView?.userInteractionEnabled = true
+                UIView.animateWithDuration(RefreshSlowAnimationDuration, animations: {[weak self]_ in
+                     self?.scrollView.contentInset.bottom = CGFloat(RefreshFooterHeight);
+                    },completion:{ [weak self]_ in
+                        self?.scrollView?.userInteractionEnabled = true
                     })
                 break;
 //            case RefreshState.Pulling:
@@ -80,9 +82,9 @@ class RefreshFooterView: RefreshBaseView {
             case RefreshState.Refreshing:
                 self.statusLabel.text = RefreshFooterRefreshing as String;
                 self.scrollView?.userInteractionEnabled = false
-                var dirtY:CGFloat = self.scrollView!.contentOffset.y - self.scrollView!.contentSize.height + self.scrollView!.frame.height
+                let dirtY:CGFloat = self.scrollView!.contentOffset.y - self.scrollView!.contentSize.height + self.scrollView!.frame.height
 //                println(dirtY)
-                scrollView.contentInset.bottom = dirtY + CGFloat(RefreshFooterHeight)
+                scrollView.contentInset.bottom = CGFloat(RefreshFooterHeight)//dirtY +
                 break
             default:
                 break
@@ -111,14 +113,13 @@ class RefreshFooterView: RefreshBaseView {
 //        activityView.autoresizingMask = self.arrowImage.autoresizingMask
         self.addSubview(activityView)
         
-        statusLabel.snp_makeConstraints { (make) -> Void in
-            make.centerX.equalTo(self)
-            make.centerY.equalTo(self)
+        statusLabel.snp_makeConstraints { [weak self](make) -> Void in
+            make.center.equalTo(self!)
         }
         
-        activityView.snp_makeConstraints { (make) -> Void in
-            make.centerX.equalTo(self.statusLabel.snp_left).offset(-20)
-            make.centerY.equalTo(self)
+        activityView.snp_makeConstraints { [weak self](make) -> Void in
+            make.centerX.equalTo(self!.statusLabel.snp_left).offset(-20)
+            make.centerY.equalTo(self!)
         }
         
         //自己的属性
@@ -130,22 +131,35 @@ class RefreshFooterView: RefreshBaseView {
     
     //重写调整frame
     override func adjustFrameWithContentSize(){
-        var contentHeight:CGFloat = self.scrollView.contentSize.height
+        let contentHeight:CGFloat = self.scrollView.contentSize.height
 //        var scrollHeight:CGFloat = self.scrollView.frame.size.height
         var rect:CGRect = self.frame;
         rect.origin.y = contentHeight// contentHeight > scrollHeight ? contentHeight : scrollHeight
         self.frame = rect;
     }
     
-    override func adjustStateWithContentOffset()
+    private var prevOffsetY:CGFloat? = nil
+    override func adjustStateWithContentOffset(straight:Bool = false)
     {
-        var currentOffsetY:CGFloat  = self.scrollView.contentOffset.y + self.scrollView.frame.height
-        var happenOffsetY:CGFloat = self.scrollView.contentSize.height + self.frame.height
-        if currentOffsetY <= happenOffsetY {
+        let currentOffsetY:CGFloat  = self.scrollView.contentOffset.y + self.scrollView.frame.height
+        let happenOffsetY:CGFloat = self.scrollView.contentSize.height + self.frame.height
+        if straight { //直接检查超过即可
+            if currentOffsetY > happenOffsetY {
+                self.State = RefreshState.Refreshing //直接开始刷新
+            }
             return
-        }else if self.scrollView.dragging {
-            self.State = RefreshState.Refreshing; //直接开始刷新
         }
+        if prevOffsetY != nil{
+            if self.scrollView.contentOffset.y > 0 && currentOffsetY - prevOffsetY! > 0 && currentOffsetY > happenOffsetY && prevOffsetY <= happenOffsetY{ //向上拖动 且上一个位置未超过 当前位置已经超过 happenOffsetY
+                self.State = RefreshState.Refreshing //满足拖动位置刷新
+            }
+//            if self.scrollView.contentOffset.y < 0 || currentOffsetY <= happenOffsetY || currentOffsetY > happenOffsetY + self.frame.height{
+//                return
+//            }else if self.scrollView.dragging {
+//                self.State = RefreshState.Refreshing; //直接开始刷新
+//            }
+        }
+        prevOffsetY = currentOffsetY
     }
 
 

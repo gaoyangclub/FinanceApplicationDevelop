@@ -74,9 +74,9 @@ internal struct HSL {
   */
   init(hue: Double, saturation: Double, lightness: Double, alpha: Double = 1) {
     h = hue
-    s = clip(saturation, 0, 1)
-    l = clip(lightness, 0, 1)
-    a = clip(alpha, 0, 1)
+    s = clip(saturation, minimum: 0, maximum: 1)
+    l = clip(lightness, minimum: 0, maximum: 1)
+    a = clip(alpha, minimum: 0, maximum: 1)
   }
 
   /**
@@ -128,9 +128,9 @@ internal struct HSL {
   - returns: A UIColor object corresponding to the current HSV color.
   */
   func toUIColor() -> UIColor {
-    let lightness  = clip(l, 0, 1)
-    let saturation = clip(s, 0, 1)
-    let hue        = moda(h, 1)
+    let lightness  = clip(l, minimum: 0, maximum: 1)
+    let saturation = clip(s, minimum: 0, maximum: 1)
+    let hue        = moda(h, m: 1)
     
     var m2: Double = 0
 
@@ -152,7 +152,7 @@ internal struct HSL {
 
   /// Hue to RGB helper function
   private func hueToRGB(m1: Double, m2: Double, h: Double) -> CGFloat {
-    let hue = moda(h, 1)
+    let hue = moda(h, m: 1)
 
     if hue * 6 < 1 {
       return CGFloat(m1 + (m2 - m1) * hue * 6)

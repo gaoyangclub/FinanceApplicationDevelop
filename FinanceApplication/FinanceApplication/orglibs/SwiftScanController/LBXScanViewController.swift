@@ -55,7 +55,7 @@ class LBXScanViewController: UIViewController,UIImagePickerControllerDelegate,UI
         drawScanView()
        
         let delayInSeconds:Int64 =  100000000  * 3
-        var popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
+        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
         dispatch_after(popTime, dispatch_get_main_queue(), {
             self.startScan()
         })
@@ -139,7 +139,7 @@ class LBXScanViewController: UIViewController,UIImagePickerControllerDelegate,UI
      */
     func handleCodeResult(arrayResult:[LBXScanResult])
     {
-        for result:LBXScanResult in arrayResult
+        for _:LBXScanResult in arrayResult
         {
 //            print("%@",result.strScanned)
         }
@@ -178,7 +178,7 @@ class LBXScanViewController: UIViewController,UIImagePickerControllerDelegate,UI
     }
     
     //MARK: -----相册选择图片识别二维码 （条形码没有找到系统方法）
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject])
     {
         picker.dismissViewControllerAnimated(true, completion: nil)
         
@@ -228,7 +228,7 @@ class LBXScanViewController: UIViewController,UIImagePickerControllerDelegate,UI
     }
     deinit
     {
-        print("LBXScanViewController deinit")
+        print("LBXScanViewController deinit", terminator: "")
     }
     
 }

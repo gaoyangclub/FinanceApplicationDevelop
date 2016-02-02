@@ -106,13 +106,13 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
 //    private var hasPan:Bool = false
 //    private var touches:Set<NSObject>!
 //    private var event:UIEvent!
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         //            super.touchesMoved(Set<NSObject>(), withEvent: event)
 //        self.touches = touches
 //        self.event = event
         if touches.count > 0{
-            var nowTouch = touches[touches.startIndex] as? UITouch
-            var nowPoint = nowTouch!.locationInView(self)
+            let nowTouch = touches[touches.startIndex] as UITouch
+            let nowPoint = nowTouch.locationInView(self)
             
             let dirtX = abs(nowPoint.x - prevTouchPoint.x)
             let dirtY = abs(nowPoint.y - prevTouchPoint.y)
@@ -132,22 +132,22 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
 //        println("滑动中")
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 //        self.touches = touches
 //        self.event = event
         if touches.count > 0{
-            let prevTouch = touches[touches.startIndex] as? UITouch
-            prevTouchPoint = prevTouch!.locationInView(self)
+            let prevTouch = touches[touches.startIndex] as UITouch
+            prevTouchPoint = prevTouch.locationInView(self)
         }
 //        println("开始移动")
     }
 ////
-    override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
 //        super.touchesCancelled(Set<NSObject>(), withEvent: event)
         resumePan()
     }
 //
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
 //        super.touchesEnded(Set<NSObject>(), withEvent: event)
         resumePan()
     }
@@ -161,9 +161,9 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
 //        var translation:CGPoint = panGestrue.velocityInView(chartLabelView)
 //        println(translation)
         
-        var nowPoint:CGPoint = touch.locationInView(self)
-        var prevPoint:CGPoint = touch.previousLocationInView(self)
-        println("nowPoint:\(nowPoint)  prevPoint:\(prevPoint)")
+        let nowPoint:CGPoint = touch.locationInView(self)
+        let prevPoint:CGPoint = touch.previousLocationInView(self)
+        print("nowPoint:\(nowPoint)  prevPoint:\(prevPoint)")
         return false//CGPointEqualToPoint(nowPoint,prevPoint) || abs(nowPoint.x - prevPoint.x) > abs(nowPoint.y - prevPoint.y)
     }
     
@@ -265,9 +265,9 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
         if chartLabelView == nil{
             chartLabelView = UIView()
             self.addSubview(chartLabelView)
-            chartLabelView.snp_makeConstraints(closure: { (make) -> Void in
-                make.left.right.top.equalTo(self)
-                make.bottom.equalTo(bottomView.snp_top)
+            chartLabelView.snp_makeConstraints(closure: { [weak self](make) -> Void in
+                make.left.right.top.equalTo(self!)
+                make.bottom.equalTo(self!.bottomView.snp_top)
             })
         }
         chartLabelView.removeAllSubViews()
@@ -275,8 +275,8 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
             gestrueArea = UIView()
             self.addSubview(gestrueArea)
             gestrueArea.userInteractionEnabled = false
-            gestrueArea.snp_makeConstraints(closure: { (make) -> Void in
-                make.left.right.top.bottom.equalTo(chartLabelView)
+            gestrueArea.snp_makeConstraints(closure: { [weak self](make) -> Void in
+                make.left.right.top.bottom.equalTo(self!.chartLabelView)
             })
         }
         hideGestrueLine()
@@ -287,15 +287,15 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
             bottomView = UIView()
             self.addSubview(bottomView)
         }
-        bottomView.snp_makeConstraints(closure: { (make) -> Void in
-            make.left.right.bottom.equalTo(self)
-            make.height.equalTo(bottomHeight)
+        bottomView.snp_makeConstraints(closure: { [weak self](make) -> Void in
+            make.left.right.bottom.equalTo(self!)
+            make.height.equalTo(self!.bottomHeight)
         })
         bottomView.removeAllSubViews()
         if titleList == nil || titleList.count == 0{
             return//没有底部标题栏
         }
-        var viewWidth:CGFloat = self.frame.width
+        let viewWidth:CGFloat = self.frame.width
         var firstRect:UIView!
         var preLabel:UIView!
         let rectWidth:CGFloat = 12
@@ -304,36 +304,36 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
         let textGap:CGFloat = 6
         let rectGap:CGFloat = 10
         for i in 0..<titleList.count{
-            var title = titleList[i]
-            var rect:UIView = UIView()
+            let title = titleList[i]
+            let rect:UIView = UIView()
             rect.backgroundColor = lineColorList[i]
             bottomView.addSubview(rect)
             if firstRect == nil{
                 firstRect = rect
                 containWidth += rectWidth
             }else{
-                rect.snp_makeConstraints(closure: { (make) -> Void in
+                rect.snp_makeConstraints(closure: { [weak self](make) -> Void in
                     make.left.equalTo(preLabel.snp_right).offset(rectGap)
                     make.width.equalTo(rectWidth)
                     make.height.equalTo(rectHeight)
-                    make.centerY.equalTo(bottomView)
+                    make.centerY.equalTo(self!.bottomView)
                 })
                 containWidth += rectGap + rectWidth
             }
-            var label:UILabel = UICreaterUtils.createLabel(12,UICreaterUtils.colorFlat,title,true,bottomView)
-            label.snp_makeConstraints(closure: { (make) -> Void in
+            let label:UILabel = UICreaterUtils.createLabel(12,UICreaterUtils.colorFlat,title,true,bottomView)
+            label.snp_makeConstraints(closure: { [weak self](make) -> Void in
                 make.left.equalTo(rect.snp_right).offset(textGap)
-                make.centerY.equalTo(bottomView)
+                make.centerY.equalTo(self!.bottomView)
             })
             containWidth += label.frame.width + textGap
             preLabel = label
         }
         let firstLeft:CGFloat = (viewWidth - containWidth) / 2
-        firstRect.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(bottomView).offset(firstLeft)
+        firstRect.snp_makeConstraints { [weak self](make) -> Void in
+            make.left.equalTo(self!.bottomView).offset(firstLeft)
             make.width.equalTo(rectWidth)
             make.height.equalTo(rectHeight)
-            make.centerY.equalTo(bottomView)
+            make.centerY.equalTo(self!.bottomView)
         }
     }
     
@@ -360,7 +360,7 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
             let chartSource = chartDataSource[i]
             let firstValue:CGFloat = chartDataSource[i][0]
             for value in chartSource{
-                var rateValue = (value / firstValue - 1) * 100
+                let rateValue = (value / firstValue - 1) * 100
                 if rateValue < minValue{
                     minValue = rateValue
                 }else if rateValue > maxValue{
@@ -378,9 +378,9 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
         segmentArea = CalculateUtils.getChartGroupList(positiveValue, negativeValue: negativeValue, segments: segments)
         //段数值列表
         
-        var viewHeight:CGFloat = self.frame.height
-        var chartHeight:CGFloat = viewHeight - bottomHeight - dateAreaHeight
-        var gapHeight = chartHeight / CGFloat(segments)
+        let viewHeight:CGFloat = self.frame.height
+        let chartHeight:CGFloat = viewHeight - bottomHeight - dateAreaHeight
+        let gapHeight = chartHeight / CGFloat(segments)
         
         minChartY = 0
         maxChartY = chartHeight
@@ -426,8 +426,8 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
                 let value = chartSource[j]
                 linePath.addLineToPoint(CGPoint(x: CGFloat(j) * dataGapWidth, y: getSourceLineY(value,firstValue: firstValue)))
             }
-            linePath.lineJoinStyle = kCGLineJoinRound
-            linePath.lineCapStyle = kCGLineCapRound
+            linePath.lineJoinStyle = CGLineJoin.Round
+            linePath.lineCapStyle = CGLineCap.Round
             linePath.lineWidth = lineWidthList[i]
             lineColorList[i].setStroke()
             linePath.stroke()
@@ -461,10 +461,10 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
         let fmt = NSDateFormatter()
         fmt.dateFormat = "MM-dd"
         
-        var label1 = UICreaterUtils.createLabel(10, UICreaterUtils.colorFlat, fmt.stringFromDate(preDate), true, chartLabelView)
+        let label1 = UICreaterUtils.createLabel(10, UICreaterUtils.colorFlat, fmt.stringFromDate(preDate), true, chartLabelView)
         label1.frame.origin = CGPoint(x: 0, y: chartHeight + 2)
-        var calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let unitFlags:NSCalendarUnit = NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth
+        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        let unitFlags:NSCalendarUnit = [NSCalendarUnit.Year, NSCalendarUnit.Month]
         
         let lastTime = lastDate.timeIntervalSince1970
         
@@ -480,36 +480,36 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
                 let lineX = dataGapWidth * CGFloat(i)
                 //画线
                 drawLine(CGPoint(x: lineX,y: 0),endPoint: CGPoint(x: lineX, y: chartHeight),isDash:true)
-                var preComps = calendar?.components(unitFlags, fromDate: preDate)
-                var nowComps = calendar?.components(unitFlags, fromDate: nowDate)
+                let preComps = calendar?.components(unitFlags, fromDate: preDate)
+                let nowComps = calendar?.components(unitFlags, fromDate: nowDate)
                 if preComps?.year != nowComps?.year{
                     fmt.dateFormat = "yyyy-MM-dd"
                 }else{
                     fmt.dateFormat = "MM-dd"
                 }
-                var label = UICreaterUtils.createLabel(10, UICreaterUtils.colorFlat, fmt.stringFromDate(nowDate), true, chartLabelView)
+                let label = UICreaterUtils.createLabel(10, UICreaterUtils.colorFlat, fmt.stringFromDate(nowDate), true, chartLabelView)
                 label.frame.origin = CGPoint(x: lineX - label.frame.width / 2, y: chartHeight + 2)
                 preDate = nowDate
             }
         }
-        var preComps = calendar?.components(unitFlags, fromDate: preDate)
-        var lastComps = calendar?.components(unitFlags, fromDate: lastDate)
+        let preComps = calendar?.components(unitFlags, fromDate: preDate)
+        let lastComps = calendar?.components(unitFlags, fromDate: lastDate)
         if preComps?.year != lastComps?.year{
             fmt.dateFormat = "yyyy-MM-dd"
         }else{
             fmt.dateFormat = "MM-dd"
         }
-        var label2 = UICreaterUtils.createLabel(10, UICreaterUtils.colorFlat, fmt.stringFromDate(lastDate), true, chartLabelView)
+        let label2 = UICreaterUtils.createLabel(10, UICreaterUtils.colorFlat, fmt.stringFromDate(lastDate), true, chartLabelView)
         label2.frame.origin = CGPoint(x: viewWidth - label2.frame.width, y: chartHeight + 2)
         
     }
     
     private var lineLabelColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1)
     private func drawHorizontalLine(){
-        var viewWidth:CGFloat = self.frame.width
-        var viewHeight:CGFloat = self.frame.height
-        var chartHeight:CGFloat = viewHeight - bottomHeight - dateAreaHeight
-        var gapHeight = chartHeight / CGFloat(segments)
+        let viewWidth:CGFloat = self.frame.width
+        let viewHeight:CGFloat = self.frame.height
+        let chartHeight:CGFloat = viewHeight - bottomHeight - dateAreaHeight
+        let gapHeight = chartHeight / CGFloat(segments)
         
         drawLine(CGPoint(x: dashLineWidth,y: 0),endPoint: CGPoint(x: dashLineWidth, y: chartHeight),isDash:true)
         drawLine(CGPoint(x: viewWidth - dashLineWidth,y: 0),endPoint: CGPoint(x: viewWidth - dashLineWidth, y: chartHeight),isDash:true)
@@ -543,7 +543,7 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
             }else{
                 textColor = UICreaterUtils.colorFlat
             }
-            var label:UILabel = UICreaterUtils.createLabel(10,textColor,"\(segmentArea[i]).00%",true,chartLabelView)
+            let label:UILabel = UICreaterUtils.createLabel(10,textColor,"\(segmentArea[i]).00%",true,chartLabelView)
             if i == 0{
                 label.frame.origin = CGPoint(x: 4, y: lineY)
             }else{
@@ -553,7 +553,7 @@ class UIGroupLineChart: UIView,UIGestureRecognizerDelegate {
     }
     private let dashLineWidth:CGFloat = 0.2
     private func drawLine(startPoint:CGPoint,endPoint:CGPoint,isDash:Bool = false){
-        let context:CGContextRef = UIGraphicsGetCurrentContext();
+        let context:CGContextRef = UIGraphicsGetCurrentContext()!
         CGContextBeginPath(context)
         CGContextSetLineWidth(context, dashLineWidth);
         CGContextSetStrokeColorWithColor(context, lineLabelColor.CGColor);

@@ -34,7 +34,7 @@ class HomePageFooterCell: BaseTableViewCell {
                 make.centerY.equalTo(self.titleLabel)
             })
             
-            var url:String = "money"
+            let url:String = "money"
             BatchLoaderUtil.loadFile(url, callBack: { (image, params) -> Void in
                 self.icon!.image = image
             })
@@ -53,7 +53,7 @@ class HomePageFooterCell: BaseTableViewCell {
                 make.center.equalTo(self)
             })
         }
-        var info:String = data as! String
+        let info:String = data as! String
         titleLabel.text = info
         titleLabel.sizeToFit()
     }

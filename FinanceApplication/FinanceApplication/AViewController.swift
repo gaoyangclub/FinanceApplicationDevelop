@@ -15,7 +15,7 @@ class AViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        println("界面A将要显示")
+        print("界面A将要显示")
         super.viewWillAppear(animated)
         initTitleArea()
     }
@@ -34,10 +34,10 @@ class AViewController: UIViewController {
         
         super.viewDidLoad()
 
-        var color:CGFloat = CGFloat(CGFloat(random())/CGFloat(RAND_MAX))
-        var color1:CGFloat = CGFloat(CGFloat(random())/CGFloat(RAND_MAX))
-        var color2:CGFloat = CGFloat(CGFloat(random())/CGFloat(RAND_MAX))
-        var color3:CGFloat = CGFloat(CGFloat(random())/CGFloat(RAND_MAX))
+        let color:CGFloat = CGFloat(CGFloat(random())/CGFloat(RAND_MAX))
+        let color1:CGFloat = CGFloat(CGFloat(random())/CGFloat(RAND_MAX))
+        let color2:CGFloat = CGFloat(CGFloat(random())/CGFloat(RAND_MAX))
+//        var color3:CGFloat = CGFloat(CGFloat(random())/CGFloat(RAND_MAX))
         
         view.backgroundColor = UIColor(red: color, green: color1, blue: color2, alpha: 1)//UIColor.blueColor().lighterColor()
         // Do any additional setup after loading the view.

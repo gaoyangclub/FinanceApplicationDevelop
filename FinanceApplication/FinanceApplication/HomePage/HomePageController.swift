@@ -27,7 +27,7 @@ class HomePageController:BaseTableViewController,UISearchResultsUpdating,UISearc
             bar.backgroundImage = image // 需要用1像素的透明图片代替背景图 不然动画交互的时候会坑爹的闪现灰底
         })
         
-        var topView: UIView = bar.subviews[0] as! UIView
+        var topView: UIView = bar.subviews[0] 
         topView.userInteractionEnabled = false
         
 //        var ti:UITextField = topView.subviews[1] as! UITextField
@@ -150,12 +150,12 @@ class HomePageController:BaseTableViewController,UISearchResultsUpdating,UISearc
         self.refreshContaner.addHeaderWithCallback(RefreshHeaderView.header(),callback: {
             let delayInSeconds:Int64 =  1000000000  * 1
             
-            var popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
+            let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
             dispatch_after(popTime, dispatch_get_main_queue(), {
                 self.hasSetUp = true
 //                self.refreshAll = false
                 self.dataSource.removeAllObjects()
-                var homeDataSource = DataRemoteFacade.homeDataSource
+                let homeDataSource = DataRemoteFacade.homeDataSource
                 for i in 0..<homeDataSource.count{
                     self.dataSource.addObject(homeDataSource[i])
                 }
@@ -269,18 +269,18 @@ class HomePageController:BaseTableViewController,UISearchResultsUpdating,UISearc
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var section = indexPath.section
-        var row = indexPath.row
-        var source = dataSource[section] as! SoueceVo
-        var cell:CellVo = source.data![indexPath.row] as! CellVo
+        let section = indexPath.section
+//        var row = indexPath.row
+        let source = dataSource[section] as! SoueceVo
+        let cell:CellVo = source.data![indexPath.row] as! CellVo
         if cell.cellData is HotItemVo{
             //点击hot内容跳转
-            var hvo = cell.cellData as! HotItemVo
+            let hvo = cell.cellData as! HotItemVo
             if hvo.rate != nil{
-                var dvo:InfoFundVo? = DataRemoteFacade.getDetailsById(hvo.classId)
+                let dvo:InfoFundVo? = DataRemoteFacade.getDetailsById(hvo.classId)
                 if dvo != nil{
 //                    println("点击hot内容跳转")
-                    var dc:DetailsPageController = DetailsPageController()
+                    let dc:DetailsPageController = DetailsPageController()
                     dc.pageData = dvo!
 //                    dc.hidesBottomBarWhenPushed = true
                     self.tabBarController?.tabBar.hidden = true
@@ -291,7 +291,7 @@ class HomePageController:BaseTableViewController,UISearchResultsUpdating,UISearc
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var header = super.tableView(tableView, viewForHeaderInSection: section)
+        let header = super.tableView(tableView, viewForHeaderInSection: section)
         if header is HomePageSearchBarHeader{
 //            var sc = UISearchDisplayController(searchBar: <#UISearchBar!#>, contentsController: <#UIViewController!#>)
             (header as! HomePageSearchBarHeader).contentsController = self

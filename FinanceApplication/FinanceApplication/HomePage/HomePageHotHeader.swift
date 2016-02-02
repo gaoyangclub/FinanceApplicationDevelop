@@ -32,7 +32,9 @@ class HomePageHotHeader: BaseTableViewCell {
             square.snp_makeConstraints(closure: { (make) -> Void in
                 make.left.equalTo(self)
                 make.centerY.equalTo(self)
-                make.size.equalTo(CGSize(width: 5, height: 18))
+//                make.size.equalTo(CGSize(width: 5, height: 18))
+                make.width.equalTo(5)
+                make.height.equalTo(18)
             })
         }
     }
@@ -49,7 +51,7 @@ class HomePageHotHeader: BaseTableViewCell {
                 make.centerY.equalTo(self)
             })
         }
-        var info:String = data as! String
+        let info:String = data as! String
         title.text = info
         title.sizeToFit()
     }

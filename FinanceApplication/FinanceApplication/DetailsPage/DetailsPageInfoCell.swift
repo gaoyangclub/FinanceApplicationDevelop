@@ -26,9 +26,9 @@ class DetailsPageInfoCell: BaseTableViewCell {
     private var buyRateCurrentText:UILabel!
     
     private func initLabel(){
-        var baseTextColor:UIColor = UIColor(red: 156/255, green: 156/255, blue: 156/255, alpha: 1)
-        var baseTextSize:CGFloat = 14
-        var dvo = data as! InfoFundVo//主数据
+        let baseTextColor:UIColor = UIColor(red: 156/255, green: 156/255, blue: 156/255, alpha: 1)
+        let baseTextSize:CGFloat = 14
+        let dvo = data as! InfoFundVo//主数据
         
         if rateDayText == nil{
             rateDayText = UICreaterUtils.createLabel(20,UIColor(red: 213/255, green: 0, blue: 0, alpha: 1))
@@ -37,7 +37,7 @@ class DetailsPageInfoCell: BaseTableViewCell {
                 make.bottom.equalTo(topVerticalLine)
                 make.left.equalTo(rateContainer).offset(margin)
             })
-            var rateDayLabel = UICreaterUtils.createLabel(baseTextSize,baseTextColor,"日涨跌幅")
+            let rateDayLabel = UICreaterUtils.createLabel(baseTextSize,baseTextColor,"日涨跌幅")
             rateContainer.addSubview(rateDayLabel)
             rateDayLabel.snp_makeConstraints(closure: { (make) -> Void in
                 make.top.equalTo(topVerticalLine)
@@ -62,7 +62,7 @@ class DetailsPageInfoCell: BaseTableViewCell {
                 make.bottom.equalTo(topVerticalLine)
                 make.left.equalTo(topVerticalLine).offset(margin)
             })
-            var rateQuarterabel = UICreaterUtils.createLabel(baseTextSize,baseTextColor,"近三个月涨幅")
+            let rateQuarterabel = UICreaterUtils.createLabel(baseTextSize,baseTextColor,"近三个月涨幅")
             rateContainer.addSubview(rateQuarterabel)
             rateQuarterabel.snp_makeConstraints(closure: { (make) -> Void in
                 make.top.equalTo(topVerticalLine)
@@ -95,10 +95,10 @@ class DetailsPageInfoCell: BaseTableViewCell {
 //            uiTextField.backgroundColor = UIColor.clearColor()
 //            tagArea.addSubview(uiTextField)
             for tag in tagArr{
-                var label:UILabel = UICreaterUtils.createLabel(12, UIColor.blackColor(), tag)
+                let label:UILabel = UICreaterUtils.createLabel(12, UIColor.blackColor(), tag)
                 label.sizeToFit()
                 
-                var subView:UIView = UIView()
+                let subView:UIView = UIView()
                 tagArea.addSubview(subView)
                 
                 subView.addSubview(label)
@@ -138,17 +138,19 @@ class DetailsPageInfoCell: BaseTableViewCell {
         }
         let fmt = NSDateFormatter()
         fmt.dateFormat = "yyyy.MM.dd";
-        var dateName:String = fmt.stringFromDate(dvo.updateTime!)
+        let dateName:String = fmt.stringFromDate(dvo.updateTime!)
         updateTimeText.text = dateName + "更新";
         updateTimeText.sizeToFit()
         
         if netValueText == nil{
-            var rightArrow:UIArrowView = UIArrowView()
+            let rightArrow:UIArrowView = UIArrowView()
             rightArrow.direction = ArrowDirect.RIGHT
             rightArrow.lineColor = baseTextColor
             netContainer.addSubview(rightArrow)
             rightArrow.snp_makeConstraints(closure: { (make) -> Void in
-                make.size.equalTo(CGSize(width: 8, height: 14))
+                make.width.equalTo(8)
+                make.height.equalTo(14)
+//                make.size.equalTo(CGSize(width: 8, height: 14))
                 make.centerY.equalTo(netContainer)
                 make.right.equalTo(topVerticalLine).offset(-margin)
             })
@@ -156,7 +158,7 @@ class DetailsPageInfoCell: BaseTableViewCell {
             netValueText = UICreaterUtils.createLabel(18, UIColor.blackColor())
             netContainer.addSubview(netValueText)
             
-            var measureUnitLabel = UICreaterUtils.createLabel(12, baseTextColor, "元")
+            let measureUnitLabel = UICreaterUtils.createLabel(12, baseTextColor, "元")
             netContainer.addSubview(measureUnitLabel)
             measureUnitLabel.sizeToFit()
             measureUnitLabel.snp_makeConstraints(closure: { (make) -> Void in
@@ -170,7 +172,7 @@ class DetailsPageInfoCell: BaseTableViewCell {
                 make.right.equalTo(measureUnitLabel.snp_left)
             })
             
-            var netValueLabel = UICreaterUtils.createLabel(baseTextSize, baseTextColor, "净值")
+            let netValueLabel = UICreaterUtils.createLabel(baseTextSize, baseTextColor, "净值")
             netContainer.addSubview(netValueLabel)
             netValueLabel.snp_makeConstraints(closure: { (make) -> Void in
                 make.centerY.equalTo(netContainer)
@@ -181,12 +183,14 @@ class DetailsPageInfoCell: BaseTableViewCell {
         netValueText.sizeToFit()
         
         if rankText == nil{
-            var rightArrow:UIArrowView = UIArrowView()
+            let rightArrow:UIArrowView = UIArrowView()
             rightArrow.direction = ArrowDirect.RIGHT
             rightArrow.lineColor = baseTextColor
             netContainer.addSubview(rightArrow)
             rightArrow.snp_makeConstraints(closure: { (make) -> Void in
-                make.size.equalTo(CGSize(width: 8, height: 14))
+                make.width.equalTo(8)
+                make.height.equalTo(14)
+//                make.size.equalTo(CGSize(width: 8, height: 14))
                 make.centerY.equalTo(netContainer)
                 make.right.equalTo(netContainer).offset(-margin)
             })
@@ -198,13 +202,13 @@ class DetailsPageInfoCell: BaseTableViewCell {
                 make.centerY.equalTo(netContainer)
             })
             
-            var bottomLabel = UICreaterUtils.createLabel(12, baseTextColor, "(季度同类)")
+            let bottomLabel = UICreaterUtils.createLabel(12, baseTextColor, "(季度同类)")
             netContainer.addSubview(bottomLabel)
             bottomLabel.snp_makeConstraints(closure: { (make) -> Void in
                 make.bottom.equalTo(netContainer.snp_centerY).offset(15)
                 make.left.equalTo(topVerticalLine).offset(2)
             })
-            var topLabel = UICreaterUtils.createLabel(baseTextSize, baseTextColor, "排名")
+            let topLabel = UICreaterUtils.createLabel(baseTextSize, baseTextColor, "排名")
             netContainer.addSubview(topLabel)
             topLabel.snp_makeConstraints(closure: { (make) -> Void in
                 make.top.equalTo(netContainer.snp_centerY).offset(-15)
@@ -215,7 +219,7 @@ class DetailsPageInfoCell: BaseTableViewCell {
         rankText.sizeToFit()
         
         if buyRateTagText == nil{
-            var buyRateTagLabel = UICreaterUtils.createLabel(baseTextSize, baseTextColor, "购买费率")
+            let buyRateTagLabel = UICreaterUtils.createLabel(baseTextSize, baseTextColor, "购买费率")
             rateContainer.addSubview(buyRateTagLabel)
             buyRateTagLabel.snp_makeConstraints(closure: { (make) -> Void in
                 make.left.equalTo(rateContainer).offset(margin)
@@ -240,7 +244,7 @@ class DetailsPageInfoCell: BaseTableViewCell {
                 make.centerY.equalTo(rateContainer)
             })
             
-            var originalLine = UIView()
+            let originalLine = UIView()
             originalLine.backgroundColor = UIColor.blackColor()
             rateContainer.addSubview(originalLine)
             originalLine.snp_makeConstraints(closure: { (make) -> Void in
@@ -253,12 +257,14 @@ class DetailsPageInfoCell: BaseTableViewCell {
         buyRateOriginalText.sizeToFit()
         
         if buyRateCurrentText == nil{
-            var rightArrow:UIArrowView = UIArrowView()
+            let rightArrow:UIArrowView = UIArrowView()
             rightArrow.direction = ArrowDirect.RIGHT
             rightArrow.lineColor = baseTextColor
             rateContainer.addSubview(rightArrow)
             rightArrow.snp_makeConstraints(closure: { (make) -> Void in
-                make.size.equalTo(CGSize(width: 8, height: 14))
+                make.width.equalTo(8)
+                make.height.equalTo(14)
+//                make.size.equalTo(CGSize(width: 8, height: 14))
                 make.centerY.equalTo(rateContainer)
                 make.right.equalTo(rateContainer).offset(-margin)
             })
@@ -280,7 +286,7 @@ class DetailsPageInfoCell: BaseTableViewCell {
 //    }
     
     private func createTextField(size:CGFloat,_ color:UIColor,_ text:String = "")->UITextField{
-        var uiTextField = UITextField(frame: CGRectMake(0, 0, 50, 30))
+        let uiTextField = UITextField(frame: CGRectMake(0, 0, 50, 30))
         uiTextField.minimumFontSize = 18.0;//设置最小显示字体
         uiTextField.placeholder = "请输入姓名"
         uiTextField.userInteractionEnabled = false
@@ -299,17 +305,19 @@ class DetailsPageInfoCell: BaseTableViewCell {
     private var topVerticalLine:UIView!
     private func initLine(){
         if topVerticalLine == nil{
-            var lineColor:UIColor = UIColor(red: 218/255, green: 218/255, blue: 218/255, alpha: 1)
+            let lineColor:UIColor = UIColor(red: 218/255, green: 218/255, blue: 218/255, alpha: 1)
             
             topVerticalLine = UIView()
             topVerticalLine.backgroundColor = lineColor
             topContainer.addSubview(topVerticalLine)
             topVerticalLine.snp_makeConstraints(closure: { (make) -> Void in
                 make.center.equalTo(self.topContainer)
-                make.size.equalTo(CGSize(width: UICreaterUtils.normalLineWidth, height: DetailsPageInfoCell.topHeight * 3 / 5))
+//                make.size.equalTo(CGSize(width: UICreaterUtils.normalLineWidth, height: DetailsPageInfoCell.topHeight * 3 / 5))
+                make.width.equalTo(UICreaterUtils.normalLineWidth)
+                make.height.equalTo(DetailsPageInfoCell.topHeight * 3 / 5)
             })
             
-            var topLine = UIView()
+            let topLine = UIView()
             addSubview(topLine)
             topLine.backgroundColor = lineColor
             topLine.snp_makeConstraints(closure: { (make) -> Void in
@@ -317,7 +325,7 @@ class DetailsPageInfoCell: BaseTableViewCell {
                 make.height.equalTo(UICreaterUtils.normalLineWidth)
             })
             
-            var fLine = UIView()
+            let fLine = UIView()
             addSubview(fLine)
             fLine.backgroundColor = lineColor
             fLine.snp_makeConstraints(closure: { (make) -> Void in
@@ -327,7 +335,7 @@ class DetailsPageInfoCell: BaseTableViewCell {
                 make.bottom.equalTo(self.tagContainer)
             })
             
-            var sLine = UIView()
+            let sLine = UIView()
             addSubview(sLine)
             sLine.backgroundColor = lineColor
             sLine.snp_makeConstraints(closure: { (make) -> Void in

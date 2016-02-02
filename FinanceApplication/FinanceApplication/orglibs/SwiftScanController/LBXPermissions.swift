@@ -35,7 +35,7 @@ class LBXPermissions: NSObject {
     static func isGetPhotoPermission()->Bool
     {
         var bResult = false
-        if  UIDevice.currentDevice().systemVersion.toInt() < 8
+        if  Int(UIDevice.currentDevice().systemVersion) < 8
         {
             if( ALAssetsLibrary.authorizationStatus() != ALAuthorizationStatus.Denied )
             {

@@ -10,7 +10,7 @@ import UIKit
 
 class DetailsPageMultipleCell: BaseTableViewCell,CASectionPageMenuDelegate {
     weak var delegate:DetailsPageCellDelegate?
-    var cellVo:CellVo?
+//    var cellVo:CellVo?
     
     var pageSection:DetailsPageMultipleSection!{
         didSet{
@@ -36,7 +36,7 @@ class DetailsPageMultipleCell: BaseTableViewCell,CASectionPageMenuDelegate {
         }
         if pageSection != nil{
             if pageSection.pageMenu != nil{
-                var pageMenu = pageSection.pageMenu
+                let pageMenu = pageSection.pageMenu
                 pageMenu.controllerScrollView = self.scrollView
                 pageMenu.delegate = self
             }else{
@@ -49,12 +49,12 @@ class DetailsPageMultipleCell: BaseTableViewCell,CASectionPageMenuDelegate {
     }
     
     func willMoveToPage(index: Int){
-        var pvo = DetailsPageMultipleCell.chartCellList[index]
+        let pvo = DetailsPageMultipleCell.chartCellList[index]
         if !hasInstanceList[index] {//不存在
             var view:PageDataView? = pvo.view
             if view == nil{
-                var cellClass = pvo.cellClass
-                view = cellClass()
+                let cellClass = pvo.cellClass
+                view = cellClass.init()
                 pvo.view = view
             }
             view?.data = data
@@ -76,7 +76,7 @@ class DetailsPageMultipleCell: BaseTableViewCell,CASectionPageMenuDelegate {
     }
     
     func didMoveToPage(index: Int){
-        var pvo = DetailsPageMultipleCell.chartCellList[index]
+        let pvo = DetailsPageMultipleCell.chartCellList[index]
         //撑开当前条目高度
         cellVo?.cellHeight = pvo.cellHeight//重新刷新条目高度
         delegate?.didMoveToDetailsPage?(self.indexPath)

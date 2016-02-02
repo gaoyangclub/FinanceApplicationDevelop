@@ -133,10 +133,10 @@ class UIColumnChart: UIView {
     
     
     private var prevTouchPoint:CGPoint!
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if touches.count > 0{
-            var nowTouch = touches[touches.startIndex] as? UITouch
-            var nowPoint = nowTouch!.locationInView(self)
+            let nowTouch = touches[touches.startIndex] as UITouch
+            let nowPoint = nowTouch.locationInView(self)
             
             let dirtX = abs(nowPoint.x - prevTouchPoint.x)
             let dirtY = abs(nowPoint.y - prevTouchPoint.y)
@@ -148,16 +148,16 @@ class UIColumnChart: UIView {
         }
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if touches.count > 0{
-            let prevTouch = touches[touches.startIndex] as? UITouch
-            prevTouchPoint = prevTouch!.locationInView(self)
+            let prevTouch = touches[touches.startIndex] as UITouch
+            prevTouchPoint = prevTouch.locationInView(self)
         }
     }
-    override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
         resumePan()
     }
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         resumePan()
     }
     
@@ -219,8 +219,8 @@ class UIColumnChart: UIView {
         if chartLabelView == nil{
             chartLabelView = UIView()
             self.addSubview(chartLabelView)
-            chartLabelView.snp_makeConstraints(closure: { (make) -> Void in
-                make.left.right.top.bottom.equalTo(self)
+            chartLabelView.snp_makeConstraints(closure: { [weak self](make) -> Void in
+                make.left.right.top.bottom.equalTo(self!)
             })
         }
         chartLabelView.removeAllSubViews()
@@ -228,8 +228,8 @@ class UIColumnChart: UIView {
             gestrueArea = UIView()
             self.addSubview(gestrueArea)
             gestrueArea.userInteractionEnabled = false
-            gestrueArea.snp_makeConstraints(closure: { (make) -> Void in
-                make.left.right.top.bottom.equalTo(chartLabelView)
+            gestrueArea.snp_makeConstraints(closure: { [weak self](make) -> Void in
+                make.left.right.top.bottom.equalTo(self!.chartLabelView)
             })
         }
         hideGestrueLine()
@@ -252,7 +252,7 @@ class UIColumnChart: UIView {
         for i in 0..<chartDataList.count{
             let value = chartDataList[i]
             let compareValue:CGFloat = getCompareValue(i)
-            var rateValue = (value / compareValue - 1) * 100
+            let rateValue = (value / compareValue - 1) * 100
             if rateValue < minValue{
                 minValue = rateValue
             }else if rateValue > maxValue{
@@ -269,9 +269,9 @@ class UIColumnChart: UIView {
         segmentArea = CalculateUtils.getChartGroupList(positiveValue, negativeValue: negativeValue, segments: segments)
         //段数值列表
         
-        var viewHeight:CGFloat = self.frame.height
-        var chartHeight:CGFloat = viewHeight - dateAreaHeight
-        var gapHeight = chartHeight / CGFloat(segments)
+        let viewHeight:CGFloat = self.frame.height
+        let chartHeight:CGFloat = viewHeight - dateAreaHeight
+        let gapHeight = chartHeight / CGFloat(segments)
         
         minChartY = 0
         maxChartY = chartHeight
@@ -306,7 +306,7 @@ class UIColumnChart: UIView {
     }
     
     private func drawSourceLine(){
-        let viewWidth:CGFloat = self.frame.width
+//        let viewWidth:CGFloat = self.frame.width
 //        let dateGapWidth:CGFloat = viewWidth / CGFloat(dateList.count - 1)
         var linePath:UIBezierPath!
         for i in 0..<chartDataList.count{
@@ -330,8 +330,8 @@ class UIColumnChart: UIView {
                 if i == 0{
                     linePath = UIBezierPath()
                     linePath.lineWidth = getLineWidth()
-                    linePath.lineJoinStyle = kCGLineJoinRound
-                    linePath.lineCapStyle = kCGLineCapRound
+                    linePath.lineJoinStyle = CGLineJoin.Round
+                    linePath.lineCapStyle = CGLineCap.Round
                     linePath.moveToPoint(CGPoint(x: 0,y: lineY))
                 }else{
                     linePath.addLineToPoint(CGPoint(x: lineX, y: lineY))
@@ -356,9 +356,9 @@ class UIColumnChart: UIView {
         let fmt = NSDateFormatter()
 //        fmt.dateFormat = "MM-dd"
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let unitFlags:NSCalendarUnit = NSCalendarUnit.CalendarUnitYear | NSCalendarUnit.CalendarUnitMonth | NSCalendarUnit.CalendarUnitDay | NSCalendarUnit.CalendarUnitHour | NSCalendarUnit.CalendarUnitMinute
+        let unitFlags:NSCalendarUnit = [NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day, NSCalendarUnit.Hour, NSCalendarUnit.Minute]
         
-        var label1 = UICreaterUtils.createLabel(10, UICreaterUtils.colorFlat, getDateLabel(fmt,unitFlags:unitFlags,calendar:calendar,nowDate:&preDate), true, chartLabelView)
+        let label1 = UICreaterUtils.createLabel(10, UICreaterUtils.colorFlat, getDateLabel(fmt,unitFlags:unitFlags,calendar:calendar,nowDate:&preDate), true, chartLabelView)
         label1.frame.origin = CGPoint(x: 0, y: chartHeight + 2)
         
         let lastTime = lastDate.timeIntervalSince1970
@@ -377,7 +377,7 @@ class UIColumnChart: UIView {
                 drawLine(CGPoint(x: lineX,y: 0),endPoint: CGPoint(x: lineX, y: chartHeight),isDash:true)
                 
                 let labelString = getDateLabel(fmt,unitFlags:unitFlags,calendar:calendar,nowDate:&nowDate)
-                var label = UICreaterUtils.createLabel(10, UICreaterUtils.colorFlat, labelString, true, chartLabelView)
+                let label = UICreaterUtils.createLabel(10, UICreaterUtils.colorFlat, labelString, true, chartLabelView)
                 label.frame.origin = CGPoint(x: lineX - label.frame.width / 2, y: chartHeight + 2)
 //                if labelString == regularTimeString{
 //                    preDate = dateList[i + 1] //非常特殊 直接找下一个
@@ -386,16 +386,16 @@ class UIColumnChart: UIView {
 //                }
             }
         }
-        var label2 = UICreaterUtils.createLabel(10, UICreaterUtils.colorFlat, getDateLabel(fmt,unitFlags:unitFlags,calendar:calendar,nowDate:&lastDate,preDate:preDate), true, chartLabelView)
+        let label2 = UICreaterUtils.createLabel(10, UICreaterUtils.colorFlat, getDateLabel(fmt,unitFlags:unitFlags,calendar:calendar,nowDate:&lastDate,preDate:preDate), true, chartLabelView)
         label2.frame.origin = CGPoint(x: viewWidth - label2.frame.width, y: chartHeight + 2)
     }
     
     private var lineLabelColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1)
     private func drawHorizontalLine(){
-        var viewWidth:CGFloat = self.frame.width
-        var viewHeight:CGFloat = self.frame.height
-        var chartHeight:CGFloat = viewHeight - dateAreaHeight
-        var gapHeight = chartHeight / CGFloat(segments)
+        let viewWidth:CGFloat = self.frame.width
+        let viewHeight:CGFloat = self.frame.height
+        let chartHeight:CGFloat = viewHeight - dateAreaHeight
+        let gapHeight = chartHeight / CGFloat(segments)
         
         drawLine(CGPoint(x: dashLineWidth,y: 0),endPoint: CGPoint(x: dashLineWidth, y: chartHeight),isDash:true)
         drawLine(CGPoint(x: viewWidth - dashLineWidth,y: 0),endPoint: CGPoint(x: viewWidth - dashLineWidth, y: chartHeight),isDash:true)
@@ -429,7 +429,7 @@ class UIColumnChart: UIView {
             }else{
                 textColor = UICreaterUtils.colorFlat
             }
-            var label:UILabel = UICreaterUtils.createLabel(10,textColor,"\(segmentArea[i]).00%",true,chartLabelView)
+            let label:UILabel = UICreaterUtils.createLabel(10,textColor,"\(segmentArea[i]).00%",true,chartLabelView)
             if i == 0{
                 label.frame.origin = CGPoint(x: 4, y: lineY)
             }else{
@@ -439,7 +439,7 @@ class UIColumnChart: UIView {
     }
     private let dashLineWidth:CGFloat = 0.2
     private func drawLine(startPoint:CGPoint,endPoint:CGPoint,isDash:Bool = false){
-        let context:CGContextRef = UIGraphicsGetCurrentContext();
+        let context:CGContextRef = UIGraphicsGetCurrentContext()!;
         CGContextBeginPath(context)
         CGContextSetLineWidth(context, dashLineWidth);
         CGContextSetStrokeColorWithColor(context, lineLabelColor.CGColor);
@@ -515,7 +515,7 @@ class UIColumnChart: UIView {
         }
         if value == 0{
             value = zeroValueTag
-            println("数据中被比较的数为0!!!")
+            print("数据中被比较的数为0!!!")
         }
         return value
     }

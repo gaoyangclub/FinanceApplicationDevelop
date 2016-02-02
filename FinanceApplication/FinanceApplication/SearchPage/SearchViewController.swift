@@ -50,9 +50,9 @@ class SearchViewController: UITableViewController,UISearchBarDelegate {
         searchBar.tintColor=UIColor.blueColor()//会获取到光标
         searchBar.setShowsCancelButton(false, animated: true)
         
-        var topView: UIView = searchBar.subviews[0] as! UIView
+        let topView: UIView = searchBar.subviews[0] 
         for view in topView.subviews  {
-            if view.isKindOfClass(NSClassFromString("UINavigationButton")){
+            if view.isKindOfClass(NSClassFromString("UINavigationButton")!){
                 cancelButton = view as? UIButton
 //                cancelButton.hidden = true
             }
@@ -116,7 +116,7 @@ class SearchViewController: UITableViewController,UISearchBarDelegate {
 //        searchBar.resignFirstResponder()//取消焦点
 //    }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "contentOffset" && tableView.dragging{
             searchBar.resignFirstResponder()//注:在隐藏焦点的同时会自动将cancelButton.enabled=false
 //            self.searchBar.endEditing(true)
@@ -127,7 +127,7 @@ class SearchViewController: UITableViewController,UISearchBarDelegate {
     }
 
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        searchResult = DataRemoteFacade.searchFundResult(searchBar.text)
+        searchResult = DataRemoteFacade.searchFundResult(searchBar.text!)
         self.tableView.reloadData()
     }
 
@@ -338,7 +338,9 @@ class SearchFundCell:UITableViewCell{
         
         self.iconView.snp_makeConstraints { (make) -> Void in
             make.right.equalTo(self.contentView)
-            make.size.equalTo(CGSize(width: 48, height: 24))
+//            make.size.equalTo(CGSize(width: 48, height: 24))
+            make.width.equalTo(48)
+            make.height.equalTo(24)
             make.centerY.equalTo(self.contentView)
         }
         

@@ -81,7 +81,7 @@ class LBXScanView: UIView
         backgroundColor = UIColor.clearColor()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -97,7 +97,7 @@ class LBXScanView: UIView
         }
         
         
-        print("LBXScanView deinit")
+        print("LBXScanView deinit", terminator: "")
     }
     
     
@@ -119,7 +119,7 @@ class LBXScanView: UIView
         {
         case LBXScanViewAnimationStyle.LineMove:
             
-            print(NSStringFromCGRect(cropRect))
+            print(NSStringFromCGRect(cropRect), terminator: "")
             
             scanLineAnimation!.startAnimatingWithRect(cropRect, parentView: self, image:viewStyle.animationImage )
             break

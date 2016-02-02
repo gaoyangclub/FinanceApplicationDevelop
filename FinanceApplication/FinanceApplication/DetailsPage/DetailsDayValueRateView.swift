@@ -80,15 +80,15 @@ class DetailsDayValueRateView: PageDataView,TrendChartDelegate{
     let timeGapArray:[Double] = [24 * 3600 * 7,24 * 3600 * 30,24 * 3600 * 30,24 * 3600 * 30 * 3]
     private func initSegmentControl(){
         if segmentControl == nil{
-            var data=[
+            let data=[
                 PPiFlatSegmentItem(title: "一月", andIcon: nil),
                 PPiFlatSegmentItem(title: "一季", andIcon: nil),
                 PPiFlatSegmentItem(title: "半年", andIcon: nil),
                 PPiFlatSegmentItem(title: "一年", andIcon: nil)
             ];
             segmentControl = PPiFlatSegmentedControl(frame:  CGRectZero, items: data, iconPosition: IconPositionRight, iconSeparation:0 ,target:self, andSelection:"segmentControlSelected:")
-            var tintColor:UIColor = UIColor(red: 232/255, green: 54/255, blue: 59/255, alpha: 1)
-            var lineColor:UIColor = UIColor(red: 184/255, green: 184/255, blue: 184/255, alpha: 1)
+            let tintColor:UIColor = UIColor(red: 232/255, green: 54/255, blue: 59/255, alpha: 1)
+            let lineColor:UIColor = UIColor(red: 184/255, green: 184/255, blue: 184/255, alpha: 1)
             segmentControl.color = UIColor.blueColor()
             segmentControl.borderWidth = 0.5
             segmentControl.borderColor = lineColor
@@ -110,14 +110,14 @@ class DetailsDayValueRateView: PageDataView,TrendChartDelegate{
     }
     
     func segmentControlSelected(index:AnyObject){
-        var count = dateCountArray[Int(index as! NSNumber)]
+        let count = dateCountArray[Int(index as! NSNumber)]
         var chartDataList:[CGFloat] = []
         let firstValue = CGFloat(arc4random_uniform(10)) + 100
         var prevValue:CGFloat = firstValue
-        for j in 0..<count{
+        for _ in 0..<count{
             let random = CGFloat(arc4random_uniform(10)) - 4.5
 //            println("随机幅度:\(random)")
-            var newValue:CGFloat = prevValue + random
+            let newValue:CGFloat = prevValue + random
             chartDataList.append(newValue)
             prevValue = newValue
         }
@@ -135,7 +135,7 @@ class DetailsDayValueRateView: PageDataView,TrendChartDelegate{
         
         chartView.dateList = dateList
 //        chartView.lineColor = UICreaterUtils.colorRise
-        var pageData:InfoFundVo = data as! InfoFundVo
+//        var pageData:InfoFundVo = data as! InfoFundVo
         chartView.timeGap = timeGapArray[Int(index as! NSNumber)]
         chartView.delegate = self
         

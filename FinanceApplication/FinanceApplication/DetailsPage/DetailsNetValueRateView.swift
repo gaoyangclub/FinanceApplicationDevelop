@@ -158,15 +158,15 @@ class DetailsNetValueRateView: PageDataView,TrendChartDelegate{
     
     private func initSegmentControl(){
         if segmentControl == nil{
-            var data=[
+            let data=[
                 PPiFlatSegmentItem(title: "一月", andIcon: nil),
                 PPiFlatSegmentItem(title: "一季", andIcon: nil),
                 PPiFlatSegmentItem(title: "半年", andIcon: nil),
                 PPiFlatSegmentItem(title: "一年", andIcon: nil)
             ];
             segmentControl = PPiFlatSegmentedControl(frame:  CGRectZero, items: data, iconPosition: IconPositionRight, iconSeparation:0 ,target:self, andSelection:"segmentControlSelected:")
-            var tintColor:UIColor = UIColor(red: 232/255, green: 54/255, blue: 59/255, alpha: 1)
-            var lineColor:UIColor = UIColor(red: 184/255, green: 184/255, blue: 184/255, alpha: 1)
+            let tintColor:UIColor = UIColor(red: 232/255, green: 54/255, blue: 59/255, alpha: 1)
+            let lineColor:UIColor = UIColor(red: 184/255, green: 184/255, blue: 184/255, alpha: 1)
             segmentControl.color = UIColor.blueColor()
             segmentControl.borderWidth = 0.5
             segmentControl.borderColor = lineColor
@@ -195,7 +195,7 @@ class DetailsNetValueRateView: PageDataView,TrendChartDelegate{
         //        }else{
         //            //switchToP2P()
         //        }
-        var count = dateCountArray[Int(index as! NSNumber)]
+        let count = dateCountArray[Int(index as! NSNumber)]
         var chartDataSource:[[CGFloat]] = []
         for i in 0..<3{
             var tmp:[CGFloat] = []
@@ -224,7 +224,7 @@ class DetailsNetValueRateView: PageDataView,TrendChartDelegate{
         chartView.dateList = dateList//[NSDate(),NSDate(),NSDate(),NSDate(),NSDate(),NSDate(),NSDate(),NSDate(),NSDate(),NSDate(),NSDate(),NSDate()]
         chartView.lineColorList = [UIColor(red: 252/255, green: 58/255, blue: 86/255, alpha: 1),UIColor(red: 250/255, green: 176/255, blue: 87/255, alpha: 1),UIColor(red: 129/255, green: 167/255, blue: 218/255, alpha: 1)]
         chartView.lineWidthList = [1.6,0.8,0.8]
-        var pageData:InfoFundVo = data as! InfoFundVo
+        let pageData:InfoFundVo = data as! InfoFundVo
         chartView.titleList = [pageData.shortTitle,"沪深300","同类平均"]
         chartView.timeGap = timeGapArray[Int(index as! NSNumber)]
         chartView.delegate = self

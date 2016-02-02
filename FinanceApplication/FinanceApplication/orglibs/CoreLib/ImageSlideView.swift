@@ -15,7 +15,7 @@ class ImageSlideView: UIControl {
 //     An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
         reloadData()
-        println("开始渲染视图")
+        print("开始渲染视图")
     }
 
     
@@ -34,7 +34,7 @@ class ImageSlideView: UIControl {
     
     override func layoutSubviews(){
 //        super.layoutSubviews()
-        println("重新布局UI")
+        print("重新布局UI")
         reloadData()
         //        setNeedsDisplay()
     }
@@ -119,9 +119,9 @@ class ImageSlideView: UIControl {
             self.addSubview(pageControl!)
             
             pageControl?.addTarget(self, action: "pageControlChange", forControlEvents: UIControlEvents.ValueChanged)
-            pageControl!.setTranslatesAutoresizingMaskIntoConstraints(false)
+            pageControl!.translatesAutoresizingMaskIntoConstraints = false
             
-            var constraint = NSLayoutConstraint(item: pageControl!, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0)
+            let constraint = NSLayoutConstraint(item: pageControl!, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.CenterX, multiplier: 1.0, constant: 0)
             
             self.addConstraint(constraint)
 //            var color:UIColor = UIColor.blackColor()
@@ -154,11 +154,11 @@ class ImageSlideView: UIControl {
     }
     
     func addAllEvent(){
-        var leftSwip:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "gotoPrevPage")
+        let leftSwip:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "gotoPrevPage")
         leftSwip.direction = UISwipeGestureRecognizerDirection.Left
         addGestureRecognizer(leftSwip)
         
-        var rightSwip:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "gotoNextPage")
+        let rightSwip:UISwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "gotoNextPage")
         rightSwip.direction = UISwipeGestureRecognizerDirection.Right
         addGestureRecognizer(rightSwip)
     }
@@ -180,7 +180,7 @@ class ImageSlideView: UIControl {
     func pageControlChange(){
         if pageControl?.currentPage != _currentPage{
             //变化图片
-            var isLeft:Bool = pageControl!.currentPage < _currentPage
+            let isLeft:Bool = pageControl!.currentPage < _currentPage
             _currentPage = pageControl!.currentPage
 //            showCurrentPage()
             turnPage(isLeft,nowPage:_currentPage)
@@ -210,10 +210,10 @@ class ImageSlideView: UIControl {
             //            animation?.delegate = nil //清理
             //        }
             let animation = CABasicAnimation(keyPath: "opacity")
-            animation!.fromValue = imageViewPrev?.alpha
-            animation!.toValue = 0
-            animation!.duration = 0.5
-            animation!.delegate = self
+            animation.fromValue = imageViewPrev?.alpha
+            animation.toValue = 0
+            animation.duration = 0.5
+            animation.delegate = self
             
             
 //            imageViewPrev?.layer.removeAllAnimations() //先清除之前的缓动
@@ -223,31 +223,31 @@ class ImageSlideView: UIControl {
                 imageViewNext?.layer.position = CGPoint(x: frame.width * 3 / 2, y: frame.height / 2)
                 
                 let animationPrev = CABasicAnimation(keyPath: "position")
-                animationPrev!.toValue = NSValue(CGPoint:CGPoint(x:-frame.width / 2, y:frame.height / 2))
-                animationPrev!.duration = 0.5
-                animationPrev!.delegate = self
+                animationPrev.toValue = NSValue(CGPoint:CGPoint(x:-frame.width / 2, y:frame.height / 2))
+                animationPrev.duration = 0.5
+                animationPrev.delegate = self
                 
                 //        imageViewPrev?.layer.removeAllAnimations()
                 imageViewPrev?.layer.addAnimation(animationPrev, forKey: "Image-move-prev")
                 
                 let animationNext = CABasicAnimation(keyPath: "position")
-                animationNext!.toValue = NSValue(CGPoint:CGPoint(x:frame.width / 2, y:frame.height / 2))
-                animationNext!.duration = 0.5
+                animationNext.toValue = NSValue(CGPoint:CGPoint(x:frame.width / 2, y:frame.height / 2))
+                animationNext.duration = 0.5
                 //        imageViewNext?.layer.removeAllAnimations()
                 imageViewNext?.layer.addAnimation(animationNext, forKey: "Image-move-next")
             }else{
                 imageViewNext?.layer.position = CGPoint(x: -frame.width / 2, y: frame.height / 2)
                 
                 let animationPrev = CABasicAnimation(keyPath: "position")
-                animationPrev!.toValue = NSValue(CGPoint:CGPoint(x:frame.width * 3 / 2, y:frame.height / 2))
-                animationPrev!.duration = 0.5
-                animationPrev!.delegate = self
+                animationPrev.toValue = NSValue(CGPoint:CGPoint(x:frame.width * 3 / 2, y:frame.height / 2))
+                animationPrev.duration = 0.5
+                animationPrev.delegate = self
                 
                 imageViewPrev?.layer.addAnimation(animationPrev, forKey: "Image-move-prev")
                 
                 let animationNext = CABasicAnimation(keyPath: "position")
-                animationNext!.toValue = NSValue(CGPoint:CGPoint(x:frame.width / 2, y:frame.height / 2))
-                animationNext!.duration = 0.5
+                animationNext.toValue = NSValue(CGPoint:CGPoint(x:frame.width / 2, y:frame.height / 2))
+                animationNext.duration = 0.5
                 
                 imageViewNext?.layer.addAnimation(animationNext, forKey: "Image-move-next")
             }
@@ -261,7 +261,7 @@ class ImageSlideView: UIControl {
         sendActionsForControlEvents(UIControlEvents.ValueChanged)
     }
     
-    override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
         isTween = false
         imageViewPrev?.alpha = 1//恢复
         imageViewPrev?.layer.position = CGPoint(x:frame.width / 2, y:frame.height / 2) //恢复
@@ -299,7 +299,7 @@ class ImageSlideView: UIControl {
     }
     
     func imageLoaded(data:UIImage?,params:[AnyObject]){
-        var imageView = params[0] as! UIImageView//原视图
+        let imageView = params[0] as! UIImageView//原视图
         //        var url = params[1] //原图片地址
         imageView.image = data! //显示
     }
@@ -335,7 +335,7 @@ class ImageSlideView: UIControl {
         addAllEvent()
     }
 
-    required init(coder aDecoder: NSCoder) { //屏蔽该初始化方法
+    required init?(coder aDecoder: NSCoder) { //屏蔽该初始化方法
         fatalError("init(coder:) has not been implemented")
     }
     

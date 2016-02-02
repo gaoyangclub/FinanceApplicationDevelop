@@ -35,7 +35,7 @@ class DetailsStockView: PageDataView, UITableViewDelegate, UITableViewDataSource
                 }
             }
             if refreshHeightHandler != nil{
-                var headerHight = CGFloat(stockSourceList.count) * (headerHeight + headerGap) - headerGap
+                let headerHight = CGFloat(stockSourceList.count) * (headerHeight + headerGap) - headerGap
                 //重新计算整个view高度
                 var cellHeight:CGFloat = 0
                 for stockList in stockSourceList{
@@ -81,7 +81,7 @@ class DetailsStockView: PageDataView, UITableViewDelegate, UITableViewDataSource
         }else{
             title = "债券持仓"
             offset = headerGap / 2
-            var topView:UIView = UIView()
+            let topView:UIView = UIView()
             topView.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
             header.addSubview(topView)
             topView.snp_makeConstraints(closure: { (make) -> Void in
@@ -89,7 +89,7 @@ class DetailsStockView: PageDataView, UITableViewDelegate, UITableViewDataSource
                 make.height.equalTo(headerGap)
             })
             
-            var topLine = UIView()
+            let topLine = UIView()
             topLine.backgroundColor = UICreaterUtils.normalLineColor
             topView.addSubview(topLine)
             topLine.snp_makeConstraints(closure: { (make) -> Void in
@@ -97,7 +97,7 @@ class DetailsStockView: PageDataView, UITableViewDelegate, UITableViewDataSource
                 make.height.equalTo(UICreaterUtils.normalLineWidth)
             })
             
-            var bottomLine = UIView()
+            let bottomLine = UIView()
             bottomLine.backgroundColor = UICreaterUtils.normalLineColor
             topView.addSubview(bottomLine)
             bottomLine.snp_makeConstraints(closure: { (make) -> Void in
@@ -106,7 +106,7 @@ class DetailsStockView: PageDataView, UITableViewDelegate, UITableViewDataSource
             })
         }
 //        header.backgroundColor = UIColor.clearColor()
-        var titleLabel:UILabel = UICreaterUtils.createLabel(16, UIColor.blackColor(), title + "    " + String(format: "%.2f", totalRatio * 100) + "%", true, header)
+        let titleLabel:UILabel = UICreaterUtils.createLabel(16, UIColor.blackColor(), title + "    " + String(format: "%.2f", totalRatio * 100) + "%", true, header)
         
         titleLabel.snp_makeConstraints { (make) -> Void in
             make.centerY.equalTo(header).offset(offset)
@@ -279,7 +279,7 @@ private class StockCell:UITableViewCell {
         self.rateView.frame = CGRectMake(0,0, 0, StockCell.gapHeight - 2 * rateViewMargin)
         
         let delayInSeconds:Double = 4
-        var popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds));
+        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds));
         dispatch_after(popTime, dispatch_get_main_queue(), {
         
             UIView.beginAnimations(nil, context: nil)

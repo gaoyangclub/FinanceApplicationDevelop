@@ -16,10 +16,10 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
         self.refreshContaner.addHeaderWithCallback(RefreshHeaderView.header(),callback: {
             let delayInSeconds:Int64 =  1000000000  * 1
             
-            var popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
+            let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
             dispatch_after(popTime, dispatch_get_main_queue(), {
                 self.dataSource.removeAllObjects()
-                var detailsPageSource = self.getDetailsSource()
+                let detailsPageSource = self.getDetailsSource()
                 for i in 0..<detailsPageSource.count{
                     self.dataSource.addObject(detailsPageSource[i])
                 }
@@ -30,7 +30,7 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
     }
 
     private func getDetailsSource()->NSMutableArray{
-        var source:NSMutableArray = [
+        let source:NSMutableArray = [
             SoueceVo(data: [
                 CellVo(cellHeight: DetailsPageInfoCell.cellHeight, cellClass: DetailsPageInfoCell.self, cellData: pageData)
                 ]),
@@ -59,35 +59,35 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
     }()
     
     lazy var castButton:UIButton = {
-        let btn = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        let btn = UIButton(type: UIButtonType.System)
         let normalColor:UIColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         btn.backgroundColor = normalColor
         let title:NSString = "定投"
-        btn.setTitle(title as? String, forState: UIControlState.Normal)
+        btn.setTitle(title as String, forState: UIControlState.Normal)
         btn.setTitleColor(UIColor(red: 232/255, green: 55/255, blue: 59/255, alpha: 1), forState: UIControlState.Normal)
         self.operateArea.addSubview(btn)
         
-        var attstr:NSMutableAttributedString = NSMutableAttributedString(string: title as! String)
+        var attstr:NSMutableAttributedString = NSMutableAttributedString(string: title as String)
         attstr.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0, title.length))
         btn.titleLabel?.attributedText = attstr
-        btn.titleLabel?.font = UIFont.systemFontOfSize(18,weight:2)//weight文字线条粗细
+        btn.titleLabel?.font = UIFont.systemFontOfSize(18)//weight文字线条粗细 ,weight:2
         
         return btn
     }()
     
     lazy var applyButton:UIButton = {
-        let btn = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        let btn = UIButton(type: UIButtonType.System)
         let normalColor:UIColor = UIColor(red: 232/255, green: 55/255, blue: 59/255, alpha: 1)
         btn.backgroundColor = normalColor
         let title:NSString = "申购"
-        btn.setTitle(title as? String, forState: UIControlState.Normal)
+        btn.setTitle(title as String, forState: UIControlState.Normal)
         btn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         self.operateArea.addSubview(btn)
         
-        var attstr:NSMutableAttributedString = NSMutableAttributedString(string: title as! String)
+        var attstr:NSMutableAttributedString = NSMutableAttributedString(string: title as String)
         attstr.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0, title.length))
         btn.titleLabel?.attributedText = attstr
-        btn.titleLabel?.font = UIFont.systemFontOfSize(18,weight:2)//weight文字线条粗细
+        btn.titleLabel?.font = UIFont.systemFontOfSize(18)//weight文字线条粗细 ,weight:2
         
         return btn
     }()
@@ -234,7 +234,7 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
         
         let leftItem = //UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "cancelClick")
         UIBarButtonItem(title: "嘿嘿", style: UIBarButtonItemStyle.Done, target: self, action: "cancelClick")
-                var customView = UIArrowView(frame:CGRectMake(0, 0, 10, 22))
+                let customView = UIArrowView(frame:CGRectMake(0, 0, 10, 22))
                 customView.direction = .LEFT
         ////        customView.isClosed = true
                 customView.lineColor = UIColor.whiteColor()
@@ -245,9 +245,9 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
         
         self.navigationItem.leftBarButtonItem = leftItem
         
-        var titleView:UIView = UIView()
+        let titleView:UIView = UIView()
         
-        var sublabel:UILabel = UILabel()
+        let sublabel:UILabel = UILabel()
         sublabel.font = UIFont.systemFontOfSize(14)//20号
         sublabel.textColor = UIColor.whiteColor()
         sublabel.text = pageData.code
@@ -258,8 +258,8 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
             make.centerX.equalTo(titleView)
         }
         
-        var label:UILabel = UILabel()
-        label.font = UIFont.systemFontOfSize(20,weight:2)//20号
+        let label:UILabel = UILabel()
+        label.font = UIFont.systemFontOfSize(20)//20号 ,weight:2
         label.textColor = UIColor.whiteColor()
         label.text = pageData.title
         label.sizeToFit()
@@ -299,7 +299,7 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
     private var detailsPageChartHeader:DetailsPageChartSection!
     private var detailsPageMultipleSection:DetailsPageMultipleSection!
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var header = super.tableView(tableView,viewForHeaderInSection:section)
+        let header = super.tableView(tableView,viewForHeaderInSection:section)
         if header is DetailsPageChartSection{
             detailsPageChartHeader = header as! DetailsPageChartSection
             pageChartCell()
@@ -313,11 +313,11 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
     private var detailsPageMultipleCell:DetailsPageMultipleCell!
     //创建条目
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        var cell = super.tableView(tableView,cellForRowAtIndexPath:indexPath)
-        var section = indexPath.section
-        var row = indexPath.row
-        var source = dataSource[section] as! SoueceVo
-        var cellVo:CellVo = source.data![row] as! CellVo//获取的数据给cell显示
+        let cell = super.tableView(tableView,cellForRowAtIndexPath:indexPath)
+        let section = indexPath.section
+        let row = indexPath.row
+        let source = dataSource[section] as! SoueceVo
+        let cellVo:CellVo = source.data![row] as! CellVo//获取的数据给cell显示
         if cell is DetailsPageChartCell{
             detailsPageChartCell = cell as! DetailsPageChartCell
             detailsPageChartCell.delegate = self

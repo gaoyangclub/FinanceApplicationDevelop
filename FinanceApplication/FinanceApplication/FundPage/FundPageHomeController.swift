@@ -47,7 +47,7 @@ class FundPageHomeController:BaseTableViewController,DetailsPageCellDelegate{
             bar.backgroundImage = image // 需要用1像素的透明图片代替背景图 不然动画交互的时候会坑爹的闪现灰底
         })
         
-        var topView: UIView = bar.subviews[0] as! UIView
+        var topView: UIView = bar.subviews[0] 
         topView.userInteractionEnabled = false
         
         var atap = UITapGestureRecognizer(target: self, action: "searchBarTap:")
@@ -62,12 +62,12 @@ class FundPageHomeController:BaseTableViewController,DetailsPageCellDelegate{
         self.refreshContaner.addHeaderWithCallback(RefreshHeaderView.header(),callback: {
             let delayInSeconds:Int64 =  100000000  * 5
             
-            var popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
+            let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
             dispatch_after(popTime, dispatch_get_main_queue(), {
                 self.hasSetUp = true
                 
                 self.dataSource.removeAllObjects()
-                var fundPageSource = self.getFundHomeSource()
+                let fundPageSource = self.getFundHomeSource()
                 for i in 0..<fundPageSource.count{
                     self.dataSource.addObject(fundPageSource[i])
                 }
@@ -78,10 +78,10 @@ class FundPageHomeController:BaseTableViewController,DetailsPageCellDelegate{
     }
     
     private func getFundHomeSource()->NSMutableArray{
-        var svo = SoueceVo(data: [
+        let svo = SoueceVo(data: [
             CellVo(cellHeight: FundPageHomeHotCell.cellHeight, cellClass: FundPageHomeHotCell.self)
             ])
-        var fundHomeTitleList:[InfoFundHeader] = DataRemoteFacade.getFundHomeTitleList()
+        let fundHomeTitleList:[InfoFundHeader] = DataRemoteFacade.getFundHomeTitleList()
         for fvo in fundHomeTitleList{
             svo.data?.addObject(CellVo(cellHeight: FundPageHomeInfoCell.cellHeight, cellClass: FundPageHomeInfoCell.self,cellData:fvo))
         }
@@ -133,10 +133,10 @@ class FundPageHomeController:BaseTableViewController,DetailsPageCellDelegate{
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var section = indexPath.section
-        var row = indexPath.row
-        var source = dataSource[section] as! SoueceVo
-        var cell:CellVo = source.data![indexPath.row] as! CellVo
+        let section = indexPath.section
+//        var row = indexPath.row
+        let source = dataSource[section] as! SoueceVo
+        let cell:CellVo = source.data![indexPath.row] as! CellVo
         if cell.cellData is InfoFundHeader{
             //点击hot内容跳转
             let fvo = cell.cellData as! InfoFundHeader //点击到Fund详细页

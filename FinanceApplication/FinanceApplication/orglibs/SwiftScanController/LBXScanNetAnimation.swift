@@ -64,7 +64,7 @@ class LBXScanNetAnimation: UIImageView {
             
             }, completion:{ (value: Bool) -> Void in
                 let delayInSeconds:Int64 =  100000000  * 2
-                var popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
+                let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
                 dispatch_after(popTime, dispatch_get_main_queue(), {
                     self.stepAnimation()
                 })

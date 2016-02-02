@@ -33,7 +33,7 @@ class TabViewController: UITabBarController {
         }
     }
     
-    var tabBarHeight:CGFloat = 45{
+    var tabBarHeight:CGFloat = 50{
         didSet{
             self.view.setNeedsLayout()
         }
@@ -58,10 +58,10 @@ class TabViewController: UITabBarController {
         
         self.view.addSubview(lineView)
         
-        lineView.snp_makeConstraints(){ (make) -> Void in
+        lineView.snp_makeConstraints(){ [weak self](make) -> Void in
             make.height.equalTo(0.5)
-            make.width.equalTo(self.view)
-            make.bottom.equalTo(self.containerView.snp_top)
+            make.width.equalTo(self!.view)
+            make.bottom.equalTo(self!.containerView.snp_top)
         }
     }
     
@@ -75,6 +75,10 @@ class TabViewController: UITabBarController {
         stateTabChange(subView.itemIndex)
     }
     
+    func getCurrentController()->UIViewController?{
+        return dataProvider?[self.selectedIndex].controller
+    }
+    
     //自定义tabBar视图
     private func customTabBar(){
 //        var height=UIScreen.mainScreen().bounds.size.height
@@ -83,14 +87,14 @@ class TabViewController: UITabBarController {
         if dataProvider == nil{
             return
         }
-        containerView.snp_makeConstraints(){ (make) -> Void in
-            make.centerX.equalTo(self.view)
-            make.height.equalTo(self.tabBarHeight)
-            make.width.equalTo(self.view)
-            make.bottom.equalTo(self.view)
+        containerView.snp_makeConstraints(){ [weak self](make) -> Void in
+            make.centerX.equalTo(self!.view)
+            make.height.equalTo(self!.tabBarHeight)
+            make.width.equalTo(self!.view)
+            make.bottom.equalTo(self!.view)
         }
 //        
-        var tw:UIView = self.view.subviews[0] as! UIView //UITransitionView
+        let tw:UIView = self.view.subviews[0] //UITransitionView
 //        tw.backgroundColor = UIColor.grayColor()
         tw.frame = CGRectMake(0,0,view.frame.width,view.frame.height - self.tabBarHeight)
         
@@ -99,22 +103,22 @@ class TabViewController: UITabBarController {
         
 //        selectedIndex = 0//默认选中第0个
         containerView.removeAllSubViews()
-        var count = dataProvider?.count
-        var subW = Float(self.view.frame.width / CGFloat(count!))
+        let count = dataProvider?.count
+        let subW = Float(self.view.frame.width / CGFloat(count!))
         var preView:UIView? = nil
         for i in 0..<count!{
 //            var x = CGFloat(i) * subW
             
 //            let itemClass:BaseItemRenderer.Type = BaseItemRenderer.self
-            let subView:BaseItemRenderer = itemClass()
+            let subView:BaseItemRenderer = itemClass.init()
             
 //            subView.frame = CGRectMake(x, 0, subW, tabBarHeight)
             containerView.addSubview(subView)
-            subView.snp_makeConstraints(closure: { (make) -> Void in
-                make.top.equalTo(self.containerView)
-                make.bottom.equalTo(self.containerView)
+            subView.snp_makeConstraints(closure: { [weak self](make) -> Void in
+                make.top.equalTo(self!.containerView)
+                make.bottom.equalTo(self!.containerView)
                 if preView == nil{
-                    make.left.equalTo(self.containerView)
+                    make.left.equalTo(self!.containerView)
                 }else{
                     make.left.equalTo(preView!.snp_right)
                 }
@@ -129,18 +133,20 @@ class TabViewController: UITabBarController {
         if(selectedIndex > count){//不存在的位置
             stateTabChange(0)//默认选中第0个
         }
+        
         measureControllers()
     }
     
     private func stateTabChange(index:Int){
         for obj in self.containerView.subviews{
-            var subView = obj as! BaseItemRenderer
+            let subView = obj as! BaseItemRenderer
             subView.selected = index == subView.itemIndex //直接选中
         }
     }
     
     private func measureControllers(){
-        var ctrls:[AnyObject] = []
+        
+        var ctrls:[UIViewController] = []
         for tabData in dataProvider!{
             ctrls.append(tabData.controller)
         }

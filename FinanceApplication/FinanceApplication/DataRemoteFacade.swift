@@ -140,9 +140,9 @@ class DataRemoteFacade: NSObject {
     
     static func getDetailsById(id:Int)->InfoFundVo?{
         for header in detailsDataList{
-            var infoHeader = header as! InfoFundHeader
+            let infoHeader = header as! InfoFundHeader
             for obj in infoHeader.fundList{
-                var dvo:InfoFundVo = obj as! InfoFundVo
+                let dvo:InfoFundVo = obj as! InfoFundVo
                 if dvo.id == id{
                     return dvo
                 }
@@ -156,14 +156,14 @@ class DataRemoteFacade: NSObject {
     }
     
     static func getFundFilterResult(kind:Int,startIndex:Int,keyNameKind:String = "rateDay",order:Bool = true,count:Int = 10)->NSMutableArray{
-        var header = todayFundList[kind] as! InfoFundHeader
+        let header = todayFundList[kind] as! InfoFundHeader
         
         //1.分组
         var fundDic:Dictionary<String,NSMutableArray> = [:]
-        var df:NSDateFormatter = NSDateFormatter()
+        let df:NSDateFormatter = NSDateFormatter()
         df.dateFormat = "yyyy-MM-dd"
         for fund in header.fundList{
-            var fvo = fund as! InfoFundVo
+            let fvo = fund as! InfoFundVo
             let timeKey = df.stringFromDate(fvo.updateTime)
             var fArr:NSMutableArray? = fundDic[timeKey]
             if fArr == nil{
@@ -172,9 +172,9 @@ class DataRemoteFacade: NSObject {
             }
             fArr?.addObject(fvo)
         }
-        var sortedKeysAndValues = sorted(fundDic) {
-            var date1:NSDate = df.dateFromString($0.0)!
-            var date2:NSDate = df.dateFromString($1.0)!
+        let sortedKeysAndValues = fundDic.sort {
+            let date1:NSDate = df.dateFromString($0.0)!
+            let date2:NSDate = df.dateFromString($1.0)!
             if date1.compare(date2) == .OrderedDescending{
                 return true
             }
@@ -210,8 +210,8 @@ class DataRemoteFacade: NSObject {
         //2.遍历后排序
         for (timeKey,fArr) in sortedKeysAndValues{
             fArr.sortUsingComparator({ (obj1, obj2) -> NSComparisonResult in
-                var fund1:InfoFundVo = obj1 as! InfoFundVo
-                var fund2:InfoFundVo = obj2 as! InfoFundVo
+                let fund1:InfoFundVo = obj1 as! InfoFundVo
+                let fund2:InfoFundVo = obj2 as! InfoFundVo
 //                var value1:Float
 //                var value2:Float
 //                if keyNameKind == 0{
@@ -234,8 +234,8 @@ class DataRemoteFacade: NSObject {
         }
         
         //3.按次序获取数据并返回
-        var list:NSMutableArray = []
-        var endIndex = startIndex + count
+        let list:NSMutableArray = []
+        let endIndex = startIndex + count
         var index = 0
         var fheader:FilterFundHeader!
 
@@ -266,7 +266,7 @@ out:    for (timeKey,fArr) in sortedKeysAndValues{
 
     static func getSummarysById(id:Int)->InfoSummaryVo?{
         for obj in summarysDataList{
-            var ivo:InfoSummaryVo = obj as! InfoSummaryVo
+            let ivo:InfoSummaryVo = obj as! InfoSummaryVo
             if ivo.classId == id{
                 return ivo
             }
@@ -319,14 +319,14 @@ out:    for (timeKey,fArr) in sortedKeysAndValues{
         var loanList:[InfoStockVo] = []
         var indexList:[Int] = []
         var index:Int = 0
-        for temp in stocksDataList{
+        for _ in stocksDataList{
             indexList.append(index)
             index++
         }
         //存储完index
         let count:Int = Int(arc4random_uniform(5)) + 11 //11 - 15
         
-        for i in 0..<count{
+        for _ in 0..<count{
             let randomIndex:Int = Int(arc4random_uniform(UInt32(indexList.count)))
             let sourceIndex:Int = indexList[randomIndex]
             indexList.removeAtIndex(randomIndex) //移除掉 下次使用
@@ -359,7 +359,7 @@ out:    for (timeKey,fArr) in sortedKeysAndValues{
         //存储完index
         var noticeList:[InfoNoticeVo] = []
         let count:Int = Int(arc4random_uniform(15)) + 1 //1 - 15
-        for i in 0..<count{
+        for _ in 0..<count{
             let randomIndex:Int = Int(arc4random_uniform(UInt32(noticesDataList.count)))
             noticeList.append(noticesDataList[randomIndex] as! InfoNoticeVo)
         }
@@ -367,39 +367,39 @@ out:    for (timeKey,fArr) in sortedKeysAndValues{
     }
     
 }
-class SoueceVo{
-    init(data:NSMutableArray?,headerHeight:CGFloat = 0,headerClass:BaseItemRenderer.Type? = nil,headerData:Any? = nil,isUnique:Bool = false){
-//        sourceHeight:CGFloat,cellClass:BaseTableViewCell.Type,data:NSMutableArray?,
-//        self.sourceHeight = sourceHeight
+//class SoueceVo{
+//    init(data:NSMutableArray?,headerHeight:CGFloat = 0,headerClass:BaseItemRenderer.Type? = nil,headerData:Any? = nil,isUnique:Bool = false){
+////        sourceHeight:CGFloat,cellClass:BaseTableViewCell.Type,data:NSMutableArray?,
+////        self.sourceHeight = sourceHeight
+////        self.cellClass = cellClass
+//        self.headerHeight = headerHeight
+//        self.headerClass = headerClass
+//        self.headerData = headerData
+//        self.data = data
+//        self.isUnique = isUnique
+//    }
+////    var sourceHeight:CGFloat = 0.0
+////    var cellClass:BaseTableViewCell.Type
+//    var data:NSMutableArray?//数据源
+//    var headerHeight:CGFloat = 0.0
+//    var headerClass:BaseItemRenderer.Type?
+//    var headerData:Any?//标题的数据源
+//    var isUnique:Bool = false
+//}
+//class CellVo{
+//    init(cellHeight:CGFloat = 0,cellClass:BaseTableViewCell.Type,cellData:Any? = nil,cellTag:Int = 0,isUnique:Bool = false){
+//        self.cellHeight = cellHeight
 //        self.cellClass = cellClass
-        self.headerHeight = headerHeight
-        self.headerClass = headerClass
-        self.headerData = headerData
-        self.data = data
-        self.isUnique = isUnique
-    }
-//    var sourceHeight:CGFloat = 0.0
+//        self.cellData = cellData
+//        self.cellTag = cellTag
+//        self.isUnique = isUnique
+//    }
+//    var cellHeight:CGFloat = 0.0
 //    var cellClass:BaseTableViewCell.Type
-    var data:NSMutableArray?//数据源
-    var headerHeight:CGFloat = 0.0
-    var headerClass:BaseItemRenderer.Type?
-    var headerData:Any?//标题的数据源
-    var isUnique:Bool = false
-}
-class CellVo{
-    init(cellHeight:CGFloat = 0,cellClass:BaseTableViewCell.Type,cellData:Any? = nil,cellTag:Int = 0,isUnique:Bool = false){
-        self.cellHeight = cellHeight
-        self.cellClass = cellClass
-        self.cellData = cellData
-        self.cellTag = cellTag
-        self.isUnique = isUnique
-    }
-    var cellHeight:CGFloat = 0.0
-    var cellClass:BaseTableViewCell.Type
-    var cellData:Any?//栏目的数据源
-    var cellTag:Int = 0//1,2
-    var isUnique:Bool = false
-}
+//    var cellData:Any?//栏目的数据源
+//    var cellTag:Int = 0//1,2
+//    var isUnique:Bool = false
+//}
 class HotItemVo {
     init(classId:Int,title:String,content:String,rate:String = "",rateTitle:String = ""){
         self.classId = classId

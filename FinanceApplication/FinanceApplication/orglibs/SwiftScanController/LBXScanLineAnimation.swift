@@ -60,7 +60,7 @@ class LBXScanLineAnimation: UIImageView {
             }, completion:{ (value: Bool) -> Void in
                 let delayInSeconds:Int64 =  100000000  * 3
                 
-                var popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
+                let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
                 dispatch_after(popTime, dispatch_get_main_queue(), {
                     self.stepAnimation()
                 })
@@ -77,7 +77,7 @@ class LBXScanLineAnimation: UIImageView {
     
     deinit
     {
-        print("LBXScanLineAnimation deinit")
+        print("LBXScanLineAnimation deinit", terminator: "")
         stopStepAnimating()
     }
 

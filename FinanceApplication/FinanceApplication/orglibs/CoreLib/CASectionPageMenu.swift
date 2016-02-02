@@ -168,9 +168,9 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
     /**
     Initialize PageMenu with view controllers
     
-    :param: viewControllers List of view controllers that must be subclasses of UIViewController
-    :param: frame Frame for page menu view
-    :param: options Dictionary holding any customization options user might want to set
+    - parameter viewControllers: List of view controllers that must be subclasses of UIViewController
+    - parameter frame: Frame for page menu view
+    - parameter options: Dictionary holding any customization options user might want to set
     */
 //    public init(pageMenuOptions: [CAPSPageMenuOption]?) {
 //        
@@ -205,7 +205,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                 case let .MenuMargin(value):
                     menuMargin = value
                 case let .MenuHeight(value):
-                    var menuHeight = value
+                    _ = value
                 case let .SelectedMenuItemLabelColor(value):
                     selectedMenuItemLabelColor = value
                 case let .UnselectedMenuItemLabelColor(value):
@@ -247,7 +247,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
 //        super.init(coder: aDecoder)
 //    }
     
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
 //        super.init(coder: aDecoder)
     }
@@ -262,23 +262,23 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
          self.addSubview(menuScrollView)
         
         // Set up menu scroll view
-        menuScrollView.snp_makeConstraints { (make) -> Void in
-            make.left.top.right.equalTo(self)
+        menuScrollView.snp_makeConstraints { [weak self](make) -> Void in
+            make.left.top.right.equalTo(self!)
 //            make.height.equalTo(menuHeight)
-            make.bottom.equalTo(self)
+            make.bottom.equalTo(self!)
         }
         
 //        menuScrollView.frame = CGRectMake(0.0, 0.0, self.view.frame.width, menuHeight)
         
         // Add hairline to menu scroll view
         if addBottomMenuHairline {
-            var menuBottomHairline : UIView = UIView()
+            let menuBottomHairline : UIView = UIView()
             
             
             self.addSubview(menuBottomHairline)
-            menuBottomHairline.snp_makeConstraints(closure: { (make) -> Void in
-                make.left.right.equalTo(self)
-                make.bottom.equalTo(self)
+            menuBottomHairline.snp_makeConstraints(closure: { [weak self](make) -> Void in
+                make.left.right.equalTo(self!)
+                make.bottom.equalTo(self!)
                 make.height.equalTo(0.5)
             })
             
@@ -344,11 +344,11 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
             if useMenuLikeSegmentedControl {
                 menuItemFrame = CGRectMake(self.frame.width / CGFloat(titleArray.count) * CGFloat(index), 0.0, CGFloat(self.frame.width) / CGFloat(titleArray.count), self.frame.height)
             } else if menuItemWidthBasedOnTitleTextWidth {
-                var controllerTitle : String? = title
+                let controllerTitle : String? = title
                 
-                var titleText : String = controllerTitle != nil ? controllerTitle! : "Menu \(Int(index) + 1)"
+                let titleText : String = controllerTitle != nil ? controllerTitle! : "Menu \(Int(index) + 1)"
                 
-                var itemWidthRect : CGRect = (titleText as NSString).boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:menuItemFont], context: nil)
+                let itemWidthRect : CGRect = (titleText as NSString).boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:menuItemFont], context: nil)
                 
                 menuItemWidth = itemWidthRect.width
                 
@@ -370,7 +370,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                 }
             }
             
-            var menuItemView : MenuItemView = MenuItemView(frame: menuItemFrame)
+            let menuItemView : MenuItemView = MenuItemView(frame: menuItemFrame)
             if useMenuLikeSegmentedControl {
                 menuItemView.setUpMenuItemView(CGFloat(self.frame.width) / CGFloat(titleArray.count), menuScrollViewHeight: self.frame.height, indicatorHeight: selectionIndicatorHeight, separatorPercentageHeight: menuItemSeparatorPercentageHeight, separatorWidth: menuItemSeparatorWidth, separatorRoundEdges: menuItemSeparatorRoundEdges, menuItemSeparatorColor: menuItemSeparatorColor)
             } else {
@@ -391,7 +391,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
             } else {
                 info = "Menu \(Int(index) + 1)"
             }
-            var attstr:NSMutableAttributedString = NSMutableAttributedString(string: info as String)
+            let attstr:NSMutableAttributedString = NSMutableAttributedString(string: info as String)
             if menuItemSeparatorUnderline {
                 attstr.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0, info.length))
             }
@@ -460,7 +460,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
             let leadingAndTrailingMargin = self.getMarginForMenuItemWidthBasedOnTitleTextWidthAndCenterMenuItems()
             
             // adjust the margin of each menu item to make them centered
-            for (index, menuItem) in enumerate(menuItems) {
+            for (index, menuItem) in menuItems.enumerate() {
                 let controllerTitle = titleArray[index]
                 
                 let itemWidthRect = controllerTitle.boundingRectWithSize(CGSizeMake(1000, 1000), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName:menuItemFont], context: nil)
@@ -482,7 +482,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
             }
         } else {
             // the menuScrollView.contentSize.width exceeds the view's width, so layout the menu items normally (menuItemWidthBasedOnTitleTextWidth)
-            for (index, menuItem) in enumerate(menuItems) {
+            for (index, menuItem) in menuItems.enumerate() {
                 var menuItemX: CGFloat
                 if index == 0 {
                     menuItemX = menuMargin
@@ -524,7 +524,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                                 
                                 if newScrollDirection != .Other {
                                     if lastScrollDirection != newScrollDirection {
-                                        var index : Int = newScrollDirection == .Left ? currentPageIndex + 1 : currentPageIndex - 1
+                                        let index : Int = newScrollDirection == .Left ? currentPageIndex + 1 : currentPageIndex - 1
                                         
                                         if index >= 0 && index < titleArray.count {
                                             // Check dictionary if page was already added
@@ -543,7 +543,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                                 if (lastControllerScrollViewContentOffset > scrollView.contentOffset.x) {
                                     if currentPageIndex != titleArray.count - 1 {
                                         // Add page to the left of current page
-                                        var index : Int = currentPageIndex - 1
+                                        let index : Int = currentPageIndex - 1
                                         
                                         if pagesAddedDictionary[index] != index && index < titleArray.count && index >= 0 {
                                             addPageAtIndex(index)
@@ -555,7 +555,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                                 } else if (lastControllerScrollViewContentOffset < scrollView.contentOffset.x) {
                                     if currentPageIndex != 0 {
                                         // Add page to the right of current page
-                                        var index : Int = currentPageIndex + 1
+                                        let index : Int = currentPageIndex + 1
                                         
                                         if pagesAddedDictionary[index] != index && index < titleArray.count && index >= 0 {
                                             addPageAtIndex(index)
@@ -585,8 +585,8 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                         }
                         
                         // Calculate current page
-                        var width : CGFloat = controllerScrollView.frame.size.width;
-                        var page : Int = Int((controllerScrollView.contentOffset.x + (0.5 * width)) / width)
+                        let width : CGFloat = controllerScrollView.frame.size.width;
+                        let page : Int = Int((controllerScrollView.contentOffset.x + (0.5 * width)) / width)
                         
                         // Update page if changed
                         if page != currentPageIndex {
@@ -605,12 +605,12 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                                 }
                                 
                                 // Make sure only up to 3 page views are in memory when fast scrolling, otherwise there should only be one in memory
-                                var indexLeftTwo : Int = page - 2
+                                let indexLeftTwo : Int = page - 2
                                 if pagesAddedDictionary[indexLeftTwo] == indexLeftTwo {
                                     pagesAddedDictionary.removeValueForKey(indexLeftTwo)
                                     removePageAtIndex(indexLeftTwo)
                                 }
-                                var indexRightTwo : Int = page + 2
+                                let indexRightTwo : Int = page + 2
                                 if pagesAddedDictionary[indexRightTwo] == indexRightTwo {
                                     pagesAddedDictionary.removeValueForKey(indexRightTwo)
                                     removePageAtIndex(indexRightTwo)
@@ -721,7 +721,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
     // MARK: - Tap gesture recognizer selector
     
     func handleMenuItemTap(gestureRecognizer : UITapGestureRecognizer) {
-        var tappedPoint : CGPoint = gestureRecognizer.locationInView(menuScrollView)
+        let tappedPoint : CGPoint = gestureRecognizer.locationInView(menuScrollView)
         
         if tappedPoint.y < menuScrollView.frame.height {
             
@@ -739,7 +739,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                     menuItemRightBound = CGRectGetMaxX(menuItems[menuItems.count-1].frame)
                     
                     if (tappedPoint.x >= menuItemLeftBound && tappedPoint.x <= menuItemRightBound) {
-                        for (index, title) in enumerate(titleArray) {
+                        for (index, title) in titleArray.enumerate() {
                             menuItemLeftBound = CGRectGetMinX(menuItems[index].frame)
                             menuItemRightBound = CGRectGetMaxX(menuItems[index].frame)
                             
@@ -767,7 +767,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                     }
                 }
             } else {
-                var rawItemIndex : CGFloat = ((tappedPoint.x - startingMenuMargin) - menuMargin / 2) / (menuMargin + menuItemWidth)
+                let rawItemIndex : CGFloat = ((tappedPoint.x - startingMenuMargin) - menuMargin / 2) / (menuMargin + menuItemWidth)
                 
                 // Prevent moving to first item when tapping left to first item
                 if rawItemIndex < 0 {
@@ -786,8 +786,8 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                     didTapMenuItemToScroll = true
                     
                     // Add pages in between current and tapped page if necessary
-                    var smallerIndex : Int = lastPageIndex < currentPageIndex ? lastPageIndex : currentPageIndex
-                    var largerIndex : Int = lastPageIndex > currentPageIndex ? lastPageIndex : currentPageIndex
+                    let smallerIndex : Int = lastPageIndex < currentPageIndex ? lastPageIndex : currentPageIndex
+                    let largerIndex : Int = lastPageIndex > currentPageIndex ? lastPageIndex : currentPageIndex
                     
                     if smallerIndex + 1 != largerIndex {
                         for index in (smallerIndex + 1)...(largerIndex - 1) {
@@ -805,10 +805,10 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                 }
                 
                 // Move controller scroll view when tapping menu item
-                var duration : Double = Double(scrollAnimationDurationOnMenuItemTap) / Double(1000)
+                let duration : Double = Double(scrollAnimationDurationOnMenuItemTap) / Double(1000)
                 
                 UIView.animateWithDuration(duration, animations: { () -> Void in
-                    var xOffset : CGFloat = CGFloat(itemIndex) * self.controllerScrollView.frame.width
+                    let xOffset : CGFloat = CGFloat(itemIndex) * self.controllerScrollView.frame.width
                     self.controllerScrollView.setContentOffset(CGPoint(x: xOffset, y: self.controllerScrollView.contentOffset.y), animated: false)
                 })
                 
@@ -816,7 +816,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                     tapTimer!.invalidate()
                 }
                 
-                var timerInterval : NSTimeInterval = Double(scrollAnimationDurationOnMenuItemTap) * 0.001
+                let timerInterval : NSTimeInterval = Double(scrollAnimationDurationOnMenuItemTap) * 0.001
                 tapTimer = NSTimer.scheduledTimerWithTimeInterval(timerInterval, target: self, selector: "scrollViewDidEndTapScrollingAnimation", userInfo: nil, repeats: false)
             }
         }
@@ -886,7 +886,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
         controllerScrollView.showsHorizontalScrollIndicator = false
         controllerScrollView.showsVerticalScrollIndicator = false
         
-        var oldCurrentOrientationIsPortrait : Bool = currentOrientationIsPortrait
+        let oldCurrentOrientationIsPortrait : Bool = currentOrientationIsPortrait
         currentOrientationIsPortrait = UIApplication.sharedApplication().statusBarOrientation.isPortrait
         
         if (oldCurrentOrientationIsPortrait && UIDevice.currentDevice().orientation.isLandscape) || (!oldCurrentOrientationIsPortrait && UIDevice.currentDevice().orientation.isPortrait) {
@@ -897,8 +897,8 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                 menuScrollView.contentSize = CGSizeMake(self.frame.width, self.frame.height)
                 
                 // Resize selectionIndicator bar
-                var selectionIndicatorX : CGFloat = CGFloat(currentPageIndex) * (self.frame.width / CGFloat(self.titleArray.count))
-                var selectionIndicatorWidth : CGFloat = self.frame.width / CGFloat(self.titleArray.count)
+                let selectionIndicatorX : CGFloat = CGFloat(currentPageIndex) * (self.frame.width / CGFloat(self.titleArray.count))
+                let selectionIndicatorWidth : CGFloat = self.frame.width / CGFloat(self.titleArray.count)
                 selectionIndicatorView.frame =  CGRectMake(selectionIndicatorX, self.selectionIndicatorView.frame.origin.y, selectionIndicatorWidth, self.selectionIndicatorView.frame.height)
                 
                 // Resize menu items
@@ -922,7 +922,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                     startingMenuMargin = 0.0
                 }
                 
-                var selectionIndicatorX : CGFloat = self.menuItemWidth * CGFloat(currentPageIndex) + self.menuMargin * CGFloat(currentPageIndex + 1) + self.startingMenuMargin
+                let selectionIndicatorX : CGFloat = self.menuItemWidth * CGFloat(currentPageIndex) + self.menuMargin * CGFloat(currentPageIndex + 1) + self.startingMenuMargin
                 selectionIndicatorView.frame =  CGRectMake(selectionIndicatorX, self.selectionIndicatorView.frame.origin.y, self.selectionIndicatorView.frame.width, self.selectionIndicatorView.frame.height)
                 
                 // Recalculate frame for menu items if centered
@@ -939,14 +939,14 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                 }
             }
             
-            for view : UIView in controllerScrollView.subviews as! [UIView] {
+            for view : UIView in controllerScrollView.subviews {
                 view.frame = CGRectMake(self.frame.width * CGFloat(currentPageIndex), self.frame.height, controllerScrollView.frame.width, self.frame.height - self.frame.height)
             }
             
-            var xOffset : CGFloat = CGFloat(self.currentPageIndex) * controllerScrollView.frame.width
+            let xOffset : CGFloat = CGFloat(self.currentPageIndex) * controllerScrollView.frame.width
             controllerScrollView.setContentOffset(CGPoint(x: xOffset, y: controllerScrollView.contentOffset.y), animated: false)
             
-            var ratio : CGFloat = (menuScrollView.contentSize.width - self.frame.width) / (controllerScrollView.contentSize.width - self.frame.width)
+            let ratio : CGFloat = (menuScrollView.contentSize.width - self.frame.width) / (controllerScrollView.contentSize.width - self.frame.width)
             
             if menuScrollView.contentSize.width > self.frame.width {
                 var offset : CGPoint = menuScrollView.contentOffset
@@ -962,7 +962,7 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
     /**
     Move to page at index
     
-    :param: index Index of the page to move to
+    - parameter index: Index of the page to move to
     */
     public func moveToPage(index: Int) {
         if index >= 0 && index < titleArray.count {
@@ -974,8 +974,8 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
                 didTapMenuItemToScroll = true
                 
                 // Add pages in between current and tapped page if necessary
-                var smallerIndex : Int = lastPageIndex < currentPageIndex ? lastPageIndex : currentPageIndex
-                var largerIndex : Int = lastPageIndex > currentPageIndex ? lastPageIndex : currentPageIndex
+                let smallerIndex : Int = lastPageIndex < currentPageIndex ? lastPageIndex : currentPageIndex
+                let largerIndex : Int = lastPageIndex > currentPageIndex ? lastPageIndex : currentPageIndex
                 
                 if smallerIndex + 1 != largerIndex {
                     for i in (smallerIndex + 1)...(largerIndex - 1) {
@@ -993,10 +993,10 @@ public class CASectionPageMenu: UIView, UIScrollViewDelegate, UIGestureRecognize
             }
             
             // Move controller scroll view when tapping menu item
-            var duration : Double = Double(scrollAnimationDurationOnMenuItemTap) / Double(1000)
+            let duration : Double = Double(scrollAnimationDurationOnMenuItemTap) / Double(1000)
             
             UIView.animateWithDuration(duration, animations: { () -> Void in
-                var xOffset : CGFloat = CGFloat(index) * self.controllerScrollView.frame.width
+                let xOffset : CGFloat = CGFloat(index) * self.controllerScrollView.frame.width
                 self.controllerScrollView.setContentOffset(CGPoint(x: xOffset, y: self.controllerScrollView.contentOffset.y), animated: false)
             })
         }

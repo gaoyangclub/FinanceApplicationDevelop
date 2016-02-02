@@ -20,13 +20,14 @@ class UICreaterUtils: AnyObject {
     static let colorFlat:UIColor = UIColor(red: 119/255, green: 119/255, blue: 119/255, alpha: 1)
     
     static func createLabel(size:CGFloat,_ color:UIColor,_ text:String = "",_ sizeToFit:Bool = false,_ parent:UIView? = nil)->UILabel{
-        var uiLabel = UILabel()
+        let uiLabel = UILabel()
         if parent != nil{
             parent?.addSubview(uiLabel)
         }
         uiLabel.font = UIFont.systemFontOfSize(size)//UIFont(name: "Arial Rounded MT Bold", size: size)
         uiLabel.textColor = color
         uiLabel.text = text
+        uiLabel.userInteractionEnabled = false //默认没有交互
         if sizeToFit{
             uiLabel.sizeToFit()
         }

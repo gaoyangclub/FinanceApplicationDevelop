@@ -18,7 +18,7 @@ class FundPageKindConrtoller: UIViewController {
 //        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         let leftItem = //UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "cancelClick")
         UIBarButtonItem(title: "嘿嘿", style: UIBarButtonItemStyle.Done, target: self, action: "cancelClick")
-        var customView = UIArrowView(frame:CGRectMake(0, 0, 10, 22))
+        let customView = UIArrowView(frame:CGRectMake(0, 0, 10, 22))
         customView.direction = .LEFT
         customView.lineColor = UIColor.whiteColor()
         customView.lineThinkness = 2
@@ -60,7 +60,7 @@ class FundPageKindConrtoller: UIViewController {
         
         let titleView = UIView()
         let label:UILabel = UICreaterUtils.createLabel(20, UIColor.whiteColor(), "基金筛选", true, titleView)
-        label.font = UIFont.systemFontOfSize(20,weight:2)//20号
+        label.font = UIFont.systemFontOfSize(20)//20号 ,weight:2
         
         titleView.addSubview(label)
         label.snp_makeConstraints { (make) -> Void in
@@ -94,7 +94,7 @@ class FundPageKindConrtoller: UIViewController {
             controllerArray.append(controller)
         }
         // Initialize page menu with controller array, frame, and optional parameters
-        var parameters: [CAPSPageMenuOption] = [
+        let parameters: [CAPSPageMenuOption] = [
 //            .MenuHeight(100),
             .MenuItemWidth(60),
             .MenuMargin(10),
@@ -109,7 +109,7 @@ class FundPageKindConrtoller: UIViewController {
             .UnselectedMenuItemLabelColor(UICreaterUtils.colorBlack),
             .SelectedMenuItemLabelColor(UICreaterUtils.colorRise),
             CAPSPageMenuOption.MenuItemSeparatorUnderline(true),
-            .MenuItemFont(UIFont.systemFontOfSize(14,weight:1.2)),
+            .MenuItemFont(UIFont.systemFontOfSize(14)),//,weight:1.2
             .SelectionIndicatorHeight(2),
             .CenterMenuItems(true),
             .AddBottomMenuHairline(false)
