@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8401BC731C61EF0700F59ADA /* BatchLoaderForOC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8401BC6F1C61EF0700F59ADA /* BatchLoaderForOC.m */; };
+		8401BC741C61EF0700F59ADA /* BatchLoaderForSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8401BC701C61EF0700F59ADA /* BatchLoaderForSwift.swift */; };
+		8401BC751C61EF0700F59ADA /* FileInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8401BC721C61EF0700F59ADA /* FileInfo.m */; };
 		84049C331C60AF0600D04DF7 /* EZLoadingActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84049B6D1C60AF0600D04DF7 /* EZLoadingActivity.swift */; };
 		84049C341C60AF0600D04DF7 /* GoogleWearAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84049B6F1C60AF0600D04DF7 /* GoogleWearAlert.swift */; };
 		84049C351C60AF0600D04DF7 /* GoogleWearAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84049B701C60AF0600D04DF7 /* GoogleWearAlertView.swift */; };
@@ -30,7 +33,6 @@
 		84049C471C60AF0600D04DF7 /* BaseItemRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84049B901C60AF0600D04DF7 /* BaseItemRenderer.swift */; };
 		84049C481C60AF0600D04DF7 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84049B911C60AF0600D04DF7 /* BaseTableViewCell.swift */; };
 		84049C491C60AF0600D04DF7 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84049B921C60AF0600D04DF7 /* BaseTableViewController.swift */; };
-		84049C4A1C60AF0600D04DF7 /* BatchLoaderUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84049B931C60AF0600D04DF7 /* BatchLoaderUtil.swift */; };
 		84049C4B1C60AF0600D04DF7 /* CalculateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84049B941C60AF0600D04DF7 /* CalculateUtils.swift */; };
 		84049C4C1C60AF0600D04DF7 /* CAPSPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84049B951C60AF0600D04DF7 /* CAPSPageMenu.swift */; };
 		84049C4D1C60AF0600D04DF7 /* CASectionPageMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84049B961C60AF0600D04DF7 /* CASectionPageMenu.swift */; };
@@ -230,6 +232,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8401BC6E1C61EF0700F59ADA /* BatchLoaderForOC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchLoaderForOC.h; sourceTree = "<group>"; };
+		8401BC6F1C61EF0700F59ADA /* BatchLoaderForOC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatchLoaderForOC.m; sourceTree = "<group>"; };
+		8401BC701C61EF0700F59ADA /* BatchLoaderForSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchLoaderForSwift.swift; sourceTree = "<group>"; };
+		8401BC711C61EF0700F59ADA /* FileInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileInfo.h; sourceTree = "<group>"; };
+		8401BC721C61EF0700F59ADA /* FileInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileInfo.m; sourceTree = "<group>"; };
 		84049B6D1C60AF0600D04DF7 /* EZLoadingActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EZLoadingActivity.swift; sourceTree = "<group>"; };
 		84049B6F1C60AF0600D04DF7 /* GoogleWearAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleWearAlert.swift; sourceTree = "<group>"; };
 		84049B701C60AF0600D04DF7 /* GoogleWearAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleWearAlertView.swift; sourceTree = "<group>"; };
@@ -261,7 +268,6 @@
 		84049B901C60AF0600D04DF7 /* BaseItemRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseItemRenderer.swift; sourceTree = "<group>"; };
 		84049B911C60AF0600D04DF7 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		84049B921C60AF0600D04DF7 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
-		84049B931C60AF0600D04DF7 /* BatchLoaderUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchLoaderUtil.swift; sourceTree = "<group>"; };
 		84049B941C60AF0600D04DF7 /* CalculateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculateUtils.swift; sourceTree = "<group>"; };
 		84049B951C60AF0600D04DF7 /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
 		84049B961C60AF0600D04DF7 /* CASectionPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CASectionPageMenu.swift; sourceTree = "<group>"; };
@@ -521,9 +527,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8401BC6D1C61EF0700F59ADA /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				8401BC6E1C61EF0700F59ADA /* BatchLoaderForOC.h */,
+				8401BC6F1C61EF0700F59ADA /* BatchLoaderForOC.m */,
+				8401BC701C61EF0700F59ADA /* BatchLoaderForSwift.swift */,
+				8401BC711C61EF0700F59ADA /* FileInfo.h */,
+				8401BC721C61EF0700F59ADA /* FileInfo.m */,
+			);
+			path = Loader;
+			sourceTree = "<group>";
+		};
 		84049B6A1C60AF0600D04DF7 /* orglibs */ = {
 			isa = PBXGroup;
 			children = (
+				8401BC6D1C61EF0700F59ADA /* Loader */,
 				84049B6B1C60AF0600D04DF7 /* Alert */,
 				84049B7D1C60AF0600D04DF7 /* Badge */,
 				84049B831C60AF0600D04DF7 /* Control */,
@@ -640,7 +659,6 @@
 				84049B901C60AF0600D04DF7 /* BaseItemRenderer.swift */,
 				84049B911C60AF0600D04DF7 /* BaseTableViewCell.swift */,
 				84049B921C60AF0600D04DF7 /* BaseTableViewController.swift */,
-				84049B931C60AF0600D04DF7 /* BatchLoaderUtil.swift */,
 				84049B941C60AF0600D04DF7 /* CalculateUtils.swift */,
 				84049B951C60AF0600D04DF7 /* CAPSPageMenu.swift */,
 				84049B961C60AF0600D04DF7 /* CASectionPageMenu.swift */,
@@ -1326,6 +1344,7 @@
 				84049C541C60AF0600D04DF7 /* Tempo.swift in Sources */,
 				84049C6C1C60AF0600D04DF7 /* IQBarButtonItem.m in Sources */,
 				A9B9CBB71C380585000C8959 /* DetailsNetValueRateView.swift in Sources */,
+				8401BC741C61EF0700F59ADA /* BatchLoaderForSwift.swift in Sources */,
 				84049C831C60AF0600D04DF7 /* RefreshFooterView.swift in Sources */,
 				84049C4F1C60AF0600D04DF7 /* PageListTableViewController.swift in Sources */,
 				A9B9CBB91C380585000C8959 /* DetailsPageChartCell.swift in Sources */,
@@ -1364,12 +1383,12 @@
 				A9B9CBC71C380585000C8959 /* HomePageBannerCell.swift in Sources */,
 				84049C5E1C60AF0600D04DF7 /* UIColor.swift in Sources */,
 				84049C421C60AF0600D04DF7 /* NSString+FontAwesome.m in Sources */,
-				84049C4A1C60AF0600D04DF7 /* BatchLoaderUtil.swift in Sources */,
 				84049C791C60AF0600D04DF7 /* NSObject+MJProperty.m in Sources */,
 				84049C451C60AF0600D04DF7 /* UIAwesomeButton.m in Sources */,
 				84049C7A1C60AF0600D04DF7 /* NSString+MJExtension.m in Sources */,
 				A9B9CBCA1C380585000C8959 /* HomePageHotHeader.swift in Sources */,
 				84049C8A1C60AF0600D04DF7 /* TAPageControl.m in Sources */,
+				8401BC751C61EF0700F59ADA /* FileInfo.m in Sources */,
 				A9B9CBC61C380585000C8959 /* FundPageKindController.swift in Sources */,
 				84049C671C60AF0600D04DF7 /* IQUIViewController+Additions.m in Sources */,
 				A9B9CAEA1C380559000C8959 /* RootViewController.swift in Sources */,
@@ -1427,6 +1446,7 @@
 				84049C821C60AF0600D04DF7 /* RefreshContainer.swift in Sources */,
 				84049C771C60AF0600D04DF7 /* NSObject+MJCoding.m in Sources */,
 				84049C6A1C60AF0600D04DF7 /* IQKeyboardReturnKeyHandler.m in Sources */,
+				8401BC731C61EF0700F59ADA /* BatchLoaderForOC.m in Sources */,
 				84049CA11C60AF0600D04DF7 /* LBXScanViewStyle.swift in Sources */,
 				A9B9CBC01C380585000C8959 /* DetailsSummaryView.swift in Sources */,
 				84049C901C60AF0600D04DF7 /* ConstraintDescription.swift in Sources */,

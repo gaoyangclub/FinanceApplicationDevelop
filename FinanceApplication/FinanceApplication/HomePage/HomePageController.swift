@@ -23,7 +23,7 @@ class HomePageController:BaseTableViewController,UISearchResultsUpdating,UISearc
 //        bar.searchBarStyle = UISearchBarStyle.Minimal
 //        bar.translucent = true //是否透视效果
         
-        BatchLoaderUtil.loadFile("empty", callBack: { (image, params) -> Void in
+        BatchLoaderForSwift.loadFile("empty", callBack: { (image) -> Void in
             bar.backgroundImage = image // 需要用1像素的透明图片代替背景图 不然动画交互的时候会坑爹的闪现灰底
         })
         
@@ -58,7 +58,7 @@ class HomePageController:BaseTableViewController,UISearchResultsUpdating,UISearc
         
         //使用的支付宝里面网格图片
 //        style.animationImage = UIImage(named: "CodeScan.bundle/qrcode_scan_part_net");
-        BatchLoaderUtil.loadFile("qrcode_scan_part_net", callBack: { (image, params) -> Void in
+        BatchLoaderForSwift.loadFile("qrcode_scan_part_net", callBack: { (image) -> Void in
             style.animationImage = image
         })
         

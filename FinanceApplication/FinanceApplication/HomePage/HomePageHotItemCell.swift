@@ -223,8 +223,8 @@ class HomePageHotItemCell: BaseTableViewCell {
                 make.centerY.equalTo(self.titleLabel)
             })
             
-            let url:String = "like"//"lightning"
-            BatchLoaderUtil.loadFile(url, callBack: { (image, params) -> Void in
+            let url:String = "lightning"//"like"//
+            BatchLoaderForSwift.loadFile(url, callBack: { (image) -> Void in
                 self.iconView.image = image
             })
             iconView.hidden = false

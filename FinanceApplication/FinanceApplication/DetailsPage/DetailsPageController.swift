@@ -114,22 +114,23 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
         
         //        let image = UIImage(named: "star")!
         
+        self.tabItem = UIFlatImageTabItem()
+        //        tabItem.backgroundColor = UIColor.blackColor()
+        view.addSubview(self.tabItem)
+        self.tabItem.userInteractionEnabled = false
+        self.tabItem.sizeType = .FillWidth
+        self.tabItem.normalColor = UICreaterUtils.colorFlat
+        self.tabItem.selectColor = UICreaterUtils.colorRise
         
-        BatchLoaderUtil.loadFile("star", callBack: { (image, params) -> Void in
-            self.tabItem = UIFlatImageTabItem(image: image)
-            //        tabItem.backgroundColor = UIColor.blackColor()
-            view.addSubview(self.tabItem)
-            self.tabItem.userInteractionEnabled = false
-            self.tabItem.sizeType = .FillWidth
-            self.tabItem.normalColor = UICreaterUtils.colorFlat
-            self.tabItem.selectColor = UICreaterUtils.colorRise
-            
-            self.tabItem.snp_makeConstraints(closure: { (make) -> Void in
-                make.height.equalTo(18)
-                make.left.right.equalTo(view)
-                make.centerX.equalTo(view)
-                make.bottom.equalTo(view.snp_centerY).offset(4)
-            })
+        self.tabItem.snp_makeConstraints(closure: { (make) -> Void in
+            make.height.equalTo(18)
+            make.left.right.equalTo(view)
+            make.centerX.equalTo(view)
+            make.bottom.equalTo(view.snp_centerY).offset(4)
+        })
+        
+        BatchLoaderForSwift.loadFile("star", callBack: { (image) -> Void in
+            self.tabItem.image = image
         })
         
         self.focusLabel = UICreaterUtils.createLabel(12, UICreaterUtils.colorFlat, "关注", true, view)

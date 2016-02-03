@@ -30,7 +30,7 @@ class FundPageKindConrtoller: UIViewController {
         tabItem1.sizeType = .FillWidth
         tabItem1.normalColor = UIColor.whiteColor()
         //        tabItem.selectColor = UICreaterUtils.colorRise
-        BatchLoaderUtil.loadFile("magnifie", callBack: { (image, params) -> Void in
+        BatchLoaderForSwift.loadFile("magnifie", callBack: { (image) -> Void in
             tabItem1.image = image
         })
         tabItem1.addTarget(self, action: "searchClick", forControlEvents: UIControlEvents.TouchDown)
@@ -43,7 +43,7 @@ class FundPageKindConrtoller: UIViewController {
         tabItem2.sizeType = .FillWidth
         tabItem2.normalColor = UIColor.whiteColor()
         //        tabItem.selectColor = UICreaterUtils.colorRise
-        BatchLoaderUtil.loadFile("campaign", callBack: { (image, params) -> Void in
+        BatchLoaderForSwift.loadFile("campaign", callBack: { (image) -> Void in
             tabItem2.image = image
         })
         tabItem2.addTarget(self, action: "setupClick", forControlEvents: UIControlEvents.TouchDown)

@@ -97,7 +97,7 @@ class MyTabItemRenderer: BaseItemRenderer {
         }
         
         let vo = data as! TabRendererVo
-        BatchLoaderUtil.loadFile(vo.iconUrl, callBack: { (image, params) -> Void in
+        BatchLoaderForSwift.loadFile(vo.iconUrl, callBack: { (image) -> Void in
             self.tabItem.image = image
 //            var ciColor1 = CIColor(color:MyTabItemRenderer.normalColor)
 //            

@@ -43,7 +43,7 @@ class FundPageHomeController:BaseTableViewController,DetailsPageCellDelegate{
         let bar = UISearchBar()
         bar.placeholder = "请输入基金代码"
 
-        BatchLoaderUtil.loadFile("empty", callBack: { (image, params) -> Void in
+        BatchLoaderForSwift.loadFile("empty", callBack: { (image) -> Void in
             bar.backgroundImage = image // 需要用1像素的透明图片代替背景图 不然动画交互的时候会坑爹的闪现灰底
         })
         

@@ -35,7 +35,7 @@ class HomePageFooterCell: BaseTableViewCell {
             })
             
             let url:String = "money"
-            BatchLoaderUtil.loadFile(url, callBack: { (image, params) -> Void in
+            BatchLoaderForSwift.loadFile(url, callBack: { (image) -> Void in
                 self.icon!.image = image
             })
         }

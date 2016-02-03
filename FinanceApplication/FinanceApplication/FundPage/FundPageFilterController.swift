@@ -54,7 +54,7 @@ class FundPageFilterController: BaseTableViewController {
         tabItem.normalColor = UICreaterUtils.colorRise
         tabItem.hidden = true
         //        tabItem.selectColor = UICreaterUtils.colorRise
-        BatchLoaderUtil.loadFile("arrow", callBack: { (image, params) -> Void in
+        BatchLoaderForSwift.loadFile("arrow", callBack: { (image) -> Void in
             tabItem.image = image
         })
         return tabItem
@@ -68,7 +68,7 @@ class FundPageFilterController: BaseTableViewController {
         tabItem.sizeType = .FillWidth
         tabItem.normalColor = UICreaterUtils.colorRise
         //        tabItem.selectColor = UICreaterUtils.colorRise
-        BatchLoaderUtil.loadFile("arrow", callBack: { (image, params) -> Void in
+        BatchLoaderForSwift.loadFile("arrow", callBack: { (image) -> Void in
             tabItem.image = image
         })
         return tabItem
@@ -487,7 +487,7 @@ private class FundPageFilterCell:BaseTableViewCell{
         }
         
         self.iconView.image = nil
-        BatchLoaderUtil.loadFile("star", callBack: { (image, params) -> Void in
+        BatchLoaderForSwift.loadFile("star", callBack: { (image) -> Void in
             self.iconView.image = image
         })
         
@@ -564,7 +564,7 @@ private class FundPageFilterCell:BaseTableViewCell{
                 tabItem.normalColor = UICreaterUtils.normalLineColor
                 tabItem.selectColor = selectColor
                 tabItem.select = fvo.stars > i //点亮
-                BatchLoaderUtil.loadFile("star", callBack: { (image, params) -> Void in
+                BatchLoaderForSwift.loadFile("star", callBack: { (image) -> Void in
                     tabItem.image = image
                 })
                 tabItem.snp_makeConstraints { (make) -> Void in

@@ -141,7 +141,7 @@ class ImageSlideView: UIControl {
         
         pageControl?.currentPage = _currentPage
         
-        BatchLoaderUtil.loadFile(_dataSource![_currentPage], callBack: imageLoadedThenPage)
+        BatchLoaderForSwift.loadFile(_dataSource![_currentPage], callBack: imageLoadedThenPage)
 //        showCurrentPage()
         
 //        println("reload complete")
@@ -202,7 +202,10 @@ class ImageSlideView: UIControl {
         
         pageControl?.currentPage = nowPage//同步切换位置
         
-        BatchLoaderUtil.loadFile(_dataSource![nowPage], callBack: imageLoaded, imageViewNext!)
+        BatchLoaderForSwift.loadFile(_dataSource![nowPage]){ image in
+            self.imageViewNext?.image = image
+        }//, callBack: imageLoaded, imageViewNext!)
+        
 //        imageViewNext?.image = _dataSource![nowPage] as? UIImage
         
         if(tweenStyle == ImageTweenStyle.Fade){
@@ -273,6 +276,12 @@ class ImageSlideView: UIControl {
         }
     }
     
+//    func imageLoaded(data:UIImage?,params:[AnyObject]){
+//        let imageView = params[0] as! UIImageView//原视图
+//        //        var url = params[1] //原图片地址
+//        imageView.image = data! //显示
+//    }
+    
     private var pageConstraint:NSLayoutConstraint?
     private func showPageControlBottm(){
         if pageControl != nil{
@@ -298,13 +307,7 @@ class ImageSlideView: UIControl {
         }
     }
     
-    func imageLoaded(data:UIImage?,params:[AnyObject]){
-        let imageView = params[0] as! UIImageView//原视图
-        //        var url = params[1] //原图片地址
-        imageView.image = data! //显示
-    }
-    
-    func imageLoadedThenPage(data:UIImage?,params:[AnyObject]){
+    func imageLoadedThenPage(data:UIImage?){//,params:[AnyObject]
 //        var nextCall:(image:UIImage)->Void = params[0] as! (image:UIImage)->Void
 //        nextCall(image: data!)
         self.showCurrentPage(data!)

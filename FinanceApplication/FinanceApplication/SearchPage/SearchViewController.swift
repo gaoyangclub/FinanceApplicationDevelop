@@ -72,7 +72,7 @@ class SearchViewController: UITableViewController,UISearchBarDelegate {
 //        searchView.addSubview(searchBar)
 //        searchView.backgroundColor = UIColor.yellowColor()
         
-        BatchLoaderUtil.loadFile("empty", callBack: { (image, params) -> Void in
+        BatchLoaderForSwift.loadFile("empty", callBack: { (image) -> Void in
             self.searchBar.backgroundImage = image // 需要用1像素的透明图片代替背景图
         })
         
@@ -257,8 +257,8 @@ class SearchFundCell:UITableViewCell{
     lazy var favoriteArea:UIView = {
         let view = UIView()
         self.contentView.addSubview(view)
-        BatchLoaderUtil.loadFile("star", callBack: { (image, params) -> Void in
-            self.tabItem = UIFlatImageTabItem(image: image)
+        BatchLoaderForSwift.loadFile("star", callBack: { (image) -> Void in
+            self.tabItem = UIFlatImageTabItem(image: image!)
             view.addSubview(self.tabItem)
             self.tabItem.userInteractionEnabled = false
             self.tabItem.sizeType = .FillWidth
@@ -344,7 +344,7 @@ class SearchFundCell:UITableViewCell{
             make.centerY.equalTo(self.contentView)
         }
         
-        BatchLoaderUtil.loadFile(imageUrl, callBack: { (image, params) -> Void in
+        BatchLoaderForSwift.loadFile(imageUrl, callBack: { (image) -> Void in
             self.iconView.image = image
         })
         

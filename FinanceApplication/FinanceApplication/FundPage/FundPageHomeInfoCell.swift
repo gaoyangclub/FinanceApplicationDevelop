@@ -71,7 +71,7 @@ class FundPageHomeInfoCell: BaseTableViewCell {
             make.height.equalTo(24)
             make.centerY.equalTo(titleLabel)
         }
-        BatchLoaderUtil.loadFile(fvo.iconUrl, callBack: { (image, params) -> Void in
+        BatchLoaderForSwift.loadFile(fvo.iconUrl, callBack: { (image) -> Void in
             self.iconView.image = image
         })
         
