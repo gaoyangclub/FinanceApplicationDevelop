@@ -68,7 +68,25 @@ class DetailsWebPageController: UIViewController {
         customView.addTarget(self, action: "cancelClick", forControlEvents: UIControlEvents.TouchDown)
         
         self.navigationItem.leftBarButtonItem = leftItem
+        self.navigationItem.rightBarButtonItem = rightItem
     }
+    
+    private lazy var rightItem:UIBarButtonItem = {
+        let tabItem = UIFlatImageTabItem()
+        tabItem.frame = CGRectMake(0, 0, 30, 24)
+        tabItem.sizeType = .FillWidth
+        tabItem.normalColor = UIColor.whiteColor()
+        //        tabItem.selectColor = UICreaterUtils.colorRise
+        BatchLoaderForSwift.loadFile("open_in_browser", callBack: { (image) -> Void in
+            tabItem.image = image
+        })
+        tabItem.addTarget(self, action: "openBrowserClick", forControlEvents: UIControlEvents.TouchDown)
+        
+        let item = UIBarButtonItem(title: "嘿嘿", style: UIBarButtonItemStyle.Done, target: self, action: "cancelClick")
+        item.customView = tabItem
+        
+        return item
+    }()
     
     private lazy var progressView:UIProgressView = {
         let pView = UIProgressView()
@@ -91,6 +109,10 @@ class DetailsWebPageController: UIViewController {
     
     func cancelClick(){
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func openBrowserClick(){
+        UIApplication.sharedApplication().openURL(NSURL(string: self.linkUrl)!)
     }
     
     override func didReceiveMemoryWarning() {

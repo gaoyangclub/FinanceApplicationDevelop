@@ -127,6 +127,8 @@
 		84049CA61C60AF0600D04DF7 /* Info-watchOS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84049C301C60AF0600D04DF7 /* Info-watchOS.plist */; };
 		84049CA71C60AF0600D04DF7 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84049C321C60AF0600D04DF7 /* SwiftyJSON.swift */; };
 		84049CA91C60C10B00D04DF7 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 84049CA81C60C10B00D04DF7 /* star.png */; };
+		845173441C62F4440098840F /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 845173431C62F4440098840F /* like.png */; };
+		845173471C630B2B0098840F /* open_in_browser.png in Resources */ = {isa = PBXBuildFile; fileRef = 845173461C630B2B0098840F /* open_in_browser.png */; };
 		A9B9C9491C380082000C8959 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9B9C9481C380082000C8959 /* Images.xcassets */; };
 		A9B9C94C1C380082000C8959 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9B9C94A1C380082000C8959 /* LaunchScreen.xib */; };
 		A9B9C9581C380082000C8959 /* FinanceApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B9C9571C380082000C8959 /* FinanceApplicationTests.swift */; };
@@ -410,6 +412,8 @@
 		84049C311C60AF0600D04DF7 /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftyJSON.h; sourceTree = "<group>"; };
 		84049C321C60AF0600D04DF7 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		84049CA81C60C10B00D04DF7 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		845173431C62F4440098840F /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
+		845173461C630B2B0098840F /* open_in_browser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open_in_browser.png; sourceTree = "<group>"; };
 		A9B9C93C1C380082000C8959 /* FinanceApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinanceApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9B9C9401C380082000C8959 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9B9C9481C380082000C8959 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -1059,6 +1063,8 @@
 		A9B9CB781C380585000C8959 /* sourcelibs */ = {
 			isa = PBXGroup;
 			children = (
+				845173461C630B2B0098840F /* open_in_browser.png */,
+				845173431C62F4440098840F /* like.png */,
 				84049CA81C60C10B00D04DF7 /* star.png */,
 				A9B9CB791C380585000C8959 /* backup.png */,
 				A9B9CB7A1C380585000C8959 /* banner.jpg */,
@@ -1266,6 +1272,7 @@
 				A9B9CC491C380585000C8959 /* icon_03@2x.png in Resources */,
 				A9B9CC511C380585000C8959 /* icon_07@2x.png in Resources */,
 				A9B9CC4E1C380585000C8959 /* icon_06.png in Resources */,
+				845173471C630B2B0098840F /* open_in_browser.png in Resources */,
 				84049C371C60AF0600D04DF7 /* messageIcon@2x.png in Resources */,
 				A9B9CC391C380585000C8959 /* magnifie@2x.png in Resources */,
 				A9B9CC3B1C380585000C8959 /* qrcode_scan_part_net.png in Resources */,
@@ -1291,6 +1298,7 @@
 				A9B9CC241C380585000C8959 /* fundHot04.png in Resources */,
 				84049CA61C60AF0600D04DF7 /* Info-watchOS.plist in Resources */,
 				A9B9CC291C380585000C8959 /* fundHot09.png in Resources */,
+				845173441C62F4440098840F /* like.png in Resources */,
 				A9B9CC451C380585000C8959 /* icon_01@2x.png in Resources */,
 				A9B9CC301C380585000C8959 /* fundTag04.png in Resources */,
 				A9B9CC3A1C380585000C8959 /* money@2x.png in Resources */,

@@ -17,6 +17,12 @@ NSMutableDictionary<NSString*,UIImage*>* imageCacheDic;
 NSMutableDictionary<NSString*,NSMutableArray*>* callBackDic;
 
 +(void)loadFile:(NSString*)url _:(LoadCompletionHandler)callBack {
+    UIImage* image = [BatchLoaderForOC getImageCacheByUrl:url];
+    if(image != NULL){
+        callBack(image);//直接回调
+        return;
+    }
+    //开始存储回调队列
     if(callBackDic == NULL){
         callBackDic = [[NSMutableDictionary alloc]init];
     }
@@ -60,6 +66,7 @@ NSMutableDictionary<NSString*,NSMutableArray*>* callBackDic;
     }else{
         image = [UIImage imageNamed:url];
         [BatchLoaderForOC sendActionByUrl:target andSelection:action andUrl:url andImage:image];//本地调用
+        [imageCacheDic setObject:image forKey:url];//存入缓存
     }
 }
 
@@ -89,18 +96,22 @@ NSMutableDictionary<NSString*,NSMutableArray*>* callBackDic;
      }];
 }
 
++(UIImage* _Nullable)getImageCacheByUrl:(NSString*)url{
+    if(imageCacheDic == NULL)return NULL;
+    return [imageCacheDic objectForKey:url];
+}
+
 +(void)sendActionByUrl:(id)target andSelection:(SEL)action andUrl:(NSString*)url andImage:(UIImage*)image{
-    //    dispatch_barrier_sync(dispatch_get_main_queue(), ^{
-    
-    if(action!=nil){
+    if(action!=NULL){
         FileInfo* info = [[FileInfo alloc]init];
         info.url = url;
         info.image = image;
         //            objc_msgSend(_target,_selAction,[NSNumber numberWithInteger:selectedIndex],selectedIndex);
-        [target performSelector:action withObject:info]; //afterDelay:0
+        SuppressPerformSelectorLeakWarning(
+                                           [target performSelector:action withObject:info];//afterDelay:0
+        );
         //        [target performSelector:action withObject:image];
     }
-    
 }
 
 @end

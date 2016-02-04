@@ -31,6 +31,11 @@ public class BatchLoaderForSwift: UIControl {
 //    }
     
     class func loadFile(url:String,callBack:LoadCompletionHandler?){
+        let image = BatchLoaderForOC.getImageCacheByUrl(url)
+        if image != nil{
+            callBack?(image: image);//直接回调
+            return
+        }
         var paraArray:NSMutableArray? = callBackDic[url]
         var startLoad:Bool = false
         if  paraArray == nil{//不存在
