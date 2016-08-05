@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class FundPageHomeHotCell: BaseTableViewCell {
     
@@ -29,34 +30,48 @@ class FundPageHomeHotCell: BaseTableViewCell {
     private lazy var bottomLine:UIView = {
         let view:UIView = UIView()
         view.backgroundColor = UICreaterUtils.normalLineColor
-        self.addSubview(view)
+        self.contentView.addSubview(view)
         return view
         }()
     
+    private lazy var btnContainer:UIView = {
+        let view:UIView = UIView()
+        self.contentView.addSubview(view)
+        return view
+    }()
+    
     private func initCell(){
-        self.contentView.removeAllSubViews() //先全部移除
+        self.btnContainer.removeAllSubViews() //先全部移除
         
-        bottomLine.snp_makeConstraints { (make) -> Void in
-            make.left.right.bottom.equalTo(self)
+        btnContainer.snp_makeConstraints { (make) -> Void in
+            make.left.right.top.equalTo(self.contentView)
+        }
+        
+        bottomLine.snp_makeConstraints { [weak self](make) -> Void in
+            make.left.right.bottom.equalTo(self!.contentView)
             make.height.equalTo(UICreaterUtils.normalLineWidth)
         }
         
-        var preItem:UIView?
+//        var preItem:UIView?
+        let subViewList:NSMutableArray = []
         for i in 0..<hotList.count{
             let area:UIControl = UIControl()
             area.tag = i
             area.addTarget(self, action: "hotClickHandler:", forControlEvents: UIControlEvents.TouchUpInside)
-            self.contentView.addSubview(area)
-            area.snp_makeConstraints(closure: { (make) -> Void in
-                make.top.bottom.equalTo(self.contentView)
-                make.width.equalTo(self.contentView).dividedBy(hotList.count)
-//                make.left.equalTo(self.contentView.snp_width).multipliedBy(Double(i) / Double(hotList.count))
-                if preItem != nil{
-                    make.left.equalTo(preItem!.snp_right)
-                }else{
-                    make.left.equalTo(0)
-                }
-            })
+            self.btnContainer.addSubview(area)
+            
+            area.sd_layout().heightRatioToView(self.contentView,1)
+            
+//            area.snp_makeConstraints(closure: { (make) -> Void in
+//                make.top.bottom.equalTo(self.contentView)
+//                make.width.equalTo(self.contentView).dividedBy(hotList.count)
+////                make.left.equalTo(self.contentView.snp_width).multipliedBy(Double(i) / Double(hotList.count))
+//                if preItem != nil{
+//                    make.left.equalTo(preItem!.snp_right)
+//                }else{
+//                    make.left.equalTo(0)
+//                }
+//            })
             
             let titleLabel = UICreaterUtils.createLabel(12, UICreaterUtils.colorBlack, hotList[i].title, true, area)
             titleLabel.snp_makeConstraints(closure: { (make) -> Void in
@@ -75,8 +90,13 @@ class FundPageHomeHotCell: BaseTableViewCell {
             BatchLoaderForSwift.loadFile(hotList[i].icon, callBack: { (image) -> Void in
                 imageView.image = image
             })
-            preItem = area
+//            preItem = area
+            subViewList.addObject(area)
         }
+        
+        btnContainer.setupAutoWidthFlowItems(subViewList as [AnyObject],withPerRowItemsCount:subViewList.count,verticalMargin:0,horizontalMargin:0);
+        
+        
     }
     
     

@@ -9,6 +9,7 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class DetailsNetValueRateView: PageDataView,TrendChartDelegate{
     
@@ -42,6 +43,14 @@ class DetailsNetValueRateView: PageDataView,TrendChartDelegate{
         if chartInfoView == nil{
             chartInfoView = UIView()
             addSubview(chartInfoView)
+            
+            
+//            chartInfoView.sd_layout()
+//                .leftEqualToView(segmentControl)
+//                .rightEqualToView(segmentControl)
+//                .topSpaceToView(segmentControl,14)
+//                .heightIs(28)
+            
             chartInfoView.snp_makeConstraints(closure: { (make) -> Void in
                 make.top.equalTo(segmentControl.snp_bottom).offset(14)
                 make.left.right.equalTo(segmentControl)
@@ -50,21 +59,34 @@ class DetailsNetValueRateView: PageDataView,TrendChartDelegate{
 //            chartInfoView.backgroundColor = UIColor.brownColor()
             
             chartDateStartLabel = UICreaterUtils.createLabel(labelSize, UICreaterUtils.colorFlat, "", true, chartInfoView)
+//            chartDateStartLabel.sd_layout()
+//                .leftEqualToView(chartInfoView)
+//                .topEqualToView(chartInfoView)
+            
             chartDateStartLabel.snp_makeConstraints(closure: { (make) -> Void in
                 make.left.top.equalTo(chartInfoView)
             })
             let chartSelfValueLabel = UICreaterUtils.createLabel(labelSize, labelColor, "期间涨跌:", true, chartInfoView)
+//            chartSelfValueLabel.sd_layout()
+//                .leftEqualToView(chartInfoView)
+//                .bottomEqualToView(chartInfoView)
             chartSelfValueLabel.snp_makeConstraints(closure: { (make) -> Void in
                 make.left.bottom.equalTo(chartInfoView)
             })
             
             chartSelfValueText = UICreaterUtils.createLabel(labelSize, labelColor, "", true, chartInfoView)
+//            chartSelfValueText.sd_layout()
+//                .leftEqualToView(chartSelfValueLabel)
+//                .centerYEqualToView(chartSelfValueLabel)
             chartSelfValueText.snp_makeConstraints(closure: { (make) -> Void in
                 make.left.equalTo(chartSelfValueLabel.snp_right)
                 make.centerY.equalTo(chartSelfValueLabel)
             })
             
             let chartKindValueLabel = UICreaterUtils.createLabel(labelSize, labelColor, "同类平均:",true,chartInfoView)
+//            chartKindValueLabel.sd_layout()
+//                .bottomEqualToView(chartInfoView)
+//                .rightEqualToView(chartInfoView.snp_centerX)
             chartKindValueLabel.snp_makeConstraints(closure: { (make) -> Void in
                 make.bottom.equalTo(chartInfoView)
                 make.right.equalTo(chartInfoView.snp_centerX)

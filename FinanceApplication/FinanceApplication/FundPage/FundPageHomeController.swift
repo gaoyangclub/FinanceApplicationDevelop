@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class FundPageHomeController:BaseTableViewController,DetailsPageCellDelegate{
     
@@ -78,7 +79,7 @@ class FundPageHomeController:BaseTableViewController,DetailsPageCellDelegate{
     }
     
     private func getFundHomeSource()->NSMutableArray{
-        let svo = SoueceVo(data: [
+        let svo = SourceVo(data: [
             CellVo(cellHeight: FundPageHomeHotCell.cellHeight, cellClass: FundPageHomeHotCell.self)
             ])
         let fundHomeTitleList:[InfoFundHeader] = DataRemoteFacade.getFundHomeTitleList()
@@ -135,7 +136,7 @@ class FundPageHomeController:BaseTableViewController,DetailsPageCellDelegate{
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let section = indexPath.section
 //        var row = indexPath.row
-        let source = dataSource[section] as! SoueceVo
+        let source = dataSource[section] as! SourceVo
         let cell:CellVo = source.data![indexPath.row] as! CellVo
         if cell.cellData is InfoFundHeader{
             //点击hot内容跳转

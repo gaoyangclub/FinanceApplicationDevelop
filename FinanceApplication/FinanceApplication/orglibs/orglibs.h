@@ -19,6 +19,8 @@
 #include "IQKeyboardManager.h"
 #include "IQUIView+IQKeyboardToolbar.h"
 
+#include "UIView+SDAutoLayout.h"
+
 //#ifndef PullRefreshScrollerTest_BridgeHeader_h
 //#define PullRefreshScrollerTest_BridgeHeader_h
 //#endif

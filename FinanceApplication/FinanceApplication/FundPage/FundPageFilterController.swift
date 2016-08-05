@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class FundPageFilterController: BaseTableViewController {
     
@@ -258,9 +259,9 @@ class FundPageFilterController: BaseTableViewController {
             return false
         }
         let lastSection = dataSource.count - 1
-        let lastSource:SoueceVo = self.dataSource[lastSection] as! SoueceVo
+        let lastSource:SourceVo = self.dataSource[lastSection] as! SourceVo
         let firstHeader = fundFilterResult[0] as! FilterFundHeader
-        var svo:SoueceVo?
+        var svo:SourceVo?
         if (lastSource.headerData as! String) == firstHeader.timeKey{//头部是末尾的追踪
             svo = lastSource
         }
@@ -269,7 +270,7 @@ class FundPageFilterController: BaseTableViewController {
             var data:NSMutableArray!
             if svo == nil{
                 data = []
-                svo = SoueceVo(data: data, headerHeight: FundPageFilterHeader.headerHeight, headerClass: FundPageFilterHeader.self, headerData: hvo.timeKey)
+                svo = SourceVo(data: data, headerHeight: FundPageFilterHeader.headerHeight, headerClass: FundPageFilterHeader.self, headerData: hvo.timeKey)
                 self.dataSource.addObject(svo!)
                 //                tableView.insertSections(NSIndexSet(index: lastSection), withRowAnimation: UITableViewRowAnimation.None)
             }else{
@@ -297,7 +298,7 @@ class FundPageFilterController: BaseTableViewController {
         for head in fundFilterResult{
             let hvo = head as! FilterFundHeader
             let data:NSMutableArray = []
-            let svo = SoueceVo(data: data, headerHeight: FundPageFilterHeader.headerHeight, headerClass: FundPageFilterHeader.self, headerData: hvo.timeKey)
+            let svo = SourceVo(data: data, headerHeight: FundPageFilterHeader.headerHeight, headerClass: FundPageFilterHeader.self, headerData: hvo.timeKey)
             source.addObject(svo)
             for info in hvo.fundList{
                 let fvo = info as! InfoFundVo
@@ -339,7 +340,7 @@ class FundPageFilterController: BaseTableViewController {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let section = indexPath.section
-        let source = dataSource[section] as! SoueceVo
+        let source = dataSource[section] as! SourceVo
         let cell:CellVo = source.data![indexPath.row] as! CellVo
         let fvo:InfoFundVo = cell.cellData as! InfoFundVo
         let vc = DetailsPageController()

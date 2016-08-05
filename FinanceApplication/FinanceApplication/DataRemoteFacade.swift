@@ -9,14 +9,15 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class DataRemoteFacade: NSObject {
    
     static var homeDataSource:NSMutableArray = [
-        SoueceVo(data: [
+        SourceVo(data: [
             CellVo(cellHeight: 180, cellClass: HomePageBannerCell.self, cellData: "banner.jpg",isUnique:true)
             ]),
-        SoueceVo(data: [
+        SourceVo(data: [
             CellVo(cellHeight: 36, cellClass: HomePageHotHeader.self, cellData: "投资热点"),
             CellVo(cellHeight: 64, cellClass: HomePageHotItemCell.self, cellData: HotItemVo(classId:1,title: "医疗健康", content: "攒钱养老，不如投资医疗!"),cellTag: 1),
             CellVo(cellHeight: 64, cellClass: HomePageHotItemCell.self, cellData: HotItemVo(classId:2,title: "国泰医药行业指数分级", content: "采用指数投资，掘金医药长牛!",rate: "36.05%",rateTitle: "今年收益")),

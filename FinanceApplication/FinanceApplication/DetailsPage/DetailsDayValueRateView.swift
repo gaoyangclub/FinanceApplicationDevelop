@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class DetailsDayValueRateView: PageDataView,TrendChartDelegate{
 
@@ -32,6 +33,13 @@ class DetailsDayValueRateView: PageDataView,TrendChartDelegate{
             
             chartInfoView = UIView()
             addSubview(chartInfoView)
+            
+//            chartInfoView.sd_layout()
+//                .topSpaceToView(segmentControl,14)
+//                .leftEqualToView(segmentControl)
+//                .rightEqualToView(segmentControl)
+//                .heightIs(20)
+            
             chartInfoView.snp_makeConstraints(closure: { (make) -> Void in
                 make.top.equalTo(segmentControl.snp_bottom).offset(14)
                 make.left.right.equalTo(segmentControl)
@@ -39,21 +47,34 @@ class DetailsDayValueRateView: PageDataView,TrendChartDelegate{
             })
             
             selectDateLabel = UICreaterUtils.createLabel(labelSize, labelColor, "", true, chartInfoView)
+//            selectDateLabel.sd_layout()
+//                .leftEqualToView(chartInfoView)
+//                .centerYEqualToView(chartInfoView)
+            
             selectDateLabel.snp_makeConstraints(closure: { (make) -> Void in
                 make.left.centerY.equalTo(chartInfoView)
             })
             
             selectNetValueText = UICreaterUtils.createLabel(labelSize, labelColor, "", true, chartInfoView)
+//            selectNetValueText.sd_layout()
+//                .centerXEqualToView(chartInfoView)
+//                .centerYEqualToView(chartInfoView)
             selectNetValueText.snp_makeConstraints(closure: { (make) -> Void in
                 make.center.equalTo(chartInfoView)
             })
             
             selectRateValueText = UICreaterUtils.createLabel(labelSize, labelColor, "", true, chartInfoView)
+//            selectRateValueText.sd_layout()
+//                .rightEqualToView(chartInfoView)
+//                .centerYEqualToView(chartInfoView)
             selectRateValueText.snp_makeConstraints(closure: { (make) -> Void in
                 make.right.centerY.equalTo(chartInfoView)
             })
             
             let selectRateValueLabel = UICreaterUtils.createLabel(labelSize, labelColor, "当日涨幅:", true, chartInfoView)
+//            selectRateValueLabel.sd_layout()
+//                .rightEqualToView(selectRateValueText)
+//                .centerYEqualToView(chartInfoView)
             selectRateValueLabel.snp_makeConstraints(closure: { (make) -> Void in
                 make.right.equalTo(selectRateValueText.snp_left)
                 make.centerY.equalTo(chartInfoView)
@@ -68,6 +89,13 @@ class DetailsDayValueRateView: PageDataView,TrendChartDelegate{
             chartView.chartType = .Column
 //            chartView.compareRegularValue = 
             addSubview(chartView)
+            
+//            chartView.sd_layout()
+//                .topSpaceToView(chartInfoView,4)
+//                .leftEqualToView(segmentControl)
+//                .rightEqualToView(segmentControl)
+//                .bottomSpaceToView(self,10)
+            
             chartView.snp_makeConstraints(closure: { (make) -> Void in
                 make.top.equalTo(chartInfoView.snp_bottom).offset(4)
                 make.left.right.equalTo(segmentControl)
@@ -99,6 +127,12 @@ class DetailsDayValueRateView: PageDataView,TrendChartDelegate{
             segmentControl.textAttributes=[NSFontAttributeName:UIFont.systemFontOfSize(13),
                 NSForegroundColorAttributeName:UIColor.blackColor()]
             addSubview(segmentControl)
+            
+//            segmentControl.sd_layout()
+//                .leftSpaceToView(self,18)
+//                .rightSpaceToView(self,18)
+//                .topSpaceToView(self,15)
+//                .heightIs(28)
             
             segmentControl.snp_makeConstraints { (make) -> Void in
                 make.left.equalTo(self).offset(18)

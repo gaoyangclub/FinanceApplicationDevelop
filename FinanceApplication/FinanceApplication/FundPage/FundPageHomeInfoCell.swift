@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class FundPageHomeInfoCell: BaseTableViewCell {
 
@@ -35,11 +36,16 @@ class FundPageHomeInfoCell: BaseTableViewCell {
         return label
     }()
     
+    
     private lazy var rateLabel:UILabel = {
         let label = UICreaterUtils.createLabel(15, UIColor.grayColor(), "", true, self.contentView)
 //        label.font = UIFont.systemFontOfSize(14, weight: 1.05)
         
-        var tag = UICreaterUtils.createLabel(14, UIColor.grayColor(), "季度收益", true, self.contentView)
+        let tag = UICreaterUtils.createLabel(14, UIColor.grayColor(), "季度收益", true, self.contentView)
+//        tag.sd_layout()
+//            .rightSpaceToView(label,6)
+//            .centerYEqualToView(label)
+        
         tag.snp_makeConstraints{ (make) -> Void in
             make.right.equalTo(label.snp_left).offset(-6)
             make.centerY.equalTo(label)
@@ -59,10 +65,22 @@ class FundPageHomeInfoCell: BaseTableViewCell {
     private func initCell(){
         let fvo:InfoFundHeader = data as! InfoFundHeader
         
+//        self.bottomLine.sd_layout()
+//            .leftEqualToView(self.contentView)
+//            .rightEqualToView(self.contentView)
+//            .bottomEqualToView(self.contentView)
+//            .heightIs(UICreaterUtils.normalLineWidth)
+        
         self.bottomLine.snp_makeConstraints { (make) -> Void in
             make.left.right.bottom.equalTo(self.contentView)
             make.height.equalTo(UICreaterUtils.normalLineWidth)
         }
+        
+//        self.iconView.sd_layout()
+//            .leftSpaceToView(self.contentView,2)
+//            .widthIs(40)
+//            .heightIs(24)
+//            .centerYEqualToView(self.titleLabel)
         
         self.iconView.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(self.contentView).offset(2)
@@ -75,12 +93,21 @@ class FundPageHomeInfoCell: BaseTableViewCell {
             self.iconView.image = image
         })
         
+//        self.titleLabel.sd_layout()
+//            .leftEqualToView(self.iconView)
+//            .bottomSpaceToView(snp_centerY)
+//            .heightIs(24)
+        
         self.titleLabel.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(self.iconView.snp_right)
             make.bottom.equalTo(self.contentView.snp_centerY).offset(-2)
         }
         self.titleLabel.text = fvo.title
         self.titleLabel.sizeToFit()
+        
+//        self.fundLabel.sd_layout()
+//            .leftEqualToView(self.titleLabel)
+//            .topSpaceToView(snp_centerY)
         
         self.fundLabel.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(self.titleLabel)
@@ -90,6 +117,10 @@ class FundPageHomeInfoCell: BaseTableViewCell {
         self.fundLabel.sizeToFit()
         
         if fvo.deputyFundVo != nil{
+//            self.rateLabel.sd_layout()
+//                .centerYEqualToView(self.fundLabel)
+//                .rightEqualToView(self.contentView)
+//                .widthIs(66)
             self.rateLabel.snp_makeConstraints { (make) -> Void in
                 make.centerY.equalTo(self.fundLabel)
                 make.right.equalTo(self.contentView)

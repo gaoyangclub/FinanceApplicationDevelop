@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
 
@@ -31,13 +32,13 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
 
     private func getDetailsSource()->NSMutableArray{
         let source:NSMutableArray = [
-            SoueceVo(data: [
+            SourceVo(data: [
                 CellVo(cellHeight: DetailsPageInfoCell.cellHeight, cellClass: DetailsPageInfoCell.self, cellData: pageData)
                 ]),
-            SoueceVo(data: [
+            SourceVo(data: [
                 CellVo(cellHeight: DetailsPageChartCell.getFirstPageHeight(), cellClass: DetailsPageChartCell.self, cellData: pageData)
                 ],headerHeight:42,headerClass:DetailsPageChartSection.self),
-            SoueceVo(data: [
+            SourceVo(data: [
                 CellVo(cellHeight: DetailsPageMultipleCell.getFirstPageHeight(), cellClass: DetailsPageMultipleCell.self, cellData: pageData)
                 ],headerHeight:42,headerClass:DetailsPageMultipleSection.self),
 //            SoueceVo(data: [
@@ -65,7 +66,7 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
         let title:NSString = "定投"
         btn.setTitle(title as String, forState: UIControlState.Normal)
         btn.setTitleColor(UIColor(red: 232/255, green: 55/255, blue: 59/255, alpha: 1), forState: UIControlState.Normal)
-        self.operateArea.addSubview(btn)
+        self.btnContainer.addSubview(btn)
         
         var attstr:NSMutableAttributedString = NSMutableAttributedString(string: title as String)
         attstr.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0, title.length))
@@ -75,6 +76,16 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
         return btn
     }()
     
+    lazy var btnContainer:UIView = {
+        let view = UIView()
+        self.operateArea.addSubview(view)
+        view.snp_makeConstraints(closure: { [weak self](make) -> Void in
+            make.left.equalTo(self!.favoriteArea.snp_right)
+            make.top.bottom.right.equalTo(self!.operateArea)
+        })
+        return view
+    }()
+    
     lazy var applyButton:UIButton = {
         let btn = UIButton(type: UIButtonType.System)
         let normalColor:UIColor = UIColor(red: 232/255, green: 55/255, blue: 59/255, alpha: 1)
@@ -82,7 +93,7 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
         let title:NSString = "申购"
         btn.setTitle(title as String, forState: UIControlState.Normal)
         btn.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        self.operateArea.addSubview(btn)
+        self.btnContainer.addSubview(btn)
         
         var attstr:NSMutableAttributedString = NSMutableAttributedString(string: title as String)
         attstr.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0, title.length))
@@ -177,16 +188,22 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
     private func initOperateArea(){
 //        let buttomWidth = (self.view.frame.width - operateHeight) / 2
         
-        castButton.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(operateHeight)
-            make.top.bottom.equalTo(self.operateArea)
-            make.width.equalTo(operateArea).dividedBy(2).offset(-operateHeight / 2)
-        }
         
-        applyButton.snp_makeConstraints { (make) -> Void in
-            make.left.equalTo(castButton.snp_right)
-            make.top.bottom.right.equalTo(self.operateArea)
-        }
+        castButton.sd_layout().heightRatioToView(self.operateArea,1)
+        applyButton.sd_layout().heightRatioToView(self.operateArea,1)
+        
+        btnContainer.setupAutoWidthFlowItems([castButton,applyButton],withPerRowItemsCount:2,verticalMargin:0,horizontalMargin:0);
+        
+//        castButton.snp_makeConstraints { (make) -> Void in
+//            make.left.equalTo(operateHeight)
+//            make.top.bottom.equalTo(self.operateArea)
+//            make.width.equalTo(operateArea).dividedBy(2).offset(-operateHeight / 2)
+//        }
+//        
+//        applyButton.snp_makeConstraints { (make) -> Void in
+//            make.left.equalTo(castButton.snp_right)
+//            make.top.bottom.right.equalTo(self.operateArea)
+//        }
         
         favoriteArea.snp_makeConstraints { (make) -> Void in
             make.width.equalTo(operateHeight)
@@ -317,7 +334,7 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
         let cell = super.tableView(tableView,cellForRowAtIndexPath:indexPath)
         let section = indexPath.section
         let row = indexPath.row
-        let source = dataSource[section] as! SoueceVo
+        let source = dataSource[section] as! SourceVo
         let cellVo:CellVo = source.data![row] as! CellVo//获取的数据给cell显示
         if cell is DetailsPageChartCell{
             detailsPageChartCell = cell as! DetailsPageChartCell

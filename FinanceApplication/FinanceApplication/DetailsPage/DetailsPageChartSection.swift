@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreLibrary
+
 typealias pageMenuCompletionHandler = (pageMenu:CASectionPageMenu)->Void
 class DetailsPageChartSection:BaseItemRenderer{
 

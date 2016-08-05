@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class DetailsStockView: PageDataView, UITableViewDelegate, UITableViewDataSource  {
 

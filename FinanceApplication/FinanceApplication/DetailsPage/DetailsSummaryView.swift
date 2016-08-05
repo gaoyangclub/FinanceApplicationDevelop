@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class DetailsSummaryView: PageDataView, UITableViewDelegate, UITableViewDataSource {
     

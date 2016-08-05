@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class DetailsNoticeView: PageDataView, UITableViewDelegate, UITableViewDataSource {
 

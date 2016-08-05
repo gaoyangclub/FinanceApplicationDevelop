@@ -58,10 +58,16 @@ class TabViewController: UITabBarController {
         
         self.view.addSubview(lineView)
         
+//        lineView.sd_layout()
+//            .heightIs(3.5)
+//            .widthRatioToView(self.view,1)
+//            .bottomEqualToView(self.containerView)
+        
         lineView.snp_makeConstraints(){ [weak self](make) -> Void in
             make.height.equalTo(0.5)
             make.width.equalTo(self!.view)
-            make.bottom.equalTo(self!.containerView.snp_top)
+//            make.bottom.equalTo(self!.containerView.snp_top)
+            make.bottom.equalTo(-self!.tabBarHeight)
         }
     }
     
@@ -87,12 +93,6 @@ class TabViewController: UITabBarController {
         if dataProvider == nil{
             return
         }
-        containerView.snp_makeConstraints(){ [weak self](make) -> Void in
-            make.centerX.equalTo(self!.view)
-            make.height.equalTo(self!.tabBarHeight)
-            make.width.equalTo(self!.view)
-            make.bottom.equalTo(self!.view)
-        }
 //        
         let tw:UIView = self.view.subviews[0] //UITransitionView
 //        tw.backgroundColor = UIColor.grayColor()
@@ -100,12 +100,24 @@ class TabViewController: UITabBarController {
         
         self.tabBar.frame.size = CGSize(width: view.frame.width,height: self.tabBarHeight)
         
+//        containerView.snp_makeConstraints(){ [weak self](make) -> Void in
+//            make.centerX.equalTo(self!.view)
+//            //            make.height.equalTo(self!.tabBarHeight)
+//            make.width.equalTo(self!.view)
+//            make.bottom.equalTo(self!.view)
+//        }
+        
+        containerView.sd_layout()
+            .centerXEqualToView(self.view)
+            .widthRatioToView(self.view,1)
+            .bottomEqualToView(self.view)
         
 //        selectedIndex = 0//默认选中第0个
         containerView.removeAllSubViews()
         let count = dataProvider?.count
-        let subW = Float(self.view.frame.width / CGFloat(count!))
-        var preView:UIView? = nil
+//        let subW = Float(self.view.frame.width / CGFloat(count!))
+//        var preView:UIView? = nil
+        let subViewList:NSMutableArray = []
         for i in 0..<count!{
 //            var x = CGFloat(i) * subW
             
@@ -114,22 +126,29 @@ class TabViewController: UITabBarController {
             
 //            subView.frame = CGRectMake(x, 0, subW, tabBarHeight)
             containerView.addSubview(subView)
-            subView.snp_makeConstraints(closure: { [weak self](make) -> Void in
-                make.top.equalTo(self!.containerView)
-                make.bottom.equalTo(self!.containerView)
-                if preView == nil{
-                    make.left.equalTo(self!.containerView)
-                }else{
-                    make.left.equalTo(preView!.snp_right)
-                }
-                make.width.equalTo(subW)
-            })
+//            subView.snp_makeConstraints(closure: { [weak self](make) -> Void in
+//                make.top.equalTo(self!.containerView)
+//                make.bottom.equalTo(self!.containerView)
+//                if preView == nil{
+//                    make.left.equalTo(self!.containerView)
+//                }else{
+//                    make.left.equalTo(preView!.snp_right)
+//                }
+//                make.width.equalTo(subW)
+//            })
             subView.itemIndex = i
             subView.selected = i == selectedIndex //直接选中
             subView.data = dataProvider![i].data;
             subView.addTarget(self, action: "tabSelectHandler:", forControlEvents: UIControlEvents.TouchUpInside)
-            preView = subView
+//            preView = subView
+            
+            subView.sd_layout().heightIs(tabBarHeight)
+            
+            subViewList.addObject(subView)
         }
+        
+        containerView.setupAutoWidthFlowItems(subViewList as [AnyObject],withPerRowItemsCount:subViewList.count,verticalMargin:0,horizontalMargin:0);
+        
         if(selectedIndex > count){//不存在的位置
             stateTabChange(0)//默认选中第0个
         }

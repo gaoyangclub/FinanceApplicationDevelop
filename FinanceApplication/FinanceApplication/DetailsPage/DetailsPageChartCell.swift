@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreLibrary
+
 @objc public protocol DetailsPageCellDelegate {
     // MARK: - Delegate functions
     optional func willMoveToDetailsPage(indexPath: NSIndexPath)

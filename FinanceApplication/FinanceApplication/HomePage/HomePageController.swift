@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class HomePageController:BaseTableViewController,UISearchResultsUpdating,UISearchControllerDelegate {
     
@@ -64,6 +65,7 @@ class HomePageController:BaseTableViewController,UISearchResultsUpdating,UISearc
         
         let vc = HomePageScanController();
         vc.scanStyle = style
+        vc.isOpenInterestRect = true //区域扫描
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -271,7 +273,7 @@ class HomePageController:BaseTableViewController,UISearchResultsUpdating,UISearc
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let section = indexPath.section
 //        var row = indexPath.row
-        let source = dataSource[section] as! SoueceVo
+        let source = dataSource[section] as! SourceVo
         let cell:CellVo = source.data![indexPath.row] as! CellVo
         if cell.cellData is HotItemVo{
             //点击hot内容跳转

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLibrary
 
 class DetailsPageMultipleCell: BaseTableViewCell,CASectionPageMenuDelegate {
     weak var delegate:DetailsPageCellDelegate?

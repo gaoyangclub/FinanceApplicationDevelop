@@ -45,6 +45,10 @@ class RoundTagView:UIView{
             //            subView = UIView()
             //            addSubview(subView)
             
+//            tagLabel.sd_layout()
+//                .centerXEqualToView(self)
+//                .centerYEqualToView(self)
+            
             tagLabel.snp_makeConstraints { [weak self](make) -> Void in
                 make.center.equalTo(self!)
             }
@@ -52,6 +56,12 @@ class RoundTagView:UIView{
             self.layer.borderColor = tagColor.CGColor
             self.layer.borderWidth = 0.6
             self.layer.cornerRadius = 3
+            
+//            self.sd_layout()
+//                .minWidthIs(20)
+//                .widthRatioToView(self.tagLabel,0.8)
+//                .heightRatioToView(self.tagLabel,0.9)
+            
             self.snp_makeConstraints { [weak self](make) -> Void in
                 make.width.greaterThanOrEqualTo(20)
                 make.width.equalTo(self!.tagLabel).offset(6)

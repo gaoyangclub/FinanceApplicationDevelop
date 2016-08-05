@@ -48,6 +48,11 @@ class RefreshTableViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     func refreshContanerMake(make:ConstraintMaker)-> Void{
+//        refreshContaner.sd_layout()
+//            .leftEqualToView(self.view)
+//            .rightEqualToView(self.view)
+//            .topEqualToView(self.view)
+//            .bottomEqualToView(self.view)
         make.left.right.top.bottom.equalTo(self.view)
     }
     
