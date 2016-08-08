@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		84049CA91C60C10B00D04DF7 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 84049CA81C60C10B00D04DF7 /* star.png */; };
-		840F4B121D5477990017D318 /* CoreLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840F4B0E1D54774F0017D318 /* CoreLibrary.framework */; };
-		840F4B131D5477990017D318 /* CoreLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 840F4B0E1D54774F0017D318 /* CoreLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8415DE1E1D58269B0046E456 /* CoreLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8415DE1D1D5826900046E456 /* CoreLibrary.framework */; };
+		8415DE1F1D58269B0046E456 /* CoreLibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8415DE1D1D5826900046E456 /* CoreLibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		845173441C62F4440098840F /* like.png in Resources */ = {isa = PBXBuildFile; fileRef = 845173431C62F4440098840F /* like.png */; };
 		845173471C630B2B0098840F /* open_in_browser.png in Resources */ = {isa = PBXBuildFile; fileRef = 845173461C630B2B0098840F /* open_in_browser.png */; };
 		A9B9C9491C380082000C8959 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9B9C9481C380082000C8959 /* Images.xcassets */; };
@@ -107,16 +107,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		840F4B0D1D54774F0017D318 /* PBXContainerItemProxy */ = {
+		8415DE1C1D5826900046E456 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 840F4B091D54774F0017D318 /* CoreLibrary.xcodeproj */;
+			containerPortal = 8415DE181D5826900046E456 /* CoreLibrary.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8437DD981D534D7D00623EAA;
 			remoteInfo = CoreLibrary;
 		};
-		840F4B141D5477990017D318 /* PBXContainerItemProxy */ = {
+		8415DE201D58269B0046E456 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 840F4B091D54774F0017D318 /* CoreLibrary.xcodeproj */;
+			containerPortal = 8415DE181D5826900046E456 /* CoreLibrary.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 8437DD971D534D7D00623EAA;
 			remoteInfo = CoreLibrary;
@@ -137,7 +137,17 @@
 			dstPath = "";
 			dstSubfolderSpec = 11;
 			files = (
-				840F4B131D5477990017D318 /* CoreLibrary.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8415DE221D58269B0046E456 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8415DE1F1D58269B0046E456 /* CoreLibrary.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -146,7 +156,7 @@
 
 /* Begin PBXFileReference section */
 		84049CA81C60C10B00D04DF7 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
-		840F4B091D54774F0017D318 /* CoreLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CoreLibrary.xcodeproj; path = ../../CoreLibrary/CoreLibrary.xcodeproj; sourceTree = "<group>"; };
+		8415DE181D5826900046E456 /* CoreLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CoreLibrary.xcodeproj; path = ../../CoreLibraryDevelop/CoreLibrary.xcodeproj; sourceTree = "<group>"; };
 		845173431C62F4440098840F /* like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = like.png; sourceTree = "<group>"; };
 		845173461C630B2B0098840F /* open_in_browser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = open_in_browser.png; sourceTree = "<group>"; };
 		A9B9C93C1C380082000C8959 /* FinanceApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinanceApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -253,7 +263,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				840F4B121D5477990017D318 /* CoreLibrary.framework in Frameworks */,
+				8415DE1E1D58269B0046E456 /* CoreLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,10 +277,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		840F4B0A1D54774F0017D318 /* Products */ = {
+		8415DE191D5826900046E456 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				840F4B0E1D54774F0017D318 /* CoreLibrary.framework */,
+				8415DE1D1D5826900046E456 /* CoreLibrary.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -281,7 +291,7 @@
 				A9B9C93E1C380082000C8959 /* FinanceApplication */,
 				A9B9C9541C380082000C8959 /* FinanceApplicationTests */,
 				A9B9C93D1C380082000C8959 /* Products */,
-				840F4B091D54774F0017D318 /* CoreLibrary.xcodeproj */,
+				8415DE181D5826900046E456 /* CoreLibrary.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -505,11 +515,12 @@
 				A9B9C9391C380082000C8959 /* Frameworks */,
 				A9B9C93A1C380082000C8959 /* Resources */,
 				840F4B161D5477990017D318 /* Embed Frameworks */,
+				8415DE221D58269B0046E456 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				840F4B151D5477990017D318 /* PBXTargetDependency */,
+				8415DE211D58269B0046E456 /* PBXTargetDependency */,
 			);
 			name = FinanceApplication;
 			productName = FinanceApplication;
@@ -567,8 +578,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 840F4B0A1D54774F0017D318 /* Products */;
-					ProjectRef = 840F4B091D54774F0017D318 /* CoreLibrary.xcodeproj */;
+					ProductGroup = 8415DE191D5826900046E456 /* Products */;
+					ProjectRef = 8415DE181D5826900046E456 /* CoreLibrary.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -580,11 +591,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		840F4B0E1D54774F0017D318 /* CoreLibrary.framework */ = {
+		8415DE1D1D5826900046E456 /* CoreLibrary.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = CoreLibrary.framework;
-			remoteRef = 840F4B0D1D54774F0017D318 /* PBXContainerItemProxy */;
+			remoteRef = 8415DE1C1D5826900046E456 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -719,10 +730,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		840F4B151D5477990017D318 /* PBXTargetDependency */ = {
+		8415DE211D58269B0046E456 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CoreLibrary;
-			targetProxy = 840F4B141D5477990017D318 /* PBXContainerItemProxy */;
+			targetProxy = 8415DE201D58269B0046E456 /* PBXContainerItemProxy */;
 		};
 		A9B9C9531C380082000C8959 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

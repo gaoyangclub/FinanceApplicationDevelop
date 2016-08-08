@@ -47,31 +47,29 @@ class FundPageFilterController: BaseTableViewController {
     lazy var rateButton:UIButton = self.createFilterButton("日涨幅")
     
     
-    private lazy var netArrowImage:UIFlatImageTabItem = {
-        let tabItem = UIFlatImageTabItem()
+    private lazy var netArrowImage:UIArrowView = {
+        let tabItem = UIArrowView()
         self.topArea.addSubview(tabItem)
         tabItem.userInteractionEnabled = false
-        tabItem.sizeType = .FillWidth
-        tabItem.normalColor = UICreaterUtils.colorRise
+        tabItem.lineColor = UICreaterUtils.colorFlat
+        tabItem.lineThinkness = 1
+        tabItem.arrowHeightRate = 0.34
+        tabItem.isGuide = true
+        tabItem.direction = .DOWN
         tabItem.hidden = true
-        //        tabItem.selectColor = UICreaterUtils.colorRise
-        BatchLoaderForSwift.loadFile("arrow", callBack: { (image) -> Void in
-            tabItem.image = image
-        })
         return tabItem
         }()
     
     
-    lazy var rateArrowImage:UIFlatImageTabItem = {
-        let tabItem = UIFlatImageTabItem()
+    lazy var rateArrowImage:UIArrowView = {
+        let tabItem = UIArrowView()
         self.topArea.addSubview(tabItem)
         tabItem.userInteractionEnabled = false
-        tabItem.sizeType = .FillWidth
-        tabItem.normalColor = UICreaterUtils.colorRise
-        //        tabItem.selectColor = UICreaterUtils.colorRise
-        BatchLoaderForSwift.loadFile("arrow", callBack: { (image) -> Void in
-            tabItem.image = image
-        })
+        tabItem.lineColor = UICreaterUtils.colorFlat
+        tabItem.lineThinkness = 1
+        tabItem.arrowHeightRate = 0.34
+        tabItem.isGuide = true
+        tabItem.direction = .DOWN
         return tabItem
         }()
     
@@ -185,7 +183,7 @@ class FundPageFilterController: BaseTableViewController {
             make.centerY.equalTo(self.topArea)
 //            make.size.equalTo(CGSize(width: 8, height: 24))
             make.width.equalTo(8)
-            make.height.equalTo(24)
+            make.height.equalTo(16)
         }
         
         rateArrowImage.snp_makeConstraints { (make) -> Void in
@@ -193,7 +191,7 @@ class FundPageFilterController: BaseTableViewController {
             make.centerY.equalTo(self.topArea)
 //            make.size.equalTo(CGSize(width: 8, height: 24))
             make.width.equalTo(8)
-            make.height.equalTo(24)
+            make.height.equalTo(16)
         }
         
     }

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "9FDC53AC10DCEDFB9FADBB0C3DA45C9A125C3AAA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "67F0CDA656D1DA9DB1359C0BC68A3B40713AF387" : 0,
+    "9FDC53AC10DCEDFB9FADBB0C3DA45C9A125C3AAA" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5A53CA0C-8B2E-4B4E-BF73-EBDD3A5D55D1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "67F0CDA656D1DA9DB1359C0BC68A3B40713AF387" : "CoreLibraryDevelop\/",
+    "9FDC53AC10DCEDFB9FADBB0C3DA45C9A125C3AAA" : "FinanceApplicationDevelop"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FinanceApplication",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FinanceApplication\/FinanceApplication.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/gaoyangclub\/CoreLibraryDevelop.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "67F0CDA656D1DA9DB1359C0BC68A3B40713AF387"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/gaoyangclub\/FinanceApplicationDevelop.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "9FDC53AC10DCEDFB9FADBB0C3DA45C9A125C3AAA"
+    }
+  ]
+}
