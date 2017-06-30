@@ -448,18 +448,19 @@ private class FundPageFilterCell:BaseTableViewCell{
         return label
         }()
     
-    private lazy var iconView:UIFlatImageTabItem = {
-        let tabItem = UIFlatImageTabItem()
+    private lazy var iconView:UILabel = {
+        let tabItem = UICreaterUtils.createLabel(UIConfig.ICON_FONT_NAME, 20, UICreaterUtils.colorFlat);
+        tabItem.textAlignment = NSTextAlignment.Center;
         self.contentView.addSubview(tabItem)
-        tabItem.userInteractionEnabled = false
-        tabItem.sizeType = .FillWidth
-        tabItem.normalColor = UICreaterUtils.colorFlat
-        tabItem.selectColor = UICreaterUtils.colorRise
+//        tabItem.userInteractionEnabled = false
+//        tabItem.sizeType = .FillWidth
+//        tabItem.normalColor = UICreaterUtils.colorFlat
+//        tabItem.selectColor = UICreaterUtils.colorRise
         tabItem.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(self.contentView).offset(2)
 //            make.size.equalTo(CGSize(width: 40, height: 18))
             make.width.equalTo(40)
-            make.height.equalTo(18)
+            make.height.equalTo(20)
             make.centerY.equalTo(self.contentView).offset(-6)
         }
         return tabItem
@@ -478,17 +479,20 @@ private class FundPageFilterCell:BaseTableViewCell{
     private func initText(){
         let fvo:InfoFundVo = data as! InfoFundVo
         
-        iconView.select = fvo.isFollow
+//        iconView.select = fvo.isFollow
+        iconView.textColor = fvo.isFollow ? UICreaterUtils.colorRise : UICreaterUtils.colorFlat;
         
         bottomLine.snp_makeConstraints { (make) -> Void in
             make.left.right.bottom.equalTo(self.contentView)
             make.height.equalTo(UICreaterUtils.normalLineWidth)
         }
         
-        self.iconView.image = nil
-        BatchLoaderForSwift.loadFile("star", callBack: { (image) -> Void in
-            self.iconView.image = image
-        })
+        iconView.text = UIConfig.ICON_STAR;
+        
+//        self.iconView.image = nil
+//        BatchLoaderForSwift.loadFile("star", callBack: { (image) -> Void in
+//            self.iconView.image = image
+//        })
         
         titleLabel.text = fvo.shortTitle
         titleLabel.sizeToFit()
@@ -556,16 +560,20 @@ private class FundPageFilterCell:BaseTableViewCell{
         if fvo.stars > 0{//银河评级
             let selectColor = UIColor(red: 253/255, green: 176/255, blue: 86/255, alpha: 1)
             for(var i:Int = 4 ;i >= 0; i--){
-                let tabItem = UIFlatImageTabItem()
-                self.tagArea.addSubview(tabItem)
-                tabItem.userInteractionEnabled = false
-                tabItem.sizeType = .FillWidth
-                tabItem.normalColor = UICreaterUtils.normalLineColor
-                tabItem.selectColor = selectColor
-                tabItem.select = fvo.stars > i //点亮
-                BatchLoaderForSwift.loadFile("star", callBack: { (image) -> Void in
-                    tabItem.image = image
-                })
+                let tabItem = UICreaterUtils.createLabel(UIConfig.ICON_FONT_NAME, 14, UICreaterUtils.normalLineColor);
+                tabItem.textAlignment = NSTextAlignment.Center;
+                self.tagArea.addSubview(tabItem);
+                
+                tabItem.text = UIConfig.ICON_STAR;
+                tabItem.textColor = fvo.stars > i ? selectColor : UICreaterUtils.normalLineColor;
+//                tabItem.userInteractionEnabled = false
+//                tabItem.sizeType = .FillWidth
+//                tabItem.normalColor = UICreaterUtils.normalLineColor
+//                tabItem.selectColor = selectColor
+//                tabItem.select = fvo.stars > i //点亮
+//                BatchLoaderForSwift.loadFile("star", callBack: { (image) -> Void in
+//                    tabItem.image = image
+//                })
                 tabItem.snp_makeConstraints { (make) -> Void in
                     if rightView == nil{
                         make.right.equalTo(self.rateLabel)
@@ -574,7 +582,7 @@ private class FundPageFilterCell:BaseTableViewCell{
                     }
 //                    make.size.equalTo(CGSize(width: 13, height: 11))
                     make.width.equalTo(13)
-                    make.height.equalTo(11)
+                    make.height.equalTo(14)
                     make.centerY.equalTo(indexView)
                 }
                 rightView = tabItem

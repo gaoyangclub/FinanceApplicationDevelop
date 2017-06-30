@@ -252,17 +252,17 @@ private class StockCell:UITableViewCell {
             outView.layer.borderColor = UICreaterUtils.normalLineColor.CGColor
             outView.layer.borderWidth = 1//UICreaterUtils.normalLineWidth
             
-            outView.snp_makeConstraints { (make) -> Void in
+            outView.snp_makeConstraints { [weak self] (make) -> Void in
                 make.top.equalTo(StockCell.gapHeight)
-                make.left.equalTo(self.contentView).offset(DetailsStockView.padding)
-                make.right.equalTo(self.contentView).offset(-DetailsStockView.padding)
+                make.left.equalTo(self!.contentView).offset(DetailsStockView.padding)
+                make.right.equalTo(self!.contentView).offset(-DetailsStockView.padding)
                 make.height.equalTo(StockCell.gapHeight)
             }
             
             inView = UIView()//中间过渡用来测量的容器
             outView.addSubview(inView)
-            inView.snp_makeConstraints { (make) -> Void in
-                make.edges.equalTo(outView).inset(UIEdgeInsets(top: rateViewMargin, left: rateViewMargin, bottom: rateViewMargin, right: rateViewMargin))
+            inView.snp_makeConstraints { [weak self] (make) -> Void in
+                make.edges.equalTo(outView).inset(UIEdgeInsets(top: self!.rateViewMargin, left: self!.rateViewMargin, bottom: self!.rateViewMargin, right: self!.rateViewMargin))
             }
             
             rateView = UIView()

@@ -134,26 +134,29 @@ class DetailsWebPageController: UIViewController {
         leftItem.customView = customView
         customView.addTarget(self, action: "cancelClick", forControlEvents: UIControlEvents.TouchDown)
         
+        let rightItem = UICreaterUtils.createNavigationNormalButtonItem(UIColor.whiteColor(), UIFont(name: UIConfig.ICON_FONT_NAME, size: 25)!, UIConfig.ICON_LIU_LAN_QI, self, "openBrowserClick");
+        
+        
         self.navigationItem.leftBarButtonItem = leftItem
         self.navigationItem.rightBarButtonItem = rightItem
     }
     
-    private lazy var rightItem:UIBarButtonItem = {
-        let tabItem = UIFlatImageTabItem()
-        tabItem.frame = CGRectMake(0, 0, 30, 24)
-        tabItem.sizeType = .FillWidth
-        tabItem.normalColor = UIColor.whiteColor()
-        //        tabItem.selectColor = UICreaterUtils.colorRise
-        BatchLoaderForSwift.loadFile("open_in_browser", callBack: { (image) -> Void in
-            tabItem.image = image
-        })
-        tabItem.addTarget(self, action: "openBrowserClick", forControlEvents: UIControlEvents.TouchDown)
-        
-        let item = UIBarButtonItem(title: "嘿嘿", style: UIBarButtonItemStyle.Done, target: self, action: "cancelClick")
-        item.customView = tabItem
-        
-        return item
-    }()
+//    private lazy var rightItem:UIBarButtonItem = {
+//        let tabItem = UIFlatImageTabItem()
+//        tabItem.frame = CGRectMake(0, 0, 30, 24)
+//        tabItem.sizeType = .FillWidth
+//        tabItem.normalColor = UIColor.whiteColor()
+//        //        tabItem.selectColor = UICreaterUtils.colorRise
+//        BatchLoaderForSwift.loadFile("open_in_browser", callBack: { (image) -> Void in
+//            tabItem.image = image
+//        })
+//        tabItem.addTarget(self, action: "openBrowserClick", forControlEvents: UIControlEvents.TouchDown)
+//        
+//        let item = UIBarButtonItem(title: "嘿嘿", style: UIBarButtonItemStyle.Done, target: self, action: "cancelClick")
+//        item.customView = tabItem
+//        
+//        return item
+//    }()
     
     private lazy var progressView:UIProgressView = {
         let pView = UIProgressView()

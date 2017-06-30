@@ -140,13 +140,15 @@ class HomePageHotItemCell: BaseTableViewCell {
     private let leftpadding:CGFloat = 35
     private let rightpadding:CGFloat = 20
     
-    private lazy var iconView:UIFlatImageTabItem = {
-        let icon = UIFlatImageTabItem()
-        icon.userInteractionEnabled = false
-        icon.sizeType = .FillWidth
-        icon.normalColor = UICreaterUtils.colorRise
-        self.contentView.addSubview(icon)
-        return icon
+    
+    private lazy var iconView:UILabel = {
+        let icon = UICreaterUtils.createLabel(UIConfig.ICON_FONT_NAME, 20, UICreaterUtils.colorRise);
+        icon.textAlignment = NSTextAlignment.Center;
+//        icon.userInteractionEnabled = false
+//        icon.sizeType = .FillWidth
+//        icon.normalColor = UICreaterUtils.colorRise
+        self.contentView.addSubview(icon);
+        return icon;
         }()
     
     private func initLabel(){
@@ -223,11 +225,11 @@ class HomePageHotItemCell: BaseTableViewCell {
                 make.right.equalTo(self.titleLabel.snp_left)
                 make.centerY.equalTo(self.titleLabel)
             })
-            
-            let url:String = "like"//"lightning"
-            BatchLoaderForSwift.loadFile(url, callBack: { (image) -> Void in
-                self.iconView.image = image
-            })
+            iconView.text = UIConfig.ICON_DIAN_ZAN;
+//            let url:String = "like"//"lightning"
+//            BatchLoaderForSwift.loadFile(url, callBack: { (image) -> Void in
+//                self.iconView.image = image
+//            })
             iconView.hidden = false
         }else{
             iconView.hidden = true

@@ -61,7 +61,7 @@ class MyTabItemRenderer: BaseItemRenderer {
     }
     
     private var imageContainer:UIView!
-    private var tabItem:UIFlatImageTabItem!
+    private var tabItem:UILabel!  //UIFlatImageTabItem!
     private func initImage(){
         if imageContainer == nil{
             imageContainer = UIView()
@@ -75,17 +75,17 @@ class MyTabItemRenderer: BaseItemRenderer {
                 make.bottom.equalTo(self.labelView.snp_top)
                 make.top.equalTo(self).offset(5)
             }
+            tabItem = UICreaterUtils.createLabel(UIConfig.ICON_FONT_NAME, 24, MyTabItemRenderer.normalColor); //UIFlatImageTabItem()
             
-            tabItem = UIFlatImageTabItem()
+            tabItem.textAlignment = NSTextAlignment.Center;
             //        tabItem.backgroundColor = UIColor.blackColor()
             imageContainer.addSubview(tabItem)
-            tabItem.sizeType = .FillWidth
-            tabItem.normalColor = MyTabItemRenderer.normalColor
-            tabItem.selectColor = MyTabItemRenderer.selectColor
+//            tabItem.sizeType = .FillWidth
+//            tabItem.normalColor = MyTabItemRenderer.normalColor
+//            tabItem.selectColor = MyTabItemRenderer.selectColor
             
             tabItem.snp_makeConstraints(closure: { (make) -> Void in
-                make.height.equalTo(20)
-                make.left.right.equalTo(imageContainer)
+                make.left.right.bottom.top.equalTo(imageContainer)
                 make.center.equalTo(imageContainer)
             })
 //            imageView = UIImageView()
@@ -96,31 +96,33 @@ class MyTabItemRenderer: BaseItemRenderer {
 //            }
             
         }
+        let vo = data as! TabRendererVo;
         
-        let vo = data as! TabRendererVo
-        BatchLoaderForSwift.loadFile(vo.iconUrl, callBack: { (image) -> Void in
-            self.tabItem.image = image
-//            var ciColor1 = CIColor(color:MyTabItemRenderer.normalColor)
+        tabItem.text = vo.iconUrl;
+        tabItem.textColor = themeColor;
+//        BatchLoaderForSwift.loadFile(vo.iconUrl, callBack: { (image) -> Void in
+//            self.tabItem.image = image
+////            var ciColor1 = CIColor(color:MyTabItemRenderer.normalColor)
+////            
+////            // 1
+////            var filter = CIFilter(name: "CIColorMonochrome")
+////            filter.setValue(CIImage(image: image), forKey: kCIInputImageKey)
+////            filter.setValue(ciColor1, forKey: kCIInputColorKey)
+////            filter.setValue(1, forKey: kCIInputIntensityKey)
+////            let outputImage1 = filter.outputImage
+////            
+////            self.normalImage = UIImage(CIImage: outputImage1, scale: image.scale, orientation: UIImageOrientation.Up)
+////            
+////            var ciColor2 = CIColor(color:MyTabItemRenderer.selectColor)
+////            filter.setValue(ciColor2, forKey: kCIInputColorKey)
+////            let outputImage2 = filter.outputImage
+////            
+////            // 2
+////            self.selectImage =  UIImage(CIImage: outputImage2, scale: image.scale, orientation: UIImageOrientation.Up)
 //            
-//            // 1
-//            var filter = CIFilter(name: "CIColorMonochrome")
-//            filter.setValue(CIImage(image: image), forKey: kCIInputImageKey)
-//            filter.setValue(ciColor1, forKey: kCIInputColorKey)
-//            filter.setValue(1, forKey: kCIInputIntensityKey)
-//            let outputImage1 = filter.outputImage
-//            
-//            self.normalImage = UIImage(CIImage: outputImage1, scale: image.scale, orientation: UIImageOrientation.Up)
-//            
-//            var ciColor2 = CIColor(color:MyTabItemRenderer.selectColor)
-//            filter.setValue(ciColor2, forKey: kCIInputColorKey)
-//            let outputImage2 = filter.outputImage
-//            
-//            // 2
-//            self.selectImage =  UIImage(CIImage: outputImage2, scale: image.scale, orientation: UIImageOrientation.Up)
-            
-//            self.showImage()
-        })
-        self.tabItem.select = selected
+////            self.showImage()
+//        })
+//        self.tabItem.select = selected
     }
     
 //    private func showImage(){

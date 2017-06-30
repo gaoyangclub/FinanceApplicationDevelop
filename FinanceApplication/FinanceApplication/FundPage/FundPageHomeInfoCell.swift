@@ -53,12 +53,13 @@ class FundPageHomeInfoCell: BaseTableViewCell {
         return label
         }()
     
-    private lazy var iconView:UIFlatImageTabItem = {
-        let tabItem = UIFlatImageTabItem()
+    private lazy var iconView:UILabel = {
+        let tabItem = UICreaterUtils.createLabel(UIConfig.ICON_FONT_NAME, 26, UICreaterUtils.colorRise);
+        tabItem.textAlignment = NSTextAlignment.Center;
         self.contentView.addSubview(tabItem)
-        tabItem.userInteractionEnabled = false
-        tabItem.sizeType = .FillWidth
-        tabItem.normalColor = UICreaterUtils.colorRise
+//        tabItem.userInteractionEnabled = false
+//        tabItem.sizeType = .FillWidth
+//        tabItem.normalColor = UICreaterUtils.colorRise
         return tabItem
     }()
     
@@ -86,12 +87,13 @@ class FundPageHomeInfoCell: BaseTableViewCell {
             make.left.equalTo(self.contentView).offset(2)
 //            make.size.equalTo(CGSize(width: 40, height: 24))
             make.width.equalTo(40)
-            make.height.equalTo(24)
+            make.height.equalTo(26)
             make.centerY.equalTo(titleLabel)
         }
-        BatchLoaderForSwift.loadFile(fvo.iconUrl, callBack: { (image) -> Void in
-            self.iconView.image = image
-        })
+        iconView.text = fvo.iconUrl;
+//        BatchLoaderForSwift.loadFile(fvo.iconUrl, callBack: { (image) -> Void in
+//            self.iconView.image = image
+//        })
         
 //        self.titleLabel.sd_layout()
 //            .leftEqualToView(self.iconView)

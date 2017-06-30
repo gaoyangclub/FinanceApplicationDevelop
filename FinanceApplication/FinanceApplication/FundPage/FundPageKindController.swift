@@ -26,31 +26,33 @@ class FundPageKindConrtoller: UIViewController {
         leftItem.customView = customView
         customView.addTarget(self, action: "cancelClick", forControlEvents: UIControlEvents.TouchDown)
         
-        let tabItem1 = UIFlatImageTabItem()
-        tabItem1.frame = CGRectMake(0, 0, 30, 24)
-        tabItem1.sizeType = .FillWidth
-        tabItem1.normalColor = UIColor.whiteColor()
-        //        tabItem.selectColor = UICreaterUtils.colorRise
-        BatchLoaderForSwift.loadFile("magnifie", callBack: { (image) -> Void in
-            tabItem1.image = image
-        })
-        tabItem1.addTarget(self, action: "searchClick", forControlEvents: UIControlEvents.TouchDown)
-        let rightItem1 =
-        UIBarButtonItem(title: "嘿嘿", style: UIBarButtonItemStyle.Done, target: self, action: "searchClick")
-        rightItem1.customView = tabItem1
+//        let tabItem1 = UIFlatImageTabItem()
+//        tabItem1.frame = CGRectMake(0, 0, 30, 30)
+//        tabItem1.sizeType = .FillWidth
+//        tabItem1.normalColor = UIColor.whiteColor()
+//        //        tabItem.selectColor = UICreaterUtils.colorRise
+//        BatchLoaderForSwift.loadFile("magnifie", callBack: { (image) -> Void in
+//            tabItem1.image = image
+//        })
+//        tabItem1.addTarget(self, action: "searchClick", forControlEvents: UIControlEvents.TouchDown)
+        let rightItem1 = UICreaterUtils.createNavigationNormalButtonItem(UIColor.whiteColor(),UIFont(name: UIConfig.ICON_FONT_NAME, size: 25)!,UIConfig.ICON_SOU_SUO,self,"searchClick");
+//        UIBarButtonItem(title: "嘿嘿", style: UIBarButtonItemStyle.Done, target: self, action: "searchClick")
+//        rightItem1.customView = tabItem1
         
-        let tabItem2 = UIFlatImageTabItem()
-        tabItem2.frame = CGRectMake(0, 0, 30, 24)
-        tabItem2.sizeType = .FillWidth
-        tabItem2.normalColor = UIColor.whiteColor()
-        //        tabItem.selectColor = UICreaterUtils.colorRise
-        BatchLoaderForSwift.loadFile("campaign", callBack: { (image) -> Void in
-            tabItem2.image = image
-        })
-        tabItem2.addTarget(self, action: "setupClick", forControlEvents: UIControlEvents.TouchDown)
-        let rightItem2 =
-        UIBarButtonItem(title: "嘿嘿", style: UIBarButtonItemStyle.Done, target: self, action: "setupClick")
-        rightItem2.customView = tabItem2
+//        let tabItem2 = UICreaterUtils.createLabel(UIConfig.ICON_FONT_NAME, 30, UIColor.whiteColor());
+//        tabItem2.textAlignment = NSTextAlignment.Center;
+//        tabItem2.text = UIConfig.ICON_SHE_ZHI;
+////        tabItem2.frame = CGRectMake(0, 0, 30, 30)
+////        tabItem2.sizeType = .FillWidth
+////        tabItem2.normalColor = UIColor.whiteColor()
+//        //        tabItem.selectColor = UICreaterUtils.colorRise
+////        BatchLoaderForSwift.loadFile("campaign", callBack: { (image) -> Void in
+////            tabItem2.image = image
+////        })
+//        tabItem2.addTarget(self, action: "setupClick", forControlEvents: UIControlEvents.TouchDown)
+        let rightItem2 = UICreaterUtils.createNavigationNormalButtonItem(UIColor.whiteColor(),UIFont(name: UIConfig.ICON_FONT_NAME, size: 25)!,UIConfig.ICON_SHE_ZHI,self,"setupClick");
+//        UIBarButtonItem(title: "嘿嘿", style: UIBarButtonItemStyle.Done, target: self, action: "setupClick")
+//        rightItem2.customView = tabItem2
         
         self.navigationItem.leftBarButtonItem = leftItem
 //        self.navigationItem.rightBarButtonItem = rightItem

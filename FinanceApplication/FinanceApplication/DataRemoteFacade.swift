@@ -34,11 +34,11 @@ class DataRemoteFacade: NSObject {
     ]
     
     private static let detailsDataList:NSMutableArray = [
-        InfoFundHeader(kind:0,title: "开放式", iconUrl:"fundTag01", fundList: [
+        InfoFundHeader(kind:0,title: "开放式", iconUrl:UIConfig.ICON_KAI_FANG, fundList: [
             InfoFundVo(id: 2, kind:0,title:"国泰医药行业指数分级",shortTitle:"国泰医药",code:"690009",rateDay: 0.0217, rateQuarter: 0.2142,updateTime: NSDate(), netValue: 1.7400, rank: "16/1089",
                 discount:0.4,buyRateCurrent:0.006,enoughTag:1,stars:4,isFollow:false),
             ]),
-        InfoFundHeader(kind:1,title: "股票式", iconUrl:"fundTag02", fundList: [
+        InfoFundHeader(kind:1,title: "股票式", iconUrl:UIConfig.ICON_GU_PIAO, fundList: [
             InfoFundVo(id: 7, kind:1,title:"光大国企改革主题股票",shortTitle:"光大主题",code:"001047",rateDay: -0.0573, rateQuarter: -0.0715, updateTime: NSDate(), netValue: 0.9870, rank: "218/421", discount:0.4,buyRateCurrent:0.007),
             InfoFundVo(id: 8, kind:1,title:"博时国企改革主题股票",shortTitle:"博时主题",code:"001277",rateDay: 0.0620, rateQuarter: -0.039, updateTime: NSDate(), netValue: 0.8380, rank: "131/421", discount:0.4,buyRateCurrent:0.006,enoughTag:1,stars:1),
             InfoFundVo(id: 9, kind:1,title:"博时国企改革主题股票2",shortTitle:"博时主题2",code:"001279",rateDay: 0.1620, rateQuarter: 0.139, updateTime: NSDate(), netValue: 0.9380, rank: "156/411", discount:0.7,buyRateCurrent:0.016,enoughTag:2,stars:3),
@@ -46,33 +46,33 @@ class DataRemoteFacade: NSObject {
             InfoFundVo(id: 11, kind:1,title:"大摩品质生活精选股票",shortTitle:"大摩品质",code:"000309",rateDay: 0.0163, rateQuarter: 0.3738, updateTime: NSDate(), netValue: 1.6810, rank: "29/196", discount:0.4,buyRateCurrent:0.006),
             InfoFundVo(id: 12, kind:1,title:"南方国策动力股票",shortTitle:"南方国策",code:"001692",rateDay: 0.01631, rateQuarter: 0.3056, updateTime: NSDate(), netValue: 1.2640, rank: "66/196", discount:0.4,buyRateCurrent:0.006)
             ]),
-        InfoFundHeader(kind:2,title: "债券型", iconUrl:"fundTag03", fundList: [
+        InfoFundHeader(kind:2,title: "债券型", iconUrl:UIConfig.ICON_ZHAI_QUAN, fundList: [
             InfoFundVo(id: 13, kind:1,title:"华泰铂锐稳本增利债券A",shortTitle:"华泰增利A",code:"519519",rateDay: 0.0077, rateQuarter: 0.0657, updateTime: NSDate(), netValue: 1.1505, rank: "67/787", discount:0.75,buyRateCurrent:0.006,enoughTag:1,stars:2),
             InfoFundVo(id: 13, kind:1,title:"华泰铂锐稳本增利债券B",shortTitle:"华泰增利B",code:"460003",rateDay: 0.0076, rateQuarter: 0.065, updateTime: NSDate(), netValue: 1.1208, rank: "68/784", discount:0.75,buyRateCurrent:0.006,enoughTag:1),
             InfoFundVo(id: 14, kind:1,title:"海富通稳固收益债券",shortTitle:"海富稳固",code:"519030",rateDay: -0.0030, rateQuarter: 0.0551, updateTime: NSDate(), netValue: 1.6620, rank: "91/784", discount:0.6,buyRateCurrent:0.006,enoughTag:1,stars:4),
             InfoFundVo(id: 15, kind:1,title:"信达澳银稳定增利债券",shortTitle:"信达增利",code:"166105",rateDay: -0.0030, rateQuarter: 0.0073, updateTime: NSDate(), netValue: 0.9970, rank: "707/784", discount:0.6,buyRateCurrent:0.006)
             ]),
-        InfoFundHeader(kind:3,title: "混合型", iconUrl:"fundTag04", fundList: [
+        InfoFundHeader(kind:3,title: "混合型", iconUrl:UIConfig.ICON_HUN_HE, fundList: [
             InfoFundVo(id: 4, kind:3,title:"中海医药精选灵活配置A",shortTitle:"中海医药",code:"000878",rateDay: 0.00, rateQuarter: 0.2142, updateTime: NSDate(), netValue: 1.1880, rank: "1126/1150", discount:0.4,buyRateCurrent:0.006),
             InfoFundVo(id: 6, kind:3,title:"易方达国企改革指数分级",shortTitle:"易方达指数",code:"502008",rateDay: 0.0370, rateQuarter: 0.2142, updateTime: NSDate(), netValue: 1.2786, rank: "513/520", discount:0.4,buyRateCurrent:0.006,enoughTag:1,stars:3),
             InfoFundVo(id: 16, kind:3,title:"景顺长城能源基建混合",shortTitle:"景顺能源",code:"260112",rateDay: -0.0340, rateQuarter: 0.0607, updateTime: NSDate(), netValue: 2.0650, rank: "789/1118", discount:0.4,buyRateCurrent:0.006,enoughTag:1)
             ]),
-        InfoFundHeader(kind:4,title: "货币基金", iconUrl:"fundTag05", fundList: [
+        InfoFundHeader(kind:4,title: "货币基金", iconUrl:UIConfig.ICON_HUO_BI, fundList: [
             InfoFundVo(id: 16, kind:3,title:"华商现金增利货币A",shortTitle:"华商货币A",code:"630012",rateDay: 0.0146, rateQuarter: 0.0317, updateTime: NSDate(), netValue:0.3356, rank: "271/315", discount:0.4,buyRateCurrent:0.006,enoughTag:1)
             ]),
-        InfoFundHeader(kind:5,title: "短期理财", iconUrl:"fundTag06", fundList: [
+        InfoFundHeader(kind:5,title: "短期理财", iconUrl:UIConfig.ICON_DUAN_QI, fundList: [
             InfoFundVo(id: 16, kind:3,title:"融通七天债A",shortTitle:"融通七天理财债券A",code:"161622",rateDay: 0.0071, rateQuarter: 0.0107, updateTime: NSDate(), netValue:0.1879, rank: "103/210", discount:0.4,buyRateCurrent:0.006,enoughTag:1)
             ]),
-        InfoFundHeader(kind:6,title: "指数型", iconUrl:"fundTag07", fundList: [
+        InfoFundHeader(kind:6,title: "指数型", iconUrl:UIConfig.ICON_ZHI_SHU, fundList: [
             InfoFundVo(id: 16, kind:3,title:"易方达银行指数分级",shortTitle:"易方达银行",code:"161622",rateDay: -0.0081, rateQuarter: 0.1161, updateTime: NSDate(), netValue:0.8716, rank: "298/367", discount:0.4,buyRateCurrent:0.006,enoughTag:1)
             ]),
-        InfoFundHeader(kind:7,title: "保本型", iconUrl:"fundTag08", fundList: [
+        InfoFundHeader(kind:7,title: "保本型", iconUrl:UIConfig.ICON_BAO_BEN, fundList: [
             InfoFundVo(id: 16, kind:3,title:"长城保本混合",shortTitle:"长城保本",code:"161622",rateDay: -0.010, rateQuarter: 0.0070, updateTime: NSDate(), netValue:1.0070, rank: "61/67", discount:0.5,buyRateCurrent:0.006,enoughTag:1,stars:3)
             ]),
-        InfoFundHeader(kind:8,title: "QDII", iconUrl:"fundTag10", fundList: [
+        InfoFundHeader(kind:8,title: "QDII", iconUrl:UIConfig.ICON_ZHU_ZHUANG, fundList: [
             InfoFundVo(id: 16, kind:3,title:"易方达恒生ETF链接",shortTitle:"H股ETF链接",code:"110031",rateDay: -0.016, rateQuarter: 0.0006, updateTime: NSDate(), netValue:0.9705, rank: "72/117", discount:0.5,buyRateCurrent:0.006,enoughTag:1,stars:2)
             ]),
-        InfoFundHeader(kind:9,title: "创新型", iconUrl:"fundTag11", fundList: [
+        InfoFundHeader(kind:9,title: "创新型", iconUrl:UIConfig.ICON_CHUANG_XIN, fundList: [
             InfoFundVo(id: 3, kind:9,title:"华夏医疗健康混合A",shortTitle:"华夏医疗",code:"000945",rateDay: -0.0234, rateQuarter: 0.0028, updateTime: NSDate(), netValue: 1.4180, rank: "347/1150", discount:0.6,buyRateCurrent:0.005),
             ])
     ]

@@ -125,24 +125,25 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
         
         //        let image = UIImage(named: "star")!
         
-        self.tabItem = UIFlatImageTabItem()
+        self.tabItem = UICreaterUtils.createLabel(UIConfig.ICON_FONT_NAME, 20, UICreaterUtils.colorFlat);
+        self.tabItem.textAlignment = NSTextAlignment.Center;
         //        tabItem.backgroundColor = UIColor.blackColor()
         view.addSubview(self.tabItem)
-        self.tabItem.userInteractionEnabled = false
-        self.tabItem.sizeType = .FillWidth
-        self.tabItem.normalColor = UICreaterUtils.colorFlat
-        self.tabItem.selectColor = UICreaterUtils.colorRise
+//        self.tabItem.userInteractionEnabled = false
+//        self.tabItem.sizeType = .FillWidth
+//        self.tabItem.normalColor = UICreaterUtils.colorFlat
+//        self.tabItem.selectColor = UICreaterUtils.colorRise
         
         self.tabItem.snp_makeConstraints(closure: { (make) -> Void in
-            make.height.equalTo(18)
+            make.height.equalTo(20)
             make.left.right.equalTo(view)
             make.centerX.equalTo(view)
             make.bottom.equalTo(view.snp_centerY).offset(4)
         })
-        
-        BatchLoaderForSwift.loadFile("star", callBack: { (image) -> Void in
-            self.tabItem.image = image
-        })
+        self.tabItem.text = UIConfig.ICON_STAR;
+//        BatchLoaderForSwift.loadFile("star", callBack: { (image) -> Void in
+//            self.tabItem.image = image
+//        })
         
         self.focusLabel = UICreaterUtils.createLabel(12, UICreaterUtils.colorFlat, "关注", true, view)
         self.focusLabel.snp_makeConstraints(closure: { (make) -> Void in
@@ -169,12 +170,13 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
     }()
     
     private var focusLabel:UILabel!
-    private var tabItem:UIFlatImageTabItem!
+    private var tabItem:UILabel!
     func favoriteAreaClick() {
-        tabItem.select = !tabItem.select
+        self.pageData.isFollow = !self.pageData.isFollow;
+//        tabItem.select = !tabItem.select
         showStarLabel()
-        self.pageData.isFollow = tabItem.select
-        if tabItem.select {
+//        self.pageData.isFollow = tabItem.select
+        if self.pageData.isFollow {
             GoogleWearAlert.showAlert(title: "关注成功", image:nil, type: .Success, duration: 0.5, inViewController: self)
         }else{
             GoogleWearAlert.showAlert(title:"取消关注", image:nil, type: .Error, duration: 0.5, inViewController: self)
@@ -182,7 +184,8 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
     }
     
     private func showStarLabel(){
-        focusLabel.textColor = tabItem.select ? tabItem.selectColor : tabItem.normalColor
+        tabItem.textColor = self.pageData.isFollow ? UICreaterUtils.colorRise : UICreaterUtils.colorFlat;
+        focusLabel.textColor = tabItem.textColor;//tabItem.select ? tabItem.selectColor : tabItem.normalColor
     }
     
     private func initOperateArea(){
@@ -210,7 +213,7 @@ class DetailsPageController: BaseTableViewController,DetailsPageCellDelegate{
             make.top.bottom.left.equalTo(self.operateArea)
         }
         
-        tabItem.select = self.pageData.isFollow
+//        tabItem.select = self.pageData.isFollow
         showStarLabel()
         
         topLine.snp_makeConstraints(closure: { (make) -> Void in

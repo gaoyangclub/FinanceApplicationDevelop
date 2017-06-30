@@ -22,23 +22,26 @@ class HomePageFooterCell: BaseTableViewCell {
     override func layoutSubviews(){
         initLabel()
         initIcon()
+        
     }
     
-    private var icon:UIImageView!
+    private var icon:UILabel!
     private func initIcon(){
         if icon == nil{
-            icon = UIImageView()
+            icon = UICreaterUtils.createLabel(UIConfig.ICON_FONT_NAME, 20, UICreaterUtils.colorRise);
             addSubview(icon!)
+            icon.textAlignment = NSTextAlignment.Center;
             
             icon.snp_makeConstraints(closure: { (make) -> Void in
                 make.right.equalTo(self.titleLabel.snp_left).offset(-6)
                 make.centerY.equalTo(self.titleLabel)
             })
             
-            let url:String = "money"
-            BatchLoaderForSwift.loadFile(url, callBack: { (image) -> Void in
-                self.icon!.image = image
-            })
+            icon.text = UIConfig.ICON_ZHENG_JIAN_HUI;
+//            let url:String = "money"
+//            BatchLoaderForSwift.loadFile(url, callBack: { (image) -> Void in
+//                self.icon!.image = image
+//            })
         }
     }
     

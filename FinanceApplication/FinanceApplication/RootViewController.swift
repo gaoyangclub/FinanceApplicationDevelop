@@ -22,11 +22,11 @@ class RootViewController: TabViewController {
 //        homePage.navigationItem// = self.navigationItem
         dataProvider = [
 //            TabData(data: TabRendererVo(title:"标题1",iconUrl:"icon_08"),controller: HomePageNavigationControl(rootViewController: HomePageController())),
-            TabData(data: TabRendererVo(title:"精选",iconUrl:"icon_08"),controller: HomePageController()),
-            TabData(data: TabRendererVo(title:"理财超市",iconUrl:"icon_02"),controller: FundPageHomeController()),
+            TabData(data: TabRendererVo(title:"精选",iconUrl:UIConfig.ICON_JING_XUAN),controller: HomePageController()),
+            TabData(data: TabRendererVo(title:"理财超市",iconUrl:UIConfig.ICON_CHAO_SHI),controller: FundPageHomeController()),
 //            TabData(data: TabRendererVo(title:"标题3",iconUrl:"icon_01"),controller: AViewController()),
-            TabData(data: TabRendererVo(title:"资产",iconUrl:"icon_06"),controller: AViewController()),
-            TabData(data: TabRendererVo(title:"我的",iconUrl:"icon_05"),controller: AViewController())
+            TabData(data: TabRendererVo(title:"资产",iconUrl:UIConfig.ICON_ZI_CHAN),controller: AViewController()),
+            TabData(data: TabRendererVo(title:"我的",iconUrl:UIConfig.ICON_WO_DE),controller: AViewController())
         ]
         itemClass = MyTabItemRenderer.self
 //        tabBarHeight = 40

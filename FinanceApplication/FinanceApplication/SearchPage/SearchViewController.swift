@@ -254,24 +254,25 @@ class SearchFundCell:UITableViewCell{
         return view
         }()
     
-    private var tabItem:UIFlatImageTabItem!
+    private var tabItem:UILabel!
     lazy var favoriteArea:UIView = {
         let view = UIView()
         self.contentView.addSubview(view)
-        BatchLoaderForSwift.loadFile("star", callBack: { (image) -> Void in
-            self.tabItem = UIFlatImageTabItem(image: image!)
+//        BatchLoaderForSwift.loadFile("star", callBack: { (image) -> Void in
+        self.tabItem = UICreaterUtils.createLabel(UIConfig.ICON_FONT_NAME, 20, UICreaterUtils.colorFlat);
+        self.tabItem.textAlignment = NSTextAlignment.Center;
             view.addSubview(self.tabItem)
-            self.tabItem.userInteractionEnabled = false
-            self.tabItem.sizeType = .FillWidth
-            self.tabItem.normalColor = UICreaterUtils.colorFlat
-            self.tabItem.selectColor = UICreaterUtils.colorRise
-            
+//            self.tabItem.userInteractionEnabled = false
+//            self.tabItem.sizeType = .FillWidth
+//            self.tabItem.normalColor = UICreaterUtils.colorFlat
+//            self.tabItem.selectColor = UICreaterUtils.colorRise
+        self.tabItem.text = UIConfig.ICON_STAR;
             self.tabItem.snp_makeConstraints(closure: { (make) -> Void in
-                make.height.equalTo(18)
+                make.height.equalTo(20)
                 make.left.right.equalTo(view)
                 make.center.equalTo(view)
             })
-        })
+//        })
         return view
     }()
     
@@ -281,12 +282,11 @@ class SearchFundCell:UITableViewCell{
         return label
     }()
     
-    private lazy var iconView:UIFlatImageTabItem = {
-       let icon = UIFlatImageTabItem()
-        icon.userInteractionEnabled = false
-        icon.sizeType = .FillWidth
-        self.contentView.addSubview(icon)
-        return icon
+    private lazy var iconView:UILabel = {
+        let icon = UICreaterUtils.createLabel(UIConfig.ICON_FONT_NAME,26,UICreaterUtils.colorFlat);
+        icon.textAlignment = NSTextAlignment.Center;
+        self.contentView.addSubview(icon);
+        return icon;
     }()
     
     private lazy var kindLabel:UILabel = UICreaterUtils.createLabel(12, UICreaterUtils.colorFlat, "", true, self.contentView)
@@ -306,7 +306,7 @@ class SearchFundCell:UITableViewCell{
             make.width.equalTo(36)
             make.left.top.bottom.equalTo(self.contentView)
         }
-        tabItem.select = fundVo.isFollow
+        tabItem.textColor = fundVo.isFollow ? UICreaterUtils.colorRise : UICreaterUtils.colorFlat;
         
         titleLabel.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(favoriteArea.snp_right)
@@ -328,26 +328,28 @@ class SearchFundCell:UITableViewCell{
         let nowDateStr = fmt.stringFromDate(nowDate)
         let fundDateStr = fmt.stringFromDate(fundVo.updateTime)
         
-        var imageUrl = "";
+//        var imageUrl = "";
         if nowDateStr == fundDateStr{
-            imageUrl = "fire"
-            iconView.normalColor = UICreaterUtils.colorRise
+            iconView.text = UIConfig.ICON_HUO_BAO;
+//            imageUrl = "fire"
+            iconView.textColor = UICreaterUtils.colorRise
         }else{
-            imageUrl = "backup"
-            iconView.normalColor = UICreaterUtils.colorFlat
+            iconView.text = UIConfig.ICON_DENG_DAI;
+//            imageUrl = "backup"
+            iconView.textColor = UICreaterUtils.colorFlat
         }
         
         self.iconView.snp_makeConstraints { (make) -> Void in
             make.right.equalTo(self.contentView)
 //            make.size.equalTo(CGSize(width: 48, height: 24))
             make.width.equalTo(48)
-            make.height.equalTo(24)
+            make.height.equalTo(26)
             make.centerY.equalTo(self.contentView)
         }
         
-        BatchLoaderForSwift.loadFile(imageUrl, callBack: { (image) -> Void in
-            self.iconView.image = image
-        })
+//        BatchLoaderForSwift.loadFile(imageUrl, callBack: { (image) -> Void in
+//            self.iconView.image = image
+//        })
         
         kindLabel.text = DataRemoteFacade.getFundHeaderTitle(fundVo.kind)
         kindLabel.sizeToFit()
