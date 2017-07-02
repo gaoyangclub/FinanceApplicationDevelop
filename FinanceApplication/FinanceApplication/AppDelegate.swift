@@ -38,6 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.rootViewController=drawerController
         
         
+        let _fpsLabel:YYFPSLabel = YYFPSLabel();
+        _fpsLabel.frame = CGRectMake(200, 200, 50, 30);
+        _fpsLabel.sizeToFit();
+        drawerController.view.addSubview(_fpsLabel);
+        
+        
 //        let delayInSeconds:Int64 =  1000000000  * 1//1秒
 //        var popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delayInSeconds)
 //        dispatch_after(popTime, dispatch_get_main_queue(), {
